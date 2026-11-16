@@ -1,0 +1,891 @@
+/* Standalone booking-page layout for b_Request.aspx.
+   This stylesheet deliberately overrides the former iframe-oriented layout
+   without changing the Web Forms controls or their server-side behaviour. */
+
+#bookbody {
+    --booking-page: #f3f6f9;
+    --booking-surface: #fff;
+    --booking-surface-soft: #f7f9fb;
+    --booking-border: #dce4ec;
+    --booking-text: #1d2a38;
+    --booking-muted: #637386;
+    --booking-primary: #2878bd;
+    --booking-primary-dark: #1e629e;
+    --booking-primary-soft: #eaf4fc;
+    --booking-shadow: 0 12px 30px rgba(30, 50, 70, .09);
+    --booking-radius: 12px;
+    width: 100%;
+    max-width: 1280px;
+    margin: 24px auto 64px;
+    padding: 0 20px 40px;
+    overflow: visible;
+    color: var(--booking-text);
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+#bookbody,
+#bookbody * {
+    box-sizing: border-box;
+}
+
+#bookerForm {
+    width: 100%;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+/* Step headings */
+.booking-step-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 0 12px;
+}
+
+.booking-step-heading-results,
+.booking-step-heading.steprow {
+    margin-top: 24px;
+}
+
+.booking-step-number {
+    display: grid;
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: var(--booking-primary);
+    color: #fff;
+    box-shadow: 0 7px 16px rgba(40, 120, 189, .22);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 52px;
+    text-align: center;
+    text-decoration: none;
+}
+
+a.booking-step-number:hover,
+a.booking-step-number:focus {
+    background: var(--booking-primary-dark);
+    color: #fff;
+    text-decoration: none;
+}
+
+.booking-step-copy {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+.booking-step-eyebrow {
+    display: block;
+    margin-bottom: 1px;
+    color: var(--booking-primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .13em;
+    line-height: 16px;
+    text-transform: uppercase;
+}
+
+.booking-step-title {
+    margin: 0;
+    color: var(--booking-text);
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: -.018em;
+    line-height: 1.25;
+}
+
+.booking-step-heading::after {
+    flex: 1 1 auto;
+    height: 1px;
+    margin-left: 8px;
+    background: linear-gradient(90deg, #cbd7e2, transparent);
+    content: "";
+}
+
+/* Availability search */
+#wbSearchForm {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(164px, 190px);
+    align-items: end;
+    gap: 12px;
+    width: 100%;
+    margin: 0 0 18px;
+    padding: 20px;
+    border: 1px solid var(--booking-border);
+    border-radius: var(--booking-radius);
+    background: var(--booking-surface);
+    box-shadow: var(--booking-shadow);
+}
+
+#wbSearchForm .wb-search-fields {
+    display: grid;
+    grid-template-columns: minmax(390px, 1.15fr) minmax(500px, 1.65fr);
+    align-items: end;
+    gap: 12px;
+    min-width: 0;
+}
+
+#wbSearchForm .wb-date-group {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 76px;
+    align-items: end;
+    gap: 8px;
+    min-width: 0;
+}
+
+#wbSearchForm .wb-date-range {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+    gap: 8px;
+    min-width: 0;
+}
+
+#wbSearchForm .wb-guest-grid {
+    display: grid;
+    grid-template-columns: minmax(104px, .85fr) repeat(2, minmax(120px, .95fr)) minmax(150px, 1.2fr);
+    align-items: end;
+    gap: 8px;
+    min-width: 0;
+}
+
+#wbSearchForm .wb-field,
+#wbSearchForm .wb-date-field,
+#wbSearchForm .wb-field {
+    float: none;
+    width: auto;
+    min-width: 0;
+    margin: 0;
+}
+
+#wbSearchForm .wb-field-label,
+#wbSearchForm .wb-nights-label {
+    display: flex;
+    align-items: flex-end;
+    height: 28px;
+    margin: 0 0 6px;
+    overflow: hidden;
+    color: var(--booking-muted);
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 13px;
+}
+
+#wbSearchForm .input-group,
+#wbSearchForm .form-control,
+#wbSearchForm .input-group-addon,
+#wbSearchForm .wb-nights-value {
+    height: 44px;
+}
+
+#wbSearchForm .input-group {
+    width: 100%;
+}
+
+#wbSearchForm .form-control {
+    width: 100%;
+    min-width: 0;
+    padding: 8px 11px;
+    border-color: #cbd6e2;
+    border-radius: 7px;
+    background: var(--booking-surface);
+    color: var(--booking-text);
+    box-shadow: none;
+    font-size: 14px;
+}
+
+#wbSearchForm .form-control:focus {
+    border-color: var(--booking-primary);
+    box-shadow: 0 0 0 3px rgba(40, 120, 189, .14);
+}
+
+#wbSearchForm .input-group-addon {
+    width: 42px;
+    padding: 0;
+    border-color: #cbd6e2;
+    background: var(--booking-surface-soft);
+    color: #50657a;
+    text-align: center;
+}
+
+#wbSearchForm input.cbosearchdate {
+    width: 100% !important;
+    min-width: 0;
+    padding: 8px 10px;
+}
+
+#wbSearchForm select.booksearch {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+}
+
+#wbSearchForm .cbosearchtime:empty {
+    display: none;
+}
+
+#wbSearchForm .wb-nights {
+    position: static;
+    min-width: 0;
+}
+
+#wbSearchForm .wb-nights-value {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border: 1px solid #cbd6e2;
+    border-radius: 7px;
+    background: var(--booking-surface-soft);
+    color: var(--booking-text);
+    font-size: 16px;
+    font-weight: 750;
+}
+
+#wbSearchForm .wb-search-submit {
+    position: static;
+    margin: 0;
+}
+
+#wbSearchForm .wb-search-actions {
+    display: grid;
+    grid-template-rows: auto auto;
+    align-self: end;
+    gap: 6px;
+    min-width: 0;
+}
+
+#wbSearchForm #pnlpromotioncodes > div {
+    position: relative;
+    display: block;
+    min-height: 28px;
+    padding: 0 !important;
+    overflow: visible;
+    color: var(--booking-primary);
+    font-size: 12px;
+    line-height: 16px;
+    text-align: right;
+}
+
+#wbSearchForm #pnlpromotioncodes > div > a {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    min-height: 28px;
+    padding: 0;
+}
+
+#wbSearchForm #txtpromotioncodediv {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin: 6px 0 10px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    text-align: left;
+}
+
+#wbSearchForm #promotioncodeerrordiv {
+    width: 100% !important;
+    margin-top: 4px;
+    white-space: normal;
+}
+
+#wbSearchForm .wb-search-button-panel .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 16px;
+    border-color: var(--booking-primary);
+    border-radius: 7px;
+    background: var(--booking-primary);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 22px;
+    white-space: normal;
+}
+
+#wbSearchForm .wb-search-button-panel .btn:hover,
+#wbSearchForm .wb-search-button-panel .btn:focus {
+    border-color: var(--booking-primary-dark);
+    background: var(--booking-primary-dark);
+}
+
+/* Room results */
+#wbResults {
+    margin: 0;
+    padding: 4px 0 24px;
+}
+
+#wbRoomList {
+    display: grid;
+    gap: 20px;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+#wbRoomList .wb-room-card {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--booking-border);
+    border-radius: var(--booking-radius);
+    background: var(--booking-surface);
+    box-shadow: var(--booking-shadow);
+}
+
+#wbRoomList .wb-room-title {
+    display: flex;
+    align-items: center;
+    min-height: 62px;
+    margin: 0;
+    padding: 12px 20px;
+    border: 0;
+    border-bottom: 1px solid var(--booking-border);
+    background: var(--booking-surface);
+    color: var(--booking-text);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 30px;
+    letter-spacing: -.018em;
+}
+
+#wbRoomList .wb-room-capacity {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 56px;
+    min-height: 38px;
+    margin: 0 13px 0 0;
+    padding: 8px 12px;
+    border: 1px solid #ccd8e4;
+    border-radius: 999px;
+    background: var(--booking-surface-soft);
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 20px;
+}
+
+#wbRoomList .wb-room-capacity i {
+    font-size: 16px;
+    line-height: 1;
+}
+
+#wbRoomList .wb-room-content {
+    display: grid;
+    grid-template-columns: minmax(360px, 38%) minmax(0, 1fr);
+    min-height: 284px;
+    margin: 0;
+}
+
+#wbRoomList .wb-room-media,
+#wbRoomList .wb-room-details {
+    float: none;
+    width: auto;
+    min-width: 0;
+}
+
+#wbRoomList .wb-room-media {
+    padding: 0;
+    overflow: hidden;
+    background: #e8eef3;
+}
+
+#wbRoomList .wb-room-media .overlay-container,
+#wbRoomList .wb-room-media .owl-carousel,
+#wbRoomList .wb-room-media .owl-wrapper-outer,
+#wbRoomList .wb-room-media .owl-wrapper,
+#wbRoomList .wb-room-media .owl-item {
+    width: 100%;
+    height: 284px;
+}
+
+#wbRoomList .wb-room-media img {
+    display: block;
+    width: 100%;
+    height: 284px;
+    object-fit: cover;
+}
+
+#wbRoomList .wb-room-details {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 28px;
+}
+
+#wbRoomList .wb-details-link {
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: 26px;
+    color: var(--booking-primary);
+    font-size: 14px;
+    line-height: 20px;
+}
+
+#wbRoomList .wb-rate-name {
+    margin: 0 0 10px;
+    padding: 0 0 9px;
+    border: 0;
+    border-bottom: 2px solid #8ca5bf;
+    color: var(--booking-text);
+    font-size: 18px;
+    line-height: 24px;
+    text-align: right;
+}
+
+#wbRoomList .wb-included,
+#wbRoomList .wb-room-services {
+    margin: 0;
+    padding: 14px 16px;
+    border: 1px solid #d5dee7;
+    border-radius: 7px;
+    background: var(--booking-surface-soft);
+    font-size: 15px;
+    line-height: 22px;
+}
+
+#wbRoomList .wb-included ul,
+#wbRoomList .wb-room-services ul {
+    margin-bottom: 0;
+}
+
+#wbRoomList .wb-rate-row {
+    margin: 0;
+}
+
+#wbRoomList .wb-rate-footer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 86px;
+    height: auto;
+    margin: 0;
+    padding: 14px 18px;
+    border-top: 1px solid #dbe7f1;
+    background: var(--booking-primary-soft);
+}
+
+#wbRoomList .wb-rate-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+    float: none;
+    width: 100%;
+    padding: 0;
+}
+
+#wbRoomList .wb-rate-actions > div {
+    float: none !important;
+}
+
+#wbRoomList .wb-book-action {
+    margin: 0;
+}
+
+#wbRoomList .wb-book-action .btn {
+    min-width: 120px;
+    padding: 12px 18px;
+    border-color: var(--booking-primary);
+    border-radius: 7px;
+    background: var(--booking-primary);
+    font-weight: 700;
+}
+
+#wbRoomList .wb-book-action .btn:hover,
+#wbRoomList .wb-book-action .btn:focus {
+    border-color: var(--booking-primary-dark);
+    background: var(--booking-primary-dark);
+}
+
+#wbRoomList .wb-price {
+    padding: 8px 0;
+    color: var(--booking-primary);
+    text-align: right;
+}
+
+#wbRoomList .wb-price:hover {
+    background: transparent;
+}
+
+#wbRoomList .wb-price-label {
+    font-size: 17px;
+}
+
+#wbRoomList .wb-price-value {
+    margin-left: 5px;
+    font-size: 27px;
+    font-weight: 700;
+}
+
+#wbRoomList .wb-price-currency {
+    font-size: 15px;
+}
+
+#wbRoomList .selectedRegimenChanged,
+#wbRoomList .bookdesglosedPriceTable,
+#wbRoomList .cancelconditiondiv,
+#wbRoomList .bookroomminimumdaysdiv {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+/* Selected booking summary */
+.wb-summary-panel {
+    width: 100%;
+    margin: 26px 0 0;
+    padding: 0;
+    border: 1px solid var(--booking-border);
+    border-radius: var(--booking-radius);
+    background: var(--booking-surface);
+    box-shadow: var(--booking-shadow);
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+#booksummary.wb-summary {
+    margin: 0;
+    padding: 0;
+    color: var(--booking-text);
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+.wb-summary-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 64px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--booking-border);
+}
+
+.wb-summary-header > i {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--booking-primary-soft);
+    color: var(--booking-primary);
+    font-size: 18px;
+}
+
+.wb-summary-header h2 {
+    margin: 0;
+    color: var(--booking-text);
+    font-size: 24px;
+    font-weight: 650;
+    line-height: 30px;
+}
+
+.wb-summary-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 24px;
+    padding: 22px;
+}
+
+.wb-summary-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.wb-summary-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 76px;
+    padding: 12px 14px;
+    border: 1px solid var(--booking-border);
+    border-radius: 8px;
+    background: var(--booking-surface-soft);
+}
+
+.wb-summary-item-compact {
+    min-height: 68px;
+}
+
+.wb-summary-item-wide {
+    grid-column: 1 / -1;
+}
+
+.wb-summary-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 5px;
+    color: var(--booking-muted);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 18px;
+}
+
+.wb-summary-label i {
+    width: 16px;
+    color: var(--booking-primary);
+    text-align: center;
+}
+
+.wb-summary-value {
+    color: var(--booking-text);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.wb-summary-note {
+    margin-top: 5px;
+    color: var(--booking-muted);
+    font-size: 13px;
+}
+
+.wb-summary-note span {
+    padding-left: 6px;
+}
+
+.wb-summary-room {
+    border-color: #bfd5e8;
+    background: var(--booking-primary-soft);
+}
+
+.wb-summary-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    padding: 20px;
+    border: 1px solid #bfd5e8;
+    border-radius: 10px;
+    background: var(--booking-primary-soft);
+    text-align: center;
+}
+
+.wb-summary-total-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--booking-text);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.wb-summary-total-value {
+    color: var(--booking-primary);
+    font-size: 30px;
+    font-weight: 750;
+    line-height: 38px;
+}
+
+.wb-summary-total-value .glyphicon {
+    top: 0;
+    margin-left: 4px;
+    font-size: 18px;
+}
+
+.wb-summary-norefund,
+.wb-summary-extra {
+    margin-top: 8px;
+    color: #a94442;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+#pnlBookButton {
+    padding: 0 22px 22px;
+    text-align: right;
+}
+
+#bookconfirmationdiv .btn {
+    min-width: 210px;
+    padding: 12px 20px;
+    border-radius: 7px;
+    font-weight: 700;
+}
+
+.wb-form-hint {
+    display: block;
+    position: relative;
+    top: 5px;
+    height: 0;
+    color: var(--booking-muted);
+    font-size: 13px;
+    line-height: 18px;
+    text-align: right;
+}
+
+#pnlBookClientData,
+#pnlBookClientData .form-control,
+#pnlBookClientData .control-label,
+#pnlLpd,
+#bookconfirmationdiv {
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+#pnlBookClientData legend.book {
+    font-size: 21px;
+    line-height: 28px;
+}
+
+#pnlBookClientData .required,
+#pnlBookClientData .validatorbox,
+#pnlLpd .required {
+    font-size: 13px;
+    line-height: 18px;
+}
+
+@media (max-width: 1120px) {
+    #wbSearchForm {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #wbSearchForm .wb-search-fields {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #wbSearchForm .wb-search-actions {
+        width: 190px;
+        justify-self: end;
+    }
+}
+
+@media (max-width: 760px) {
+    #bookbody {
+        margin-top: 10px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .booking-step-number {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        font-size: 18px;
+        line-height: 46px;
+    }
+
+    .booking-step-title {
+        font-size: 21px;
+    }
+
+    #wbSearchForm .wb-guest-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #wbRoomList .wb-room-title {
+        padding: 12px 14px;
+        font-size: 20px;
+        line-height: 26px;
+    }
+
+    #wbRoomList .wb-room-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #wbRoomList .wb-room-media .overlay-container,
+    #wbRoomList .wb-room-media .owl-carousel,
+    #wbRoomList .wb-room-media .owl-wrapper-outer,
+    #wbRoomList .wb-room-media .owl-wrapper,
+    #wbRoomList .wb-room-media .owl-item,
+    #wbRoomList .wb-room-media img {
+        height: 240px;
+    }
+
+    #wbRoomList .wb-room-details {
+        padding: 20px;
+    }
+
+    .wb-summary-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .wb-summary-total {
+        min-height: 130px;
+    }
+}
+
+@media (max-width: 520px) {
+    #wbSearchForm {
+        padding: 14px;
+    }
+
+    #wbSearchForm .wb-date-group,
+    #wbSearchForm .wb-date-range,
+    #wbSearchForm .wb-guest-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #wbSearchForm .wb-nights {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 76px;
+        align-items: center;
+        gap: 8px;
+    }
+
+    #wbSearchForm .wb-nights-label {
+        height: auto;
+        margin: 0;
+    }
+
+    #wbSearchForm .wb-search-actions {
+        width: 100%;
+    }
+
+    #wbSearchForm #pnlpromotioncodes > div,
+    #wbSearchForm #pnlpromotioncodes > div > a {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    #wbRoomList .wb-rate-footer {
+        padding: 14px;
+    }
+
+    #wbRoomList .wb-rate-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    #wbRoomList .wb-price {
+        text-align: center;
+    }
+
+    #wbRoomList .wb-book-action .btn {
+        width: 100%;
+    }
+
+    .wb-summary-grid {
+        padding: 14px;
+    }
+
+    .wb-summary-details {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .wb-summary-item-wide {
+        grid-column: auto;
+    }
+
+    #pnlBookButton {
+        padding: 0 14px 14px;
+    }
+
+    #bookconfirmationdiv .btn {
+        width: 100%;
+        min-width: 0;
+    }
+}

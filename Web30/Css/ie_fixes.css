@@ -1,0 +1,10 @@
+.hoverbox A {
+	POSITION: relative;
+}
+.hoverbox A:hover {
+	DISPLAY: block; FONT-SIZE: 100%; Z-INDEX: 1;
+}
+.hoverbox A:hover .preview {
+	LEFT: 115px; TOP: -38px;Z-INDEX: 1;
+}
+

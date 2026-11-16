@@ -1,0 +1,42 @@
+<%@ Master Language="VB" CodeFile="CFRMasterPage.master.vb" Inherits="CFRMasterPage" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title><asp:Literal ID="masterPageTitleLiteral" runat="server" /></title>
+    <link rel="stylesheet" href="vendor/bootstrap-3.2.0/css/bootstrap.min.css" />
+    <link href="~/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/messages.css" rel="stylesheet" type="text/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <asp:Literal ID="StyleSheetLiteral" runat="server" />
+    <asp:Literal ID="StyleSheetLiteralBooking" runat="server" />
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
+    <asp:ContentPlaceHolder ID="HeadScript" runat="server" />
+</head>
+<body id="home">
+    <form id="formMaster" runat="server">
+        <asp:ScriptManager ID="ScriptManager_mp" runat="server" />
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" runat="server" href="~/">WBooking</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a runat="server" href="~/examples/booking-widget.html">Booking example</a></li>
+                    <li><a runat="server" href="~/Admin/">Hotel administration</a></li>
+                </ul>
+            </div>
+        </nav>
+        <asp:Literal ID="litMsgErr" runat="server" />
+        <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        <footer class="container" style="margin-top: 40px; padding: 20px 15px; border-top: 1px solid #ddd;">
+            <asp:Literal ID="litPowered" runat="server" />
+        </footer>
+    </form>
+    <script src="vendor/jquery-1.11.1/jquery.min.js"></script>
+    <script src="vendor/bootstrap-3.2.0/js/bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+
+
+
+
+.msgInfo, .msgFail, .msgHelp, .msgOk {
+
+}
+
+ .msgInfo , .msgHelp , .msgOk
+{
+    position: relative;
+    border-bottom: 1px solid #AEE756;
+    border-top: 1px solid #AEE756;
+    /* border-style: solid; */
+    /* border-color: #FF0000; */
+    /* padding: 5px 5px 5px 5px; */
+    padding-left: 47px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+    margin: 3px 3px 3px 3px;
+}
+ .msgerr , .msgFail 
+{
+    position: relative;
+    border-bottom: 1px solid #CC0033;
+    border-top: 1px solid #CC0033;
+    /* border-style: solid; */
+    /* border-color: #FF0000; */
+    /* padding: 5px 5px 5px 5px; */
+    padding-left: 47px;
+    padding-bottom: 14px;
+    padding-top: 14px;
+    margin: 3px 3px 3px 3px;
+}
+
+p.info {
+background-image: url(../images/info.png) no-repeat scroll 2px center;
+border-bottom:1px solid #AEE756;
+border-top:1px solid #AEE756;
+color:#525252;
+font-weight:bold;
+padding-left:20px;
+padding-right:10px;
+}
+
+.msgInfo ,p.info
+{
+	background: url(../images/info.png) no-repeat scroll 2px center;
+}
+
+ .msgFail , p.fail
+{
+	background: url(../images/errorImg.png) no-repeat scroll 2px center;
+}
+.msgHelp ,p.help
+{
+	background: url(../images/help32.gif) no-repeat scroll 2px center;
+}
+
+.msgOk , p.ok 
+{
+	background: url(../images/ok32.png) no-repeat scroll 2px center;
+}
+
+p.info,p.fail ,p.help,p.ok , p.delete{
+padding-left:45px;
+padding-right:5px;
+height:36px;
+display:table;
+}
+
+span.valid {
+background: url(../images/warn.gif) no-repeat scroll 1px center;
+color:#CC0033;
+padding-left:18px;
+height:20px;
+}
+
+.modal-header-alert{
+    background-color:#CC0033 !important;
+}

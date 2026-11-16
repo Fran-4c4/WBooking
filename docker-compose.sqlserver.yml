@@ -1,0 +1,20 @@
+name: wbooking
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: wbooking-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${WBOOKING_SQL_SA_PASSWORD:?Set WBOOKING_SQL_SA_PASSWORD in the local env file}
+    ports:
+      - "${WBOOKING_SQL_PORT:?Set WBOOKING_SQL_PORT in the local env file}:1433"
+    volumes:
+      - wbooking-sql-data:/var/opt/mssql
+      - ./.local/sqlserver/backups:/var/opt/mssql/backup:ro
+    restart: unless-stopped
+
+volumes:
+  wbooking-sql-data:
+    name: wbooking-sql-data

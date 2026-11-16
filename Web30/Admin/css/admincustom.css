@@ -1,0 +1,475 @@
+
+
+#aspnetForm {
+    margin-top: 0px;
+}
+
+/*header*/
+/*for btn in admin menu because err in border*/
+.menusup-btn-aslink {
+    border-top-width: 0px;
+    padding-top: 28px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    line-height: 20px;
+    margin: 0px;
+}
+
+.btnaslnk {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/*MODAL*/
+.modal-footer .btn + .btn {
+  margin-bottom: 10px!important; /* the last button in modal has diferent margin in style*/
+}
+
+
+/*forms using ul-list*/
+.ul-form li {
+    padding-bottom: 15px;
+}
+
+.ul-form li select  {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.form-ctrol-admin select , .form-ctrol-admin input {
+	background: #ffffff;
+	/*height: 30px;*/
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.form-ctrol-admin .adminlabel {
+    font-weight: bold;
+    text-align: right;
+    min-height: 30px; 
+}
+
+.form-ctrol-admin .help-block {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.customerlist-select {
+    max-width: 345px; 
+}
+
+.panel-admin {
+    padding-left: 5px!important;
+    padding-right: 5px !important ;
+  border-color:  #eaeaea  !important;
+  border: 1px solid  transparent;
+ 
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+/*Errors validators*/
+.has-error  {
+  color: #a94442;
+}
+
+ .has-error-img
+{
+	background: url(../images/warn.gif) no-repeat scroll 0px center;
+    padding-left: 16px; 
+}
+
+ .html-desc {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  font-size: 12px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+
+ }
+
+ /*Calendar*/
+
+
+
+ .td-price {
+     text-align: right;  
+  }
+
+.td-price:after{
+   font-family: 'FontAwesome';
+   /*float: left;*/
+   width: 1.3em;
+   content: '\f153';
+    margin-left: 2px;
+}
+
+
+  @media (min-width: 1200px) {
+  .container {
+      width:100%;
+    max-width: 1600px!important;
+  }
+}
+
+  
+ .width-xs {
+      width: 20%!important;
+  }
+
+  .width-sm {
+       width: 50%;     
+  }
+
+  .width-lg {
+       width: 70%;     
+  }
+
+
+  .ui-datepicker-month {
+    color: #000 !important;/*jquery ui datepicker*/
+}
+
+TABLE.tab1
+{
+	border: 1px solid #CCCCCC;
+}
+
+TABLE.tab2
+{
+	border: 1px solid #FF9900;
+    width: 191px;
+    margin-left: 0px;
+}
+
+ .admintable
+{
+    font-size: 95%;
+    border-right: whitesmoke thin solid;
+    border-top: whitesmoke thin solid;
+    border-left: whitesmoke thin solid;
+    border-bottom: whitesmoke thin solid;
+    border : 0px;
+    padding: 3px;
+}
+
+ .admintable >td{
+     padding-left: 3px;
+     padding-right: 3px;
+     padding-top: 1px;
+     padding-bottom: 1px;
+ }
+
+.titleb {
+	FONT-WEIGHT: bold; 
+	FONT-SIZE: 12px; 
+	MARGIN: 0px 10px 0px 0px; 
+	COLOR: #000000; 
+
+	background-image: url('../images/bar02.gif');
+	background-repeat: repeat-x;
+	padding: 2px 2px 2px 30px;
+	font-weight: bold;
+	background-position: left;
+	height :37px;
+}
+
+.titWebGestion
+{
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; 
+	FONT-SIZE: 16px; PADDING-BOTTOM: 2px; MARGIN: 0px 0px 2px; PADDING-TOP: 2px; HEIGHT: 17px
+}
+
+.titWebGestionmigas
+{
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; 
+	FONT-SIZE: 10px; PADDING-BOTTOM: 2px; MARGIN: 0px 0px 2px; PADDING-TOP: 2px; HEIGHT: 17px
+}
+
+
+H2.c1 {
+	COLOR: #FF9900; BORDER-BOTTOM: #FF9900 1px solid
+}
+
+H2.c2 {
+	COLOR: #737373; BORDER-BOTTOM: #737373 1px solid
+}
+
+
+H3.c1 {
+	COLOR: #FF9900; BORDER-BOTTOM: #FF9900 1px solid
+}
+
+H3.c2 {
+	COLOR: #737373; BORDER-BOTTOM: #737373 1px solid
+}
+
+
+TD.Estandard {	BACKGROUND-COLOR: #F5F5F5; COLOR: #000000; }
+TD.Estandard1 {	BACKGROUND-COLOR: #F5F5F5; COLOR: #000000;  FONT-WEIGHT: bold}
+TD.bg2 {	BACKGROUND-COLOR: #EBEBEB; COLOR: #000000;}
+TD.Cabecera {	BACKGROUND-COLOR: #FF9900; COLOR: #ffffff;  FONT-WEIGHT: bold; PADDING-BOTTOM: 0px; PADDING-TOP: 0px}
+TD.Cabecera1 {	BACKGROUND-COLOR: #CCCCCC; COLOR: #000000; FONT-WEIGHT: bold; PADDING-BOTTOM: 0px; PADDING-TOP: 0px}
+TD.Cabecera2 {	BACKGROUND-COLOR: #EBEBEB; COLOR: #000000; FONT-WEIGHT: bold; PADDING-BOTTOM: 0px; PADDING-TOP: 0px}
+
+
+SELECT.inf  {FONT-SIZE: 13px;FONT-WEIGHT: bold;}
+
+
+
+.title {
+    font-weight: bold; 
+}
+
+.sectionoption {
+    padding: 7px 20px;
+    font-size: 14px;
+    line-height: 1.46666667;
+    border-radius: 3px;
+    margin: 10px 0;
+    color: #fff;
+    background-color: #5587A9;
+    border-color: #338dca;
+}
+
+.sectionoption .step {
+    /*font-size: 18px;*/
+    font-weight: bold;
+    margin-right: 5px;
+    display: inline-table;
+    text-align: center;
+    position: relative;
+}
+
+.scircle {
+    width: 32px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    line-height: 1.428571429;
+    border-radius: 15px;
+    color: #fff;
+    background-color: #000;
+    border-color: #ffffff;
+}
+
+
+
+
+table.cal-availability thead th {
+    FONT-WEIGHT: bold; 
+    FONT-SIZE: 12px;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+
+
+table.cal-availability thead tr th.byday {
+    text-align: center;
+    max-width: 63px;
+}
+
+table.cal-availability td {
+        font-family:  Tahoma;
+        PADDING-TOP: 0px;
+        PADDING-BOTTOM: 0px; 
+        /*cursor : pointer;*/
+        text-align : center;
+        font-weight: normal;
+        /*padding:1px!important;*/
+}
+
+table.cal-availability th.calroomtitle
+,table.cal-availability td.calroomtitle 
+,table.cal-availability .calroomtitle  {
+
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+}
+
+table.cal-availability td label {
+    padding-bottom:0px;
+    margin-bottom:0px;
+}
+
+
+.cal-availability .onlynum {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding-right: 0px !important;/*problem with updown*/
+}
+
+.calroomtitle-selected {
+    background-color: #26E898!important;
+}
+
+.b-relation input[type=checkbox] + label {
+  color: #ccc;
+} 
+.b-relation:checked + label {
+  color: #e50bd4;
+  /*font-style: normal;*/
+} 
+
+.b-relation-selected {
+    color: #26E898;
+    font-weight: bold; 
+}
+
+#userlogged {
+    font-size: 12px;  
+  color: #fff;
+  position: fixed;
+  /*top: 53px;*/
+  right: 5px;
+  width: 125px;
+  height: 20px;
+  text-align:  right;
+  z-index: 1005;
+  -webkit-transform: translateZ(0);
+  -webkit-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.inf-legend {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}
+
+.bg-importantdata {
+    color: red;
+}
+
+.rowclick, .rowclick label {
+        cursor: pointer; 
+
+}
+.rowclick:hover {
+    background-color:  #5CB85C;
+}
+
+
+/* sticky/frozen first column */
+
+.table.sticky-column-table {
+    box-sizing: border-box;
+}
+
+.table.sticky-column-table tr,
+.table.sticky-column-table tr td {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.table.sticky-column-table .freeze {
+    z-index: 999;
+    position: absolute;
+    left: 0;
+    /* Fix to bug in Chrome that makes the fix column disappear */
+    transform: translate3d(0,0,0);
+}
+
+.ua-firefox .table.sticky-column-table .freeze {
+    left: 30px;
+}
+@media screen and (max-width: 975px) {
+    .ua-firefox .table.sticky-column-table .freeze {
+        left: 15px;
+    }
+}
+
+.table.sticky-column-table  .freeze {
+    /*border-left-width: 2px;
+    padding-top: 6px;
+    padding-bottom: 10px;*/
+}
+
+.outer-scrolling-table-container {
+    position: relative;
+}
+
+.scrolling-table-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.lt-ie8 .scrolling-table-container {
+    overflow-x: visible;
+}
+
+/*footerinfo for admin information*/
+.footerinfo h1, .footerinfo h2,.footerinfo h3,.footerinfo h4 {
+    border-bottom-color: darkgray;
+    border-bottom-width: 1px;
+    border-bottom-style: dotted;
+}
+
+.footerinfo ul {
+    list-style: initial;
+    list-style-type: circle;
+    padding-left: 15px;
+}
+
+
+label>img{
+    display:inline-block;
+}
+
+.chevronview {
+    /*padding-left: 12px;*/
+    padding-right: 1px;
+}
+
+.chevronviewa {
+    /*padding-left: 12px;*/
+    padding-left: 1px;
+}
+
+
+.chevronopen:before {
+    font-family: 'FontAwesome';
+    float: left;
+    width: 1.0em;
+    content: '\f078';  
+}
+
+.chevronclose:before {
+    font-family: 'FontAwesome';
+    float: left;
+    width: 1.0em;
+    content: '\f077'; 
+}
+
+.chevronopena:after {
+    font-family: 'FontAwesome';
+    float: right;
+    width: 1.0em;
+    content: '\f078';  
+}
+
+.chevronclosea:after {
+    font-family: 'FontAwesome';
+    float: right;
+    width: 1.0em;
+    content: '\f077'; 
+}

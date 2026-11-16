@@ -1,0 +1,843 @@
+<%@ Master Language="VB" CodeFile="MPAdmin1.master.vb" Inherits="Admin_MPAdmin1" %>
+
+<!DOCTYPE html >
+<html lang="es">
+
+<head id="Head1" runat="server">
+   <title>CFR-System</title>
+<%--<title><%=Me.pagetitle%></title>--%>
+		<!-- Mobile Meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="text/html; charset=iso-8859-1" http-equiv="content-type" title="booking system" />
+    <meta name="author" content="Francisco Moreno Santana">
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+        <!-- styles master --> 
+    <%--<link href="css/messages.css" rel="stylesheet" type="text/css"  >--%>
+    
+    <link rel="stylesheet" href="plugins/jquery-ui.css">
+	<!-- Bootstrap core CSS -->
+	<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+	<!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="../vendor/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    	<!-- Plugins -->
+        <!-- Important Owl stylesheet -->
+    <!-- styles master -->
+    <asp:PlaceHolder ID="placeHoldStyles" runat="server">
+
+
+        <link href="css/admincustom.css<%=me.cssVersion %>"    rel="stylesheet" type="TEXT/CSS" />
+        <link href="css/messages.css<%=me.cssVersion %>" rel="stylesheet" type="text/css"  >
+        <style>
+            #<%=UpdatePanel1error.ClientID%> {
+                position: absolute;
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-right: auto;
+                margin-left: auto;
+                z-index:1000;
+                width:80%;
+            }
+        </style>
+   </asp:PlaceHolder>
+
+        <!-- literales -->  
+    <asp:Literal id="StyleSheetLiteral" runat="Server" ></asp:literal>
+    <asp:literal id="StyleSheetLiteralBooking" runat="Server"></asp:literal>
+    
+
+    
+
+    <script language="JavaScript" src="js/showdata1.js" type="text/javascript"></script> 
+    <script language="JavaScript" src="js/checkNumbers.js" type="text/javascript"></script> 
+    
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server"/>
+    <asp:ContentPlaceHolder runat="server" ID="HeadScript" />
+</head>
+
+<body  id="home" class="no-trans front-page">
+<form id="formMaster" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" AsyncPostBackErrorMessage="Se ha producido un error en la llamada" AsyncPostBackTimeout="180" EnablePageMethods="true"></asp:ScriptManager>
+      
+		<!-- scrollToTop -->
+		<!-- ================ -->
+		<div class="scrollToTop circle"><i class="fa fa-angle-up"></i></div>
+                <asp:UpdatePanel ID="UpdatePanel1error" runat="server" >
+                <ContentTemplate>
+                    <asp:Literal ID="litMsgErr" runat="server" Visible="true" ClientIDMode="static"></asp:Literal>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+        <div id="userlogged" class="hidden-xs"><span data-placement="bottom" data-toggle="tooltip" title="Usuario con el que se ha entrado en el sistema."><i class="fa fa-user"></i> <%=Me.sessionCnt.user.usuario%></span>
+        </div>
+       
+
+        		<!-- page wrapper start -->
+		<!-- ================ -->
+		<div class="page-wrapper">
+
+        <!-- BEGIN HEADER -->
+        			<!-- header-container start -->
+			<div class="header-container">
+							
+				<!-- header start -->
+				<!-- classes:  -->
+				<!-- "fixed": enables fixed navigation mode (sticky menu) e.g. class="header fixed clearfix" -->
+				<!-- "dark": dark version of header e.g. class="header dark clearfix" -->
+				<!-- "full-width": mandatory class for the full-width menu layout -->
+				<!-- "centered": mandatory class for the centered logo layout -->
+				<header class="header  fixed   clearfix  dark  ">
+					
+					<div class="container-full">
+						<div class="row">
+						    <div class="col-xs-2 col-md-3">
+                                
+						<!-- header-left start -->
+						<!-- ================ -->
+						<div class="header-left ">
+                            <!-- logo -->
+							<div id="logo"  class="site-name  smooth-scroll">
+								CFBooking
+							</div>
+                            <!-- name-and-slogan -->
+							<div class="site-name-and-slogan smooth-scroll">
+								<div class="header-property "><%=Me.sessionCnt.hotel.hotelName%></div>
+							</div>
+                         </div>
+						<!-- header-left end -->
+					    </div>
+							<div class="col-xs-10 col-md-9">
+								<!-- header-right start -->
+								<!-- ================ -->
+								<div class="header-right ">
+								<!-- main-navigation start -->
+								<!-- classes: -->
+								<!-- "onclick": Makes the dropdowns open on click, this the default bootstrap behavior e.g. class="main-navigation onclick" -->
+								<!-- "animated": Enables animations on dropdowns opening e.g. class="main-navigation animated" -->
+								<!-- "with-dropdown-buttons": Mandatory class that adds extra space, to the main navigation, for the search and cart dropdowns -->
+								<!-- ================ -->
+								    <div class="main-navigation animated with-dropdown-buttons">
+								        <!-- navbar start -->
+								        <!-- ================ -->
+								        <nav class="navbar navbar-default" role="navigation">
+								            <div class="container-fluid">
+
+								                <!-- Toggle get grouped for better mobile display -->
+								                <div class="navbar-header">
+								                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+								                        <span class="sr-only">Toggle navigation</span>
+								                        <span class="icon-bar"></span>
+								                        <span class="icon-bar"></span>
+								                        <span class="icon-bar"></span>
+								                    </button>
+								                </div>
+
+								                <!-- Collect the nav links, forms, and other content for toggling -->
+                                                <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
+                                                    <!-- main-menu -->
+                                                    <ul class="nav navbar-nav navbar-right">
+                                                        <li>
+                                                            <a href='<%= linkcnf("default.aspx")%>'>Inicio</a>
+                                                        </li>
+                                                        <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.hotelConfiguration) Then %>
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= Me.getMenuString("Hotel")%></a>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li><a href='<%= linkcnf("hoteledit.aspx")%>'><i class="icon-right-dir"></i>Datos</a>
+                                                            </ul>
+                                                        </li>
+                                                        <%End If%>
+                                                        <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.tariff) Then %>
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-eur"></i> <%= Me.getMenuString("Tarifas")%></a>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                               <li><a href="<%= linkcnf("tarifflist.aspx")%>"><i class="fa fa-eur"></i>Tarifa Listado</a></li>
+                                                                                <li><a href="<%= linkcnf("tariffcalendar.aspx")%>"><i class="fa fa-calendar-o"></i>Tarifa Calendario x Mes</a></li>
+                                                                                <li><a href="<%= linkcnf("calendarview.aspx")%>"><i class="fa fa-calendar-o"></i>Tarifa Calendario x fechas</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <%End If%>
+
+                                                        <!-- mega-menu start -->
+                                                        <li class="dropdown  mega-menu narrow">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sistema Reservas</a>
+                                                            <ul class="dropdown-menu" style="max-width: 600px; right: -15px;">
+                                                                <li>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <h4 class="title">Configuración de reservas</h4>
+                                                                            <div class="divider"></div>
+                                                                            <ul class="menu">
+                                                                                <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.bookConfiguration) Then%>
+                                                                                <li><a href='<%= linkcnf("roomlist.aspx")%>'><i class="fa fa-home "></i><%= Me.getMenuString("Habitaciones")%></a> </li>
+ <%End If%>
+                                                                                <%If showoldmenu = True And cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.bookConfiguration) Then%>
+                                                                                <li><a href="<%= linkcnf("temporadalist.aspx")%>"><i class="fa fa-list "></i>Temporadas</a></li>
+
+                                                                                <%End If%>
+
+                                                                                <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.tariff) Then%>
+
+                                                                                <li><a href="<%= linkcnf("tarifflist.aspx")%>"><i class="fa fa-eur"></i>Tarifas</a></li>
+                                                                                <li><a href="<%= linkcnf("tariffcalendar.aspx")%>"><i class="fa fa-calendar-o"></i>Tarifa Calendario</a></li>
+                                                                                <%End If%>
+
+                                                                                <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.operators) Then%>
+                                                                                <li><a href="<%= linkcnf("customerlist.aspx")%>"><i class="fa fa-users"></i>Operadores/Clientes</a></li>
+                                                                                <%End If%>
+
+                                                                                <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.availability) Then%>
+                                                                                <li><a href="<%= linkcnf("availability.aspx")%>"><i class="fa fa-table"></i>Disponibilidad</a></li>
+                                                                                <%End If%>
+                                                                                <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.operators) Then%>
+                                                                                <li><a href="<%= linkcnf("tariffoperatormatrix.aspx")%>"><i class="fa fa-table "></i>Tarifas/Operadores Matrix</a></li>
+                                                                                <%End If%>
+                                                                                <%If showoldmenu = True And cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.closeSelling) Then%>
+                                                                                <li><a href='<%= linkcnf("ym_close.aspx")%>'><i class="fa fa-stop"></i>Cierre de ventas</a></li>
+
+                                                                                <%End If%>
+
+
+
+
+                                                                                <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.bookConfiguration) Then%>
+                                                                                <li><a href="<%= linkcnf("ObjectBookParameters.aspx")%>"><i class="fa fa-wrench "></i>Parametros generales</a></li>
+                                                                                <%End If%>
+                                                                            </ul>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.offers) Then%>
+                                                                            <h4 class="title"><i class="fa fa-star"></i>Promociones/Codigos</h4>
+                                                                            <div class="divider"></div>
+                                                                            <ul class="menu">
+                                                                                <li><a href='<%= linkcnf("promotionlist.aspx")%>'><i class="fa fa-star"></i>Promociones</a></li>
+                                                                            </ul>
+
+                                                                            <%End If%>
+
+                                                                          
+                                                                            <h4 class="title"><i class="fa fa-asterisk"></i>Mensajes/Politicas</h4>
+                                                                            <div class="divider"></div>
+                                                                            <ul class="menu">
+                                                                                <li><a href="<%= linkcnf("policycanceltariff.aspx")%>"><i class="fa fa-times"></i>Condiciones de cancelación</a> </li>
+                                                                                <li><a href="<%= linkcnf("policycancel.aspx?policy=1")%>"><i class="fa fa-sticky-note-o"></i>Politica de cancelación</a> </li>
+                                                                                <li><a href="<%= linkcnf("policycancel.aspx?policy=2")%>"><i class="fa fa-sticky-note-o"></i>Condiciones de reserva</a></li>
+                                                                                <li><a href="<%= linkcnf("policycancel.aspx?policy=3")%>"><i class="fa fa-sticky-note-o"></i>Mensajes de confirmación</a></li>
+                                                                            </ul>
+                                                                              <%If cfr.admin.AdminPermissions.UserAccessToSectioIsAllowed(Me.sessionCnt.user, cfr.web.enum.adminWebPageEnum.userSecurity) Then%>
+                                                                            <h4 class="title"><i class="fa fa-lock"></i>Acceso al sistema</h4>
+                                                                            <div class="divider"></div>
+                                                                            <ul class="menu">
+                                                                                <li><a href='<%= linkcnf("adminusers.aspx")%>'><i class="fa fa-user"></i>Usuarios</a></li>
+                                                                            </ul>
+
+                                                                            <%End If%>
+                                                                
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <!-- mega-menu end -->
+                                                        <li class="dropdown mega-menu narrow">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-table"></i> Informes</a>
+                                                            <ul class="dropdown-menu menu" style="padding-left: 10px; padding-bottom: 20px;max-width: 320px; right: -15px;">
+                                                                
+                                                                <li><a href='<%= linkcnf("rep_book.aspx")%>' ><i class="fa fa-table"></i>Reservas activas</a></li> 
+                                                                <li><a href='<%= linkcnf("rep_rates.aspx")%>' ><i class="fa fa-table"></i>Tarifas x Fechas</a></li> 
+                                                                <li>
+                                                                    
+                                                                    <h4 class="title" style="margin-top: 20px;"><i class="fa fa-bar-chart"></i> Estadisticas</h4>
+                                                                    <ul class="menu">
+                                                                        <li><a href='<%= linkcnf("rep_stat_requests.aspx")%>' ><i class="fa fa-bar-chart"></i> Reservas x fechas</a></li> 
+                                                                    </ul>                                                                  
+                                                                
+
+                                                                </li>
+                                                                </ul>
+                                                            
+                                                         </li>
+                                                        <li>
+                                                            <a href="<%= linkcnf("login.aspx?logout=true")%>"><i class="glyphicon glyphicon-off"></i> <span class="hidden-sm">Logout</span></a>
+                                                        </li>
+                                                    </ul>
+
+                                                    <!-- main-menu end -->
+                                                    <!-- header buttons end-->
+
+                                                </div>
+
+                                            </div>
+								        </nav>
+								        <!-- navbar end -->
+
+								    </div>
+								<!-- main-navigation end -->	
+								</div>
+								<!-- header-right end -->
+					
+							</div>
+						</div>
+					</div>
+					
+				</header>
+				<!-- header end -->
+			</div>
+			<!-- header-container end -->
+
+
+        <!-- BEGIN CONTENT -->
+
+            <div id="msgerrordiv"></div>
+            <div id="alertdiv" style="display: none;" class="container">
+                <div class="msgFail">
+                 <p id="alertmessage" class="">
+                </p>
+                <div id="AlertButtons" >
+                    <input id="OKButton" type="button" class="btn btn-default" value="Cerrar" runat="server" onclick="ClearErrorState()" />
+                </div>                   
+                </div>
+
+           </div>
+            
+
+            
+            <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+
+            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+      
+        </div>
+        <!-- END CONTENT -->
+
+      <!-- page-wrapper end -->
+        
+       
+    <div class="modal fade" id="modalmasterbookview" tabindex="-1" role="dialog" >
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                     <h4 class="modal-title">Reserva</h4>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdatePanel ID="UpdatePanel_masterpage_modalmasterbookview" runat="server">
+                        <ContentTemplate>
+                            <asp:HiddenField ID="hddmasterbookidbookview" runat="server" ClientIDMode="static" />
+                            <div id="mastermodaldata2print">
+                                <asp:Literal ID="litmasterbookview" runat="server" ClientIDMode="static" >
+                                    <i class="fa fa-cog fa-spin"></i>  Cargando...
+                                </asp:Literal>
+                            </div>
+                             
+                             <div class="hidden">
+                                <asp:LinkButton ID="btnmastershowbook" runat="server" ClientIDMode="Static"  ></asp:LinkButton>
+                            </div>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger  ControlID="btnmastershowbook"/>
+                        </Triggers>
+                    </asp:UpdatePanel>
+<%--                    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel_masterpage_modalmasterbookview">
+                        <ProgressTemplate>
+                            <i class="fa fa-cog fa-spin"></i>  Cargando...
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>--%>
+                   
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="btnviewbookprint" type="button" class="btn btn-primary" onclick="printdiv('mastermodaldata2print');">Imprimir</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+        
+    
+    
+    <div class="modal" id="modalmastereditbook" tabindex="-1" role="dialog">
+        <div class="modal-dialog  modal-lg modal-up">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
+                    <h4 class="modal-title custom_align" id="Heading"><i class="fa fa-tag fa-lg "></i> Datos de la reserva <span ID="litbookidtit" style="margin-left: 15px;"></span> </h4>
+                </div>
+                <div class="modal-body">
+                    <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1_master" DisplayAfter="100">
+                        <ProgressTemplate>
+                            <i class="fa fa-cog fa-spin"></i>  Cargando datos...
+                        </ProgressTemplate>
+                        
+                    </asp:UpdateProgress>
+                            
+                    <asp:UpdatePanel ID="UpdatePanel1_master" runat="server" ClientIDMode="Static">
+                        <ContentTemplate>
+                            <asp:PlaceHolder ID="plheditbookform" runat="server"   >
+                            <div class="editbookform" >
+                                <ul class="nav nav-tabs style-3" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab_bookbasicdata" role="tab" data-toggle="tab" class=""><i class="fa fa-user"></i> Reserva/Estado</a></li>
+                                    <li role="presentation" class=""><a href="#tab_bookprice" role="tab" data-toggle="tab" class=""><i class="fa fa-tag"></i> Tarifa/Extras</a></li>
+                                    <li role="presentation" class=""><a href="#tab_bookcomments" role="tab" data-toggle="tab" class=""><i class="fa fa-comment"></i> Comentarios/Peticiones</a></li>
+                                </ul>
+                                <div id="tab_bookcontent" class="tab-content ">
+                                    <div role="tabpanel" class="tab-pane active" id="tab_bookbasicdata">
+                                        <div class="">
+                                            <div class="form-group form-ctrol-admin" style="width: 130px;">
+                                                <label for="tbookid_master" class="control-label">Localizador Reserva</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tbookid_master" MaxLength='50' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>
+                                            
+                                                                                        <div class="form-group form-ctrol-admin " style="width: 150px;">
+                                                <label for="tbookidproperty" class="control-label ">Localizador interno</label>
+
+                                                <asp:TextBox runat="server" CssClass="form-control ttlocalizadorinterno" ID="tbookidproperty" MaxLength='50' value="" ClientIDMode="static"></asp:TextBox>
+                                            </div>
+                                            <div class="form-group form-ctrol-admin " style="width: 170px;">
+                                                <asp:HiddenField ID="bookidhddedit" runat="server" Value="0" ClientIDMode="Static" />
+                                                <asp:HiddenField ID="hddbookstatus" runat="server" Value="0" ClientIDMode="Static" />
+                                                <label for="cbobookstate" class="control-label">Estado de la reserva</label>
+
+                                                <asp:DropDownList ID="cbobookstate" runat="server" CssClass="form-control" ClientIDMode="Static" onclick="checkstatusvalue();"></asp:DropDownList>
+                                                <p class="help-block alert-warning" id="msgsendemail" style="display: none;">Al cancelar la reserva se enviará un email al cliente.</p>
+                                                <p class="help-block alert-danger" id="msgbookstatus" style="display: none;">No puede cancelar la reserva en nombre del cliente. Debe hacerlo como usuario del hotel.</p>
+
+                                            </div>
+                                            <div class="form-group form-ctrol-admin ">
+                                                <label for="cbobookpaystate" class="control-label">Estado pago</label>
+
+
+                                                <asp:DropDownList ID="cbobookpaystate" CssClass="form-control" runat="server" ClientIDMode="Static"></asp:DropDownList>
+
+                                            </div>
+
+                                           
+
+                                        </div>
+                                        <div>
+                                             <div class="form-group form-ctrol-admin" style="width: 500px;">
+                                                <label for="tunitbooked" class="control-label">Unidad Generica reservada</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tunitbooked" MaxLength='10' value="" ClientIDMode="static" readonly></asp:TextBox>
+                                            </div> 
+                                            <div class="form-group form-ctrol-admin" style="width: 300px;">
+                                                <label for="cbounitavailable" class="control-label">Unidad asignada</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tunitbookedinventory" MaxLength='10' value="" ClientIDMode="static"></asp:TextBox>
+                                            </div>                                           
+                                        </div>
+                                        
+                                        <div>
+                                             <div class="form-group form-ctrol-admin" style="width: 130px;">
+                                                <label for="tbookdatein_master" class="control-label">Fecha entrada</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tbookdatein_master" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>
+                                            <div class="form-group form-ctrol-admin" style="width: 90px;">
+                                                <label for="tbookdateintime_master" class="control-label">Hora entrada</label>
+                                                <asp:DropDownList ID="cbobookdateintime_master" runat="server" CssClass="form-control" ClientIDMode="static" ></asp:DropDownList>
+                                                
+                                            </div>
+                                            <div class="form-group form-ctrol-admin" style="width: 130px;">
+                                                <label for="tbookdateout_master" class="control-label">Fecha salida</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tbookdateout_master" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>
+                                            <div class="form-group form-ctrol-admin" style="width: 90px;">
+                                                <label for="tbookdateouttime_master" class="control-label">Hora salida</label>
+                                                <asp:DropDownList ID="cbobookdateouttime_master" runat="server" CssClass="form-control" ClientIDMode="static" ></asp:DropDownList>
+                                            </div>
+                                            
+                                            <asp:Panel ID="pnlpax" runat="server" style="display: inline-block;">
+                                            <div class="form-group form-ctrol-admin" style="width: 90px;">
+                                                <label for="f_numAdultos" class="control-label">Adultos</label>
+                                                <asp:DropDownList ID="f_numAdultos" runat="server" CssClass="form-control" ClientIDMode="static" ></asp:DropDownList>
+                                            </div>  
+                                            <div class="form-group form-ctrol-admin" style="width: 90px;">
+                                                <label for="f_ninosPago" class="control-label">Niños mayores</label>
+                                                <asp:DropDownList ID="f_ninosPago" runat="server" CssClass="form-control" ClientIDMode="static" ></asp:DropDownList>
+                                            </div>     
+                                            <div class="form-group form-ctrol-admin" style="width: 90px;">
+                                                <label for="f_ninosfree" class="control-label">Niños pequeños</label>
+                                                <asp:DropDownList ID="f_ninosfree" runat="server" CssClass="form-control" ClientIDMode="static" ></asp:DropDownList>
+                                            </div>                                                                                                                                             
+                                            </asp:Panel>
+                                            
+                                            <asp:Panel ID="pnlcarpickup" runat="server">
+                                                <div class="form-group form-ctrol-admin" style="width: 230px;">
+                                                <label for="cbolocationpickup" class="control-label">Entrega unidad</label>
+                                                <asp:DropDownList ID="cbolocationpickup" runat="server" CssClass="form-control" ClientIDMode="static" ></asp:DropDownList>
+                                            </div>  
+                                            <div class="form-group form-ctrol-admin" style="width: 230px;">
+                                                <label for="cbolocationdrop" class="control-label">Devolución unidad</label>
+                                                <asp:DropDownList ID="cbolocationdrop" runat="server" CssClass="form-control" ClientIDMode="static" ></asp:DropDownList>
+                                            </div>   
+                                            <div class="form-group form-ctrol-admin" style="width: 500px;">
+                                                <label for="tlocationnote" class="control-label">Notas entrega/devolución</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tlocationnote" MaxLength='500' value="" ClientIDMode="static" Rows="2" TextMode="MultiLine"></asp:TextBox>
+                                                
+                                            </div>                                                  
+                                            </asp:Panel>
+                                        </div>
+
+                                    </div>
+                                    
+                                    
+                                    <div role="tabpanel" class="tab-pane " id="tab_bookprice">
+                                        
+                                        <div>
+                                             <div class="form-group form-ctrol-admin" style="width: 500px;">
+                                                <label for="tunitbookeddesc" class="control-label">Unidad Generica reservada</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tunitbookeddesc" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>
+                                             <div class="form-group form-ctrol-admin" style="width: 70px;">
+                                                <label for="tunitbookedprice" class="control-label">Total tarifa</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tunitbookedprice" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>
+                                             <div class="form-group form-ctrol-admin" style="width: 120px;">
+                                                <label for="tunitbookedpromotion" class="control-label">Codigo de promoción</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tunitbookedpromotion" MaxLength='50' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div> 
+                                             <div class="form-group form-ctrol-admin" style="width: 75px;">
+                                                <label for="tunitbookedpromotiondiscount" class="control-label">Descuento aplicado</label>
+                                                  <div class="input-group">
+                                                    <asp:TextBox ClientIDMode="static" type="tel" ID="tunitbookedpromotiondiscount" MaxLength="5" onkeypress="return solonums2(event);" runat="server" CssClass="form-control onlynum" ReadOnly></asp:TextBox>
+                                                    <span class="input-group-addon">%</span>
+                                                </div>
+                                                 
+                                            </div>                                                                                                                                       
+                                        </div>
+                                        
+                                        <asp:Panel ID="pnlcarlocationprices" runat="server">
+                                            <div>
+                                                
+                                         
+                                            <div class="form-group form-ctrol-admin" style="width: 500px;">
+                                                <label for="tlocationpickup" class="control-label">Entrega unidad</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tlocationpickup" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>  
+                                             <div class="form-group form-ctrol-admin" style="width: 70px;">
+                                                <label for="tunitbookedprice" class="control-label">Total tarifa</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tlocationpickupprice" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>
+
+                                            </div>
+                                            <div>
+                                                <div class="form-group form-ctrol-admin" style="width: 500px;">
+                                                    <label for="tlocationdrop" class="control-label">Devolución unidad</label>
+                                                    <asp:TextBox runat="server" CssClass="form-control" ID="tlocationdrop" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                                </div>
+                                             <div class="form-group form-ctrol-admin" style="width: 70px;">
+                                                <label for="tlocationdropprice" class="control-label">Total tarifa</label>
+                                                <asp:TextBox runat="server" CssClass="form-control" ID="tlocationdropprice" MaxLength='10' value="" ClientIDMode="static" ReadOnly></asp:TextBox>
+                                            </div>
+                                            </div>
+                                     
+                          
+                                        </asp:Panel>
+
+                                        <div>
+                                            <div class="form-group form-ctrol-admin" style="width: 500px;">
+                                            </div>
+
+                                            <div class="form-group form-ctrol-admin " style="width: 70px;">
+                                                <label for="tbookpricefinal" class="control-label">Precio final</label>
+                                                <asp:TextBox runat="server" CssClass="form-control onlynum" ID="tbookpricefinal" MaxLength='16' ClientIDMode="static"  onkeypress="return solonums2(event);" ReadOnly></asp:TextBox>
+                                                <p class="help-block with-errors">
+                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="tbookpricefinal" runat="server" ValidationGroup="bookeditgroup" ErrorMessage="Debe introducir el precio de la reserva." Display="Dynamic" ValidateRequestMode="Enabled"></asp:RequiredFieldValidator>
+                                                </p>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane " id="tab_bookcomments">
+                                        <div class="row">
+                                            <div class="form-group col-xs-12">
+                                                <label for="bookcommentsbyclient" class="">Comentarios realizados por el cliente.</label>
+                                                <pre><asp:Literal ID="bookcommentsbyclient" runat="server"></asp:Literal>
+
+                                                    </pre>
+                                                 
+                                            </div>
+                                        </div>
+                                                                                
+                                        </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="">
+                                        <div class="form-group form-ctrol-admin col-xs-12">
+                                            <label for="tmp_note" class="">Nota interna</label>
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="tmp_note" MaxLength='500' value="" ClientIDMode="static" Rows="4" TextMode="MultiLine"></asp:TextBox>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                                <h3><i class="fa fa-user fa-lg "></i> Cliente</h3>
+                                <ul id="" class="nav nav-tabs style-3" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab_clientdata" role="tab" data-toggle="tab" class=""><i class="fa fa-user"></i> Datos Basicos</a></li>
+                                    <li role="presentation" class=""><a href="#tab_clientdni" role="tab" data-toggle="tab" class=""><i class="fa fa-tag"></i> Identificación</a></li>
+                                    <li role="presentation" class=""><a href="#tab_clientaddress" role="tab" data-toggle="tab" class=""><i class="fa fa-map-marker"></i> Dirección</a></li>
+                                    <li role="presentation" class=""><a href="#tab_clientcreditcard" role="tab" data-toggle="tab" class=""><i class="fa fa-credit-card"></i> Tarjeta Garantia</a></li>
+                                </ul>
+
+                                <div id="tab_clientcontent" class="tab-content ">
+                                    <div role="tabpanel" class="tab-pane active" id="tab_clientdata">
+                                        <div class="form-group" style="width: 180px;">
+                                            <label for="clientname" class="control-label">Nombre</label>
+
+                                            <asp:TextBox ClientIDMode="static" type="text" ID="clientname" runat="server" Columns="15" MaxLength="50" CssClass="form-control"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="requiredName" runat="server" ControlToValidate="clientname"
+                                                ErrorMessage="RequiredFieldValidator" Display="Dynamic" ValidationGroup="bookeditgroup" CssClass="required">Falta el nombre</asp:RequiredFieldValidator>
+                                            <asp:RegularExpressionValidator ID="regExpName" runat="server" ControlToValidate="clientname"
+                                                Display="Dynamic" ErrorMessage="RegularExpressionValidator" ValidationExpression="[\w\ ]{2,50}" ValidationGroup="bookeditgroup" CssClass="required">Minimo 2 letras</asp:RegularExpressionValidator>
+                                        </div>
+                                        <div class="form-group" style="width: 200px;">
+                                            <label for="clientsurname" class="control-label">Apellidos</label>
+
+                                            <asp:TextBox ClientIDMode="static" type="text" ID="clientsurname" Columns="30" MaxLength="100" runat="server" CssClass="form-control"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="requiredSurname" runat="server" ControlToValidate="clientsurname"
+                                                ErrorMessage="RequiredFieldValidator" Display="Dynamic" ValidationGroup="bookeditgroup" CssClass="required">Falta el apellido</asp:RequiredFieldValidator>
+
+                                        </div>
+
+                                        <div class="form-group" style="width: 120px;">
+                                            <label for="clientbirth" class="control-label">Fecha nacimiento</label>
+                                            <asp:TextBox ClientIDMode="static" ID="clientbirth" runat="server" CssClass="form-control sfinput dtpreadonly " MaxLength="10" AutoComplete="off"></asp:TextBox>
+                                        </div>
+                                        <div class="form-group" style="width: 150px;">
+                                            <label for="clientnacionality" class="control-label">Nacionalidad</label>
+                                            <asp:TextBox ClientIDMode="static" ID="clientnacionality" runat="server" CssClass="form-control sfinput " AutoComplete="on"></asp:TextBox>
+                                        </div>
+
+                                        <div class="form-group" style="width: 120px;">
+                                            <label for="cboclientlanguage" class="control-label">Idioma preferido</label>
+                                            <asp:DropDownList ID="cboclientlanguage" runat="server" CssClass="form-control">
+                                                <asp:ListItem Value="1">Español</asp:ListItem>
+                                                <asp:ListItem Value="2">Ingles</asp:ListItem>
+                                                <asp:ListItem Value="3">Frances</asp:ListItem>
+                                                <asp:ListItem Value="4">Aleman</asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                        <div>
+
+
+                                            <div class="form-group" style="width: 160px;">
+                                                <label for="clientphone" class="control-label">Telefono</label>
+
+                                                <div class="input-group">
+                                                    <asp:TextBox ClientIDMode="static" type="tel" ID="clientphone" Columns="15" MaxLength="20" onkeypress="return solonums2(event);" runat="server" CssClass="form-control"></asp:TextBox>
+                                                    <span class="input-group-addon"><i class="fa fa-phone fa-lg"></i></span>
+                                                </div>
+                                                
+                                            </div>
+
+                                            <div class="form-group" style="width: 300px;">
+                                                <label for="clientemail" class="control-label">Email</label>
+
+                                                <div class="input-group">
+                                                    <asp:TextBox ClientIDMode="static" type="email" ID="clientemail" Columns="30" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
+                                                    <span class="input-group-addon"><i class="fa fa-envelope fa-lg"></i></span>
+                                                </div>
+                                                <asp:RegularExpressionValidator ID="regExpEmail" runat="server" ControlToValidate="clientemail"
+                                                    ErrorMessage="RegularExpressionValidator" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Display="Dynamic" ValidationGroup="bookeditgroup">No es un email correcto</asp:RegularExpressionValidator>
+                                                <asp:RequiredFieldValidator ID="ReqEmail" runat="server" ControlToValidate="clientemail" CssClass="required"
+                                                    Display="Dynamic" ErrorMessage="RequiredFieldValidator" ValidationGroup="bookeditgroup">Falta el correo</asp:RequiredFieldValidator>
+
+                                            </div>
+                                        </div>
+
+                                        <%-- end tab --%>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane " id="tab_clientdni">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group" style="width: 120px;">
+                                                    <label for="clientdni" class="control-label">DNI</label>
+                                                    <asp:TextBox ID="clientdni" runat="server" ClientIDMode="static" CssClass="form-control"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group" style="width: 140px;">
+                                                    <label for="clientpassport" class="control-label">Pasaporte</label>
+                                                    <asp:TextBox ID="clientpassport" runat="server" ClientIDMode="static" CssClass="form-control"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group" style="width: 300px;">
+                                                    <label for="clientdriverlicense" class="control-label">Carnet de conducir</label>
+                                                    <div class="input-group">
+                                                        <asp:TextBox ID="clientdriverlicense" runat="server" ClientIDMode="static" CssClass="form-control"></asp:TextBox>
+                                                        <span class="input-group-addon"><i class="fa fa-car"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane " id="tab_clientaddress">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group" style="width: 500px;">
+                                                    <label for="clientaddress" class="control-label">Dirección</label>
+                                                    <asp:TextBox ID="clientaddress" runat="server" ClientIDMode="static" CssClass="form-control" size="500"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group" style="width: 100px;">
+                                                    <label for="clientaddresscp" class="control-label">CP</label>
+                                                    <asp:TextBox ID="clientaddresscp" runat="server" ClientIDMode="static" CssClass="form-control" size="30"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group" style="width: 145px;">
+                                                    <label for="clientaddresscity" class="control-label">Ciudad</label>
+                                                    <asp:TextBox ID="clientaddresscity" runat="server" ClientIDMode="static" CssClass="form-control" size="100"></asp:TextBox>
+
+                                                </div>
+                                                <div class="form-group" style="width: 145px;">
+                                                    <label for="clientaddresscountry" class="control-label">Pais</label>
+                                                    <asp:TextBox ID="clientaddresscountry" runat="server" ClientIDMode="static" CssClass="form-control" size="100"></asp:TextBox>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane " id="tab_clientcreditcard">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                 <div class="form-group" style="width: 150px;">
+                                                    <label for="clientcardtype" class="control-label">Tipo tarjeta</label>
+                                                    <asp:TextBox ID="clientcardtype" runat="server" ClientIDMode="static" CssClass="form-control" size="50"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group" style="width: 170px;">
+                                                    <label for="clientcardnumber" class="control-label">Numero de tarjeta</label>
+                                                    <asp:TextBox ID="clientcardnumber" runat="server" ClientIDMode="static" CssClass="form-control" size="50"></asp:TextBox>
+                                                </div>
+                                                <div class="form-group" style="width: 100px;">
+                                                    <label for="clientcardcaducity" class="control-label">F. caducidad</label>
+                                                    <asp:TextBox ID="clientcardcaducity" runat="server" ClientIDMode="static" CssClass="form-control" size="7"></asp:TextBox>
+
+                                                </div>
+                                                <div class="form-group" style="width: 300px;">
+                                                    <label for="clientcardholder" class="control-label">Nombre titular</label>
+                                                    <asp:TextBox ID="clientcardholder" runat="server" ClientIDMode="static" CssClass="form-control" size="150"></asp:TextBox>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                            </div>
+
+
+                            <asp:Panel ID="modalmessage" runat="server" ClientIDMode="static">
+                            </asp:Panel>
+
+                            <div class="modalmessage">
+                                <asp:Literal ID="mastereditbook_liteditmessage" runat="server" ClientIDMode="static"></asp:Literal>
+                            </div>
+
+
+
+                            <div class="hidden">
+                                <asp:LinkButton ID="btneditbook_master" runat="server" CssClass="btn btn-primary" ClientIDMode="Static" ValidationGroup="bookeditgroup"></asp:LinkButton>
+                                <asp:LinkButton ID="btneditbookload_master" runat="server" CssClass="btn btn-primary" ClientIDMode="Static"></asp:LinkButton>
+                            </div>
+</asp:PlaceHolder>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="btneditbook_master" />
+                            <asp:AsyncPostBackTrigger ControlID="btneditbookload_master" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button id="modaleditprimarybutton" type="button" class="btn btn-primary" OnClick="validateeditbookinput();" >Modificar reserva <i class="fa fa-save"></i></button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    
+        
+        
+        <div class="">
+            
+        </div>
+        
+
+<asp:PlaceHolder ID="PlaceHolderBootStrapJS" runat="server">
+        <%--JavaScript files placed at the end of the document so the pages load faster--%>
+		<%--Jquery and Bootstap core js files--%>
+        <%--Jquery must be placed before bootstrap--%>
+        <script src="../vendor/jquery-1.11.1/jquery.min.js"></script>
+        <script type="text/javascript" src="plugins/jquery-ui.min.js"></script>
+    
+    <script>
+        // Resolve name collision between jQuery UI and Twitter Bootstrap
+        //$.widget.bridge('uitooltip', $.ui.tooltip);
+    </script>
+   
+        <!-- BOOTSTRAP -->
+        <script src="../vendor/bootstrap-3.2.0/js/bootstrap.js"></script>
+    
+		<%--<script type="text/javascript" src="plugins/jquery.min.js"></script>--%>
+        <%--<script type="text/javascript" src="plugins/jquery-ui.min.js"></script>--%>
+		<%--<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>--%>
+
+		<!-- Modernizr javascript -->
+
+		<!-- Appear javascript -->
+
+		<!-- Count To javascript -->
+
+		<!-- Contact form -->
+		<script src="plugins/jquery.validate.js"></script>
+    
+		<!-- SmoothScroll javascript -->
+
+        <!-- Default Theme -->
+
+		<%--Initialization of Plugins--%>
+        <%--Custom Scripts--%>
+		<script type="text/javascript" src="js/admintools.js?v=1"></script>
+        <script type="text/javascript" src="js/admintooltipmessages.js" ></script> 
+        <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+    </asp:PlaceHolder>
+        
+        <script>
+            $(document).ready(function () {
+                    if (window.CKEDITOR) {
+                        $("textarea.wb-rich-editor").each(function () {
+                            if (!CKEDITOR.instances[this.id]) {
+                                CKEDITOR.replace(this.id, {
+                                    toolbar: [
+                                        ["Bold", "Italic", "-", "NumberedList", "BulletedList", "-", "Link", "Unlink"],
+                                        ["Cut", "Copy", "PasteText", "-", "Preview", "Source"]
+                                    ]
+                                });
+                            }
+                        });
+                    }
+                     
+                    $(".ttlocalizadorinterno")
+                        .popover({ trigger: 'focus', title: 'Localizador', content: "Introduzca el localizador interno que haya creado en otro sistema de reservas si fuera necesario." })
+                        .blur(function () {
+                            $(this).popover('hide');
+                        });
+ 
+            });
+        </script>
+
+          
+        <asp:ContentPlaceHolder runat="server" ID="PlaceHolderForPageJavascriptAfterMainJs" />
+          
+            <script>
+            $(document).ready(function () {
+
+            });
+        </script>     
+         
+    </form>
+    
+</body>
+</html>

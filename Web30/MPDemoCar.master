@@ -1,0 +1,43 @@
+<%@ Master Language="VB" CodeFile="MPDemoCar.master.vb" Inherits="MPDemoCar" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><asp:Literal ID="masterPageTitleLiteral" runat="server" /></title>
+    <link rel="stylesheet" href="vendor/bootstrap-3.2.0/css/bootstrap.min.css" />
+    <link href="css/messages.css" rel="stylesheet" type="text/css" />
+    <asp:Literal ID="StyleSheetLiteral" runat="server" />
+    <asp:Literal ID="StyleSheetLiteralBooking" runat="server" />
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server" />
+    <asp:ContentPlaceHolder ID="HeadScript" runat="server" />
+    <style>
+        body { color: #263238; background: #f7f9fb; }
+        .demo-car-header { padding: 22px 0; color: #fff; background: #1f6f78; }
+        .demo-car-brand { margin: 0; font-size: 28px; font-weight: 600; }
+        .demo-car-main { min-height: 520px; padding: 30px 15px; background: #fff; }
+        .demo-car-footer { padding: 24px 15px; color: #566; }
+    </style>
+</head>
+<body>
+    <form id="formMaster" runat="server">
+        <asp:ScriptManager ID="ScriptManager_mp" runat="server" />
+        <header class="demo-car-header">
+            <div class="container">
+                <p class="demo-car-brand">Demo Car Rental</p>
+                <span>Vehicle booking example</span>
+            </div>
+        </header>
+        <main class="container demo-car-main">
+            <asp:Literal ID="litMsgErr" runat="server" />
+            <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </main>
+        <footer class="container demo-car-footer">
+            <asp:Literal ID="litPowered" runat="server" />
+        </footer>
+    </form>
+    <script src="vendor/jquery-1.11.1/jquery.min.js"></script>
+    <script src="vendor/bootstrap-3.2.0/js/bootstrap.js"></script>
+</body>
+</html>

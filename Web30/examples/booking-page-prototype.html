@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WBooking page prototype</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #f3f6f9;
+      --surface: #ffffff;
+      --surface-soft: #f7f9fb;
+      --border: #dce4ec;
+      --text: #1d2a38;
+      --muted: #637386;
+      --primary: #2878bd;
+      --primary-dark: #1e629e;
+      --primary-soft: #eaf4fc;
+      --step: #dceafa;
+      --shadow: 0 12px 30px rgba(30, 50, 70, .09);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a,
+    select,
+    input {
+      outline-offset: 3px;
+    }
+
+    .booking-page {
+      width: min(1280px, calc(100% - 40px));
+      margin: 32px auto 64px;
+    }
+
+    .step-section + .step-section {
+      margin-top: 24px;
+    }
+
+    .step-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 12px;
+    }
+
+    .step-heading__number {
+      display: grid;
+      flex: 0 0 52px;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: 0 7px 16px rgba(40, 120, 189, .22);
+    }
+
+    .step-heading__copy {
+      flex: 0 1 auto;
+      min-width: 0;
+    }
+
+    .step-heading__eyebrow {
+      display: block;
+      margin-bottom: 1px;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      line-height: 16px;
+      text-transform: uppercase;
+    }
+
+    .step-heading__title {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(20px, 2vw, 25px);
+      font-weight: 680;
+      letter-spacing: -.018em;
+      line-height: 1.25;
+    }
+
+    .step-heading::after {
+      flex: 1 1 auto;
+      height: 1px;
+      margin-left: 8px;
+      background: linear-gradient(90deg, #cbd7e2, transparent);
+      content: "";
+    }
+
+    .search-panel {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns:
+        minmax(140px, 1.15fr)
+        minmax(140px, 1.15fr)
+        76px
+        minmax(104px, .85fr)
+        minmax(120px, .95fr)
+        minmax(120px, .95fr)
+        minmax(150px, 1.2fr)
+        minmax(164px, 1.25fr);
+      align-items: end;
+      gap: 12px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    .field__label,
+    .search-action__link {
+      display: block;
+      min-height: 18px;
+      margin: 0 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 18px;
+    }
+
+    .field__control,
+    .field__value {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 44px;
+      min-width: 0;
+      border: 1px solid #cbd6e2;
+      border-radius: 7px;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .field__control {
+      padding: 0 11px;
+    }
+
+    .field__value {
+      justify-content: center;
+      background: var(--surface-soft);
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    .date-control {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .date-control__icon {
+      display: grid;
+      height: 100%;
+      place-items: center;
+      border-right: 1px solid #cbd6e2;
+      background: var(--surface-soft);
+      color: #50657a;
+    }
+
+    .date-control input {
+      width: 100%;
+      min-width: 0;
+      height: 100%;
+      padding: 0 10px;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+    }
+
+    .search-action__link {
+      overflow: hidden;
+      color: var(--primary);
+      font-weight: 500;
+      text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .primary-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 7px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .primary-button:hover {
+      background: var(--primary-dark);
+    }
+
+    .room-list {
+      display: grid;
+      gap: 20px;
+      padding-top: 16px;
+    }
+
+    .room-card {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .room-card__header {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 62px;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .capacity {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      min-width: 42px;
+      height: 34px;
+      padding: 0 9px;
+      border: 1px solid #ccd8e4;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    .room-card__title {
+      margin: 0;
+      font-size: clamp(19px, 2vw, 24px);
+      font-weight: 650;
+      line-height: 1.25;
+    }
+
+    .room-card__content {
+      display: grid;
+      grid-template-columns: minmax(360px, 38%) minmax(0, 1fr);
+      min-height: 284px;
+    }
+
+    .room-card__media {
+      display: grid;
+      min-height: 284px;
+      margin: 0;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 75% 25%, rgba(255,255,255,.42), transparent 25%),
+        linear-gradient(145deg, #9db6c8, #506b80);
+      color: rgba(255,255,255,.9);
+    }
+
+    .room-card:nth-child(2) .room-card__media {
+      background:
+        radial-gradient(circle at 25% 30%, rgba(255,255,255,.38), transparent 22%),
+        linear-gradient(145deg, #b7aa96, #6d7b74);
+    }
+
+    .room-card__media svg {
+      width: 104px;
+      height: 104px;
+      opacity: .9;
+    }
+
+    .room-card__details {
+      display: flex;
+      flex-direction: column;
+      padding: 24px 28px;
+    }
+
+    .details-link {
+      align-self: flex-start;
+      margin-bottom: 26px;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .rate-name {
+      margin: 0 0 10px;
+      padding-bottom: 9px;
+      border-bottom: 2px solid #8ca5bf;
+      font-size: 18px;
+      text-align: right;
+    }
+
+    .included {
+      margin: 0;
+      padding: 14px 16px;
+      border: 1px solid #d5dee7;
+      border-radius: 7px;
+      background: var(--surface-soft);
+    }
+
+    .room-card__footer {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 24px;
+      min-height: 86px;
+      padding: 14px 18px;
+      border-top: 1px solid #dbe7f1;
+      background: var(--primary-soft);
+    }
+
+    .room-card__footer-spacer {
+      min-width: 0;
+    }
+
+    .price {
+      color: var(--primary);
+      font-size: 17px;
+      white-space: nowrap;
+    }
+
+    .price strong {
+      margin-left: 5px;
+      font-size: 27px;
+    }
+
+    .book-button {
+      width: auto;
+      min-width: 120px;
+    }
+
+    @media (max-width: 1120px) {
+      .search-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .search-action {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .booking-page {
+        width: min(100% - 20px, 1280px);
+        margin-top: 10px;
+      }
+
+      .step-heading__number {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        font-size: 18px;
+      }
+
+      .search-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .room-card__content {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .room-card__media {
+        min-height: 240px;
+      }
+
+      .room-card__footer {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .room-card__footer-spacer {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .search-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .search-action {
+        grid-column: auto;
+      }
+
+      .room-card__details {
+        padding: 20px;
+      }
+
+      .room-card__footer {
+        grid-template-columns: minmax(0, 1fr);
+        text-align: center;
+      }
+
+      .book-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="booking-page">
+    <section class="step-section" aria-labelledby="search-step-title">
+      <header class="step-heading">
+        <div class="step-heading__number" aria-hidden="true">1</div>
+        <div class="step-heading__copy">
+          <span class="step-heading__eyebrow">Step 01 · Stay details</span>
+          <h1 class="step-heading__title" id="search-step-title">Choose dates, guests and board</h1>
+        </div>
+      </header>
+
+      <div class="search-panel">
+        <form class="search-grid">
+          <label class="field">
+            <span class="field__label">Arrival date</span>
+            <span class="field__control date-control">
+              <span class="date-control__icon" aria-hidden="true">▦</span>
+              <input type="text" value="6/20/2027" aria-label="Arrival date">
+            </span>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Departure date</span>
+            <span class="field__control date-control">
+              <span class="date-control__icon" aria-hidden="true">▦</span>
+              <input type="text" value="6/23/2027" aria-label="Departure date">
+            </span>
+          </label>
+
+          <div class="field">
+            <span class="field__label">Nights</span>
+            <span class="field__value">3</span>
+          </div>
+
+          <label class="field">
+            <span class="field__label">Adults</span>
+            <select class="field__control"><option>2 Adults</option></select>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Children &lt; 12</span>
+            <select class="field__control"><option>0 Children</option></select>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Children &lt; 2</span>
+            <select class="field__control"><option>0 Children</option></select>
+          </label>
+
+          <label class="field">
+            <span class="field__label">Board</span>
+            <select class="field__control"><option>Room only</option></select>
+          </label>
+
+          <div class="search-action">
+            <a class="search-action__link" href="#promotion">I have a promotional code</a>
+            <button class="primary-button" type="button">See availability&nbsp;⌕</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="step-section" aria-labelledby="rooms-step-title">
+      <header class="step-heading">
+        <div class="step-heading__number" aria-hidden="true">2</div>
+        <div class="step-heading__copy">
+          <span class="step-heading__eyebrow">Step 02 · Available rooms</span>
+          <h2 class="step-heading__title" id="rooms-step-title">Choose the room that suits your stay</h2>
+        </div>
+      </header>
+
+      <div class="room-list">
+        <article class="room-card">
+          <header class="room-card__header">
+            <span class="capacity">3 ♟</span>
+            <h2 class="room-card__title">Apartment (Max. 2 adults + 2 children)</h2>
+          </header>
+          <div class="room-card__content">
+            <figure class="room-card__media" aria-label="Demo room image">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="2.5" y="3.5" width="19" height="17" rx="2"/>
+                <circle cx="8" cy="9" r="2" fill="currentColor" stroke="none"/>
+                <path d="m4.5 18 5-5 3.2 3.2 2.8-3.2 4 5"/>
+              </svg>
+            </figure>
+            <div class="room-card__details">
+              <a class="details-link" href="#details">⊞ Details for this selection</a>
+              <h3 class="rate-name">Best Rate</h3>
+              <p class="included">☞ It includes 3 people in the price.</p>
+            </div>
+          </div>
+          <footer class="room-card__footer">
+            <span class="room-card__footer-spacer"></span>
+            <span class="price">◉ Final price <strong>135€</strong></span>
+            <button class="primary-button book-button" type="button">Book&nbsp;♙</button>
+          </footer>
+        </article>
+
+        <article class="room-card">
+          <header class="room-card__header">
+            <span class="capacity">3 ♟</span>
+            <h2 class="room-card__title">One bedroom — first floor (Max. 3 adults)</h2>
+          </header>
+          <div class="room-card__content">
+            <figure class="room-card__media" aria-label="Demo room image">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="2.5" y="3.5" width="19" height="17" rx="2"/>
+                <circle cx="8" cy="9" r="2" fill="currentColor" stroke="none"/>
+                <path d="m4.5 18 5-5 3.2 3.2 2.8-3.2 4 5"/>
+              </svg>
+            </figure>
+            <div class="room-card__details">
+              <a class="details-link" href="#details">⊞ Details for this selection</a>
+              <h3 class="rate-name">Best Rate</h3>
+              <p class="included">☞ It includes 3 people in the price.</p>
+            </div>
+          </div>
+          <footer class="room-card__footer">
+            <span class="room-card__footer-spacer"></span>
+            <span class="price">◉ Final price <strong>165€</strong></span>
+            <button class="primary-button book-button" type="button">Book&nbsp;♙</button>
+          </footer>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

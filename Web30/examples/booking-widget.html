@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Hotel booking</title>
+  <link rel="stylesheet" href="wbooking-widget.css?v=2">
+  <style>
+    :root { color: #172033; background: #eef3f7; font-family: system-ui, sans-serif; }
+    body { margin: 0; }
+    main { width: min(1180px, calc(100% - 32px)); margin: clamp(32px, 7vw, 88px) auto; }
+    .hero { max-width: 680px; margin-bottom: 28px; }
+    .hero h1 { margin: 4px 0 12px; font-size: clamp(2rem, 5vw, 3.7rem); line-height: 1.05; }
+    .hero p { color: #56647a; line-height: 1.6; }
+    .hero p:first-child { margin-bottom: 6px; color: #176b87; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  </style>
+  <script src="wbooking-widget.js?v=2" defer></script>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <p>Demo Hotel</p>
+      <h1>Find your stay</h1>
+      <p>
+        This page represents a hotel's own website. The compact search bar
+        sends the selected criteria to WBooking in a new tab.
+      </p>
+    </header>
+
+    <form class="wbooking-widget"
+          data-wbooking-widget
+          data-hotel-code="280316"
+          data-language="2"
+          data-min-lead-days="1"
+          data-default-stay-days="3"
+          action="../b_Request.aspx"
+          target="_blank">
+      <label class="wbooking-widget__field">
+        Check-in
+        <input type="date" value="2027-06-20" data-wbooking-check-in required>
+      </label>
+      <label class="wbooking-widget__field">
+        Check-out
+        <input type="date" value="2027-06-23" data-wbooking-check-out required>
+      </label>
+      <label class="wbooking-widget__field">
+        Adults
+        <select name="f_numAdultos">
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </label>
+      <label class="wbooking-widget__field">
+        Children
+        <select name="f_ninosPago">
+          <option value="0" selected>0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </label>
+      <label class="wbooking-widget__field">
+        Meal plan
+        <select name="f_regimen">
+          <option value="1" selected>Room only</option>
+          <option value="2">Bed and breakfast</option>
+          <option value="3">Half board</option>
+          <option value="4">Full board</option>
+          <option value="5">All inclusive</option>
+        </select>
+      </label>
+      <input type="hidden" name="f_ninosfree" value="0">
+      <button type="submit">Check availability</button>
+      <p class="wbooking-widget__error" data-wbooking-error role="alert" hidden></p>
+    </form>
+  </main>
+</body>
+</html>

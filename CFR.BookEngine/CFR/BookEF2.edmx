@@ -1,0 +1,2457 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="cfrbookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Boletines">
+          <Key>
+            <PropertyRef Name="id_email" />
+          </Key>
+          <Property Name="id_email" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="boletin" Type="tinyint" Nullable="false" />
+          <Property Name="cod_hotel" Type="int" Nullable="false" />
+          <Property Name="modifydate" Type="datetime" Nullable="false" />
+          <Property Name="id_customer" Type="int" />
+        </EntityType>
+        <EntityType Name="R_days">
+          <Key>
+            <PropertyRef Name="dayFor" />
+          </Key>
+          <Property Name="dayFor" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="R_Lang">
+          <Key>
+            <PropertyRef Name="id_RLang" />
+          </Key>
+          <Property Name="id_RLang" Type="int" Nullable="false" />
+          <Property Name="langID" Type="int" Nullable="false" />
+          <Property Name="myenum" Type="nvarchar" MaxLength="50" />
+          <Property Name="value" Type="nvarchar" MaxLength="500" />
+          <Property Name="isFor" Type="nvarchar" MaxLength="100" />
+          <Property Name="exclusiveForForm" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="R_operadores">
+          <Key>
+            <PropertyRef Name="cod_operador" />
+          </Key>
+          <Property Name="cod_operador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_hotel" Type="int" Nullable="false" />
+          <Property Name="Operador" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FreeSale" Type="tinyint" />
+          <Property Name="comision" Type="float" />
+          <Property Name="forma_pago" Type="int" />
+          <Property Name="politica" Type="nvarchar" MaxLength="500" />
+          <Property Name="Release" Type="tinyint" />
+          <Property Name="login" Type="nvarchar" MaxLength="50" />
+          <!-- R_operadores.Clave stores only PasswordHasher output for an
+               operator/agency account. NULL or empty means that password
+               authentication is unavailable. Promotions use login as their
+               code and never interpret this field. MaxLength 256 is owned by
+               migration 002; reducing it would truncate the versioned hash. -->
+          <Property Name="Clave" Type="nvarchar" MaxLength="256" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="N_T_Credito" Type="varchar" MaxLength="20" />
+          <Property Name="CaducidadTarjeta" Type="varchar" MaxLength="7" />
+          <Property Name="TitularTarjeta" Type="nvarchar" MaxLength="50" />
+          <Property Name="cod_CRS" Type="smallint" />
+          <Property Name="polIngles" Type="nvarchar" MaxLength="500" />
+          <Property Name="polFrances" Type="nvarchar" MaxLength="500" />
+          <Property Name="polAleman" Type="nvarchar" MaxLength="500" />
+          <Property Name="polItaliano" Type="nvarchar" MaxLength="500" />
+          <Property Name="polCatalan" Type="nvarchar" MaxLength="500" />
+          <Property Name="tipo" Type="tinyint" />
+          <Property Name="COD_OPERADOR_hotel" Type="char" MaxLength="10" />
+          <Property Name="COD_Agencia_Grupo" Type="int" />
+          <Property Name="cod_Cadena" Type="int" />
+          <Property Name="generico" Type="tinyint" />
+          <Property Name="maxdiasdereserva" Type="smallint" />
+          <Property Name="aplicarYMprecio" Type="bit" />
+          <Property Name="aplicarYMdiasmin" Type="bit" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="discount" Type="float" />
+          <Property Name="discountapply" Type="bit" />
+          <Property Name="discountapplyfrom" Type="datetime" />
+          <Property Name="discountapplyuntil" Type="datetime" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="discountNoRefund" Type="bit" />
+          <Property Name="discountNotApplyWithNoRefundTariff" Type="bit" />
+        </EntityType>
+        <EntityType Name="R_PolicyCancel">
+          <Key>
+            <PropertyRef Name="policyID" />
+          </Key>
+          <Property Name="policyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_hotel" Type="int" Nullable="false" />
+          <Property Name="policyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="chargeuntilday" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="chargeunitldaypercent" Type="float" />
+          <Property Name="chargeafterdaypercent" Type="float" Nullable="false" />
+          <Property Name="datemodified" Type="datetime" Nullable="false" />
+          <Property Name="defaultpolicy" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="R_PriceDay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Tar_Hab" Type="int" Nullable="false" />
+          <Property Name="dayprice" Type="date" Nullable="false" />
+          <Property Name="price" Type="float" Nullable="false" />
+          <Property Name="ModifyDate" Type="datetime" Nullable="false" />
+          <Property Name="closed" Type="bit" Nullable="false" />
+          <Property Name="minimumdays" Type="tinyint" Nullable="false" />
+          <Property Name="release" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="R_Res_Hot_Param">
+          <Key>
+            <PropertyRef Name="cod_hotel" />
+          </Key>
+          <Property Name="cod_hotel" Type="int" Nullable="false" />
+          <Property Name="EdadMaxNinoGratis" Type="tinyint" />
+          <Property Name="EdadMaxNinoPago" Type="tinyint" />
+          <Property Name="impuestos" Type="float" />
+          <Property Name="moneda" Type="varchar" MaxLength="20" />
+          <Property Name="Alojamiento" Type="bit" Nullable="false" />
+          <Property Name="AD" Type="bit" Nullable="false" />
+          <Property Name="MP" Type="bit" Nullable="false" />
+          <Property Name="PC" Type="bit" Nullable="false" />
+          <Property Name="CCC" Type="varchar" MaxLength="20" />
+          <Property Name="emailConfirmacion" Type="nvarchar" MaxLength="256" />
+          <Property Name="txtConfirmacion" Type="varchar" MaxLength="200" />
+          <Property Name="logo" Type="varchar" MaxLength="7" />
+          <Property Name="diasdeAntelacion" Type="tinyint" />
+          <Property Name="txtConfirmacionIngles" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtConfirmacionFrances" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtConfirmacionAleman" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtConfirmacionItaliano" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtConfirmacionCatalan" Type="nvarchar" MaxLength="200" />
+          <Property Name="TodoIncluido" Type="bit" />
+          <Property Name="polCatalan" Type="varchar" MaxLength="500" />
+          <Property Name="polItaliano" Type="varchar" MaxLength="500" />
+          <Property Name="polAleman" Type="varchar" MaxLength="500" />
+          <Property Name="polFrances" Type="varchar" MaxLength="500" />
+          <Property Name="polIngles" Type="varchar" MaxLength="500" />
+          <Property Name="polEsp" Type="varchar" MaxLength="500" />
+          <Property Name="txtCancelEsp" Type="varchar" MaxLength="200" />
+          <Property Name="txtCancelIngles" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtCancelFrances" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtCancelAleman" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtCancelItaliano" Type="nvarchar" MaxLength="200" />
+          <Property Name="txtCancelCatalan" Type="nvarchar" MaxLength="200" />
+          <Property Name="formatoEmailConfirmacion" Type="varchar" MaxLength="1" />
+          <Property Name="emailConfirmacion2" Type="nvarchar" MaxLength="255" />
+          <Property Name="maxhab2see" Type="smallint" />
+          <Property Name="comisionyahnormal" Type="float" />
+          <Property Name="comisionyahregistrados" Type="float" />
+          <Property Name="Estado" Type="tinyint" />
+          <Property Name="CCCIBAN" Type="varchar" MaxLength="50" />
+          <Property Name="CCCBIC" Type="varchar" MaxLength="50" />
+          <Property Name="CCCBanco" Type="varchar" MaxLength="50" />
+          <Property Name="CCCSucursal" Type="varchar" MaxLength="200" />
+          <Property Name="HasTPV" Type="bit" />
+          <Property Name="boardAD" Type="float" />
+          <Property Name="boardMP" Type="float" />
+          <Property Name="boardPC" Type="float" />
+          <Property Name="boardTI" Type="float" />
+        </EntityType>
+        <EntityType Name="R_ReservasO">
+          <Key>
+            <PropertyRef Name="cod_reservaO" />
+          </Key>
+          <Property Name="cod_hotel" Type="int" />
+          <Property Name="operador" Type="int" />
+          <Property Name="cod_reservaO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_customer" Type="int" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellido2" Type="varchar" MaxLength="50" />
+          <Property Name="DNI" Type="varchar" MaxLength="20" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" />
+          <Property Name="fax" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="nvarchar" MaxLength="256" />
+          <Property Name="direccion" Type="nvarchar" MaxLength="150" />
+          <Property Name="cod_postal" Type="varchar" MaxLength="20" />
+          <Property Name="ciudad" Type="varchar" MaxLength="50" />
+          <Property Name="pais" Type="varchar" MaxLength="50" />
+          <Property Name="horas1" Type="tinyint" />
+          <Property Name="horas2" Type="tinyint" />
+          <Property Name="horas3" Type="tinyint" />
+          <Property Name="hpenaliz1" Type="tinyint" />
+          <Property Name="hpenaliz2" Type="tinyint" />
+          <Property Name="hpenaliz3" Type="tinyint" />
+          <Property Name="moneda" Type="varchar" MaxLength="20" />
+          <Property Name="impuestos" Type="float" />
+          <Property Name="cod_formapago" Type="int" Nullable="false" />
+          <Property Name="nTarjeta" Type="varchar" MaxLength="20" />
+          <Property Name="FCaducidad" Type="varchar" MaxLength="5" />
+          <Property Name="Titular" Type="nvarchar" MaxLength="150" />
+          <Property Name="login" Type="nvarchar" MaxLength="256" />
+          <Property Name="clave" Type="varchar" MaxLength="16" />
+          <Property Name="HoraReserva" Type="datetime" />
+          <Property Name="cod_CRS" Type="int" />
+          <Property Name="codoperadorCRS" Type="float" />
+          <Property Name="operadorCRS" Type="varchar" MaxLength="50" />
+          <Property Name="CRS" Type="varchar" MaxLength="50" />
+          <Property Name="Site" Type="varchar" MaxLength="50" />
+          <Property Name="Descoperador" Type="varchar" MaxLength="50" />
+          <Property Name="checkMail" Type="tinyint" />
+          <Property Name="checkHotel" Type="tinyint" />
+          <Property Name="cod_Reserva_hotel" Type="nvarchar" MaxLength="50" />
+          <Property Name="CheckHotelPago" Type="tinyint" />
+          <Property Name="CheckHotelUser" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Direccion" Type="varchar" MaxLength="150" />
+          <Property Name="Ag_Cod_postal" Type="varchar" MaxLength="20" />
+          <Property Name="Ag_ciudad" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Provincia" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Pais" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Fax" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Grupo" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_Agente" Type="varchar" MaxLength="50" />
+          <Property Name="Ag_email" Type="varchar" MaxLength="100" />
+          <Property Name="operadorGenerico" Type="tinyint" />
+          <Property Name="tipoOperador" Type="int" />
+          <Property Name="empresa" Type="varchar" MaxLength="50" />
+          <Property Name="precioReal" Type="float" />
+          <Property Name="empresadireccion" Type="varchar" MaxLength="150" />
+          <Property Name="empresatlf" Type="varchar" MaxLength="20" />
+          <Property Name="empresaemail" Type="varchar" MaxLength="100" />
+          <Property Name="comentarios" Type="ntext" />
+          <Property Name="ComisionAplicada" Type="float" />
+          <Property Name="FechaModPrecioReal" Type="datetime" />
+          <Property Name="CCUTarjeta" Type="varchar" MaxLength="8" />
+          <Property Name="Card_type" Type="varchar" MaxLength="50" />
+          <Property Name="Signature" Type="nvarchar" MaxLength="100" />
+          <Property Name="TPV_order" Type="varchar" MaxLength="50" />
+          <Property Name="language" Type="varchar" MaxLength="30" />
+          <Property Name="num_factura" Type="varchar" MaxLength="50" />
+          <Property Name="driverage" Type="tinyint" />
+          <Property Name="bookpolicyID" Type="int" />
+          <Property Name="passport" Type="varchar" MaxLength="40" />
+          <Property Name="birthdate" Type="date" />
+          <Property Name="driverlicense" Type="varchar" MaxLength="200" />
+          <Property Name="nacionality" Type="varchar" MaxLength="30" />
+          <Property Name="cuna" Type="tinyint" />
+          <Property Name="comentarioscheck" Type="date" />
+          <Property Name="driveraditional" Type="nvarchar" MaxLength="500" />
+          <Property Name="promotioncode" Type="int" />
+          <Property Name="noRefundTariffSelected" Type="bit" />
+          <Property Name="chargeafterdayvalue" Type="float" />
+          <Property Name="chargeuntilday" Type="nvarchar" MaxLength="50" />
+          <Property Name="chargeuntildayvalue" Type="float" />
+        </EntityType>
+        <EntityType Name="R_ReservasO_Note">
+          <Key>
+            <PropertyRef Name="cod_reservaO" />
+          </Key>
+          <Property Name="id_Note" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_reservaO" Type="int" Nullable="false" />
+          <Property Name="Note" Type="ntext" />
+          <Property Name="datemodify" Type="datetime" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
+        </EntityType>
+        <EntityType Name="R_ResO_CarPickup">
+          <Key>
+            <PropertyRef Name="id_reso_carpickup" />
+          </Key>
+          <Property Name="id_reso_carpickup" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_reservaO" Type="int" Nullable="false" />
+          <Property Name="unit_location_GET" Type="int" Nullable="false" />
+          <Property Name="unit_location_Get_Price" Type="float" Nullable="false" />
+          <Property Name="unit_location_Return" Type="int" Nullable="false" />
+          <Property Name="unit_location_Return_Price" Type="float" Nullable="false" />
+          <Property Name="location_description_manual" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="R_ResO_Hab">
+          <Key>
+            <PropertyRef Name="cod_reso_hab" />
+          </Key>
+          <Property Name="cod_reservaO" Type="int" Nullable="false" />
+          <Property Name="cod_reso_hab" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_entrada" Type="datetime" Nullable="false" />
+          <Property Name="fecha_salida" Type="datetime" Nullable="false" />
+          <Property Name="num_habitaciones" Type="tinyint" Nullable="false" />
+          <Property Name="num_personas" Type="tinyint" Nullable="false" />
+          <Property Name="regimen_aloj" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tipo_habitacion" Type="int" Nullable="false" />
+          <Property Name="edadnino1" Type="tinyint" />
+          <Property Name="edadnino2" Type="tinyint" />
+          <Property Name="comentarios1" Type="nvarchar" MaxLength="500" />
+          <Property Name="preciofinal" Type="float" Nullable="false" />
+          <Property Name="HoraConfirmacion" Type="datetime" />
+          <Property Name="Confirmadax" Type="varchar" MaxLength="100" />
+          <Property Name="HoraModificacion" Type="datetime" />
+          <Property Name="Modificadax" Type="varchar" MaxLength="100" />
+          <Property Name="Canceladax" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="tinyint" />
+          <Property Name="EstadoPago" Type="tinyint" />
+          <Property Name="HoraCancelacion" Type="datetime" />
+          <Property Name="cupoOrigen" Type="varchar" MaxLength="400" />
+          <Property Name="DescHabitacion" Type="nvarchar" MaxLength="50" />
+          <Property Name="cod_hab_combinada" Type="int" />
+          <Property Name="PrecioDesglosado" Type="varchar" MaxLength="900" />
+          <Property Name="RegimenDesglosado" Type="varchar" MaxLength="150" />
+          <Property Name="carkminit" Type="tinyint" />
+          <Property Name="carkmend" Type="tinyint" />
+          <Property Name="carmodel" Type="varchar" MaxLength="150" />
+          <Property Name="carplate" Type="varchar" MaxLength="50" />
+          <Property Name="carbastidor" Type="varchar" MaxLength="50" />
+          <Property Name="caroiltankfilled" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="R_Tarifa_habitacion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_tarifa" Type="int" Nullable="false" />
+          <Property Name="cod_habitacion" Type="int" Nullable="false" />
+          <Property Name="precio" Type="float" Nullable="false" />
+          <Property Name="precioAD" Type="float" />
+          <Property Name="preciomp" Type="float" />
+          <Property Name="preciopc" Type="float" />
+          <Property Name="DescAdultosExtra1" Type="float" />
+          <Property Name="DescAdultosExtra2" Type="float" />
+          <Property Name="DescNinoPago1" Type="float" />
+          <Property Name="DescNinoPago2" Type="float" />
+          <Property Name="desayunonino" Type="float" />
+          <Property Name="mpnino" Type="float" />
+          <Property Name="pcnino" Type="float" />
+          <Property Name="TodoIncluido" Type="float" />
+          <Property Name="TodoIncluidoNino" Type="float" />
+          <Property Name="AplicDescAReg" Type="tinyint" />
+          <Property Name="camaExtra2" Type="float" />
+          <Property Name="camaExtra1" Type="float" />
+          <Property Name="camaExtra1nino" Type="float" />
+          <Property Name="camaExtra2nino" Type="float" />
+          <Property Name="SupDiasMinimos" Type="float" />
+          <Property Name="SupFinDeSemana" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CFRBook.dbo.R_Tarifa_operador' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="R_Tarifa_operador">
+          <Key>
+            <PropertyRef Name="cod_tarifa" />
+            <PropertyRef Name="cod_operador" />
+          </Key>
+          <Property Name="cod_tarifa" Type="int" Nullable="false" />
+          <Property Name="cod_operador" Type="int" Nullable="false" />
+          <Property Name="tipo_tarifa" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="R_tarifas">
+          <Key>
+            <PropertyRef Name="cod_tarifa" />
+          </Key>
+          <Property Name="cod_tarifa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_hotel" Type="int" Nullable="false" />
+          <Property Name="tarifa" Type="varchar" MaxLength="53" Nullable="false" />
+          <Property Name="DiasMinimos" Type="tinyint" Nullable="false" />
+          <Property Name="cod_CRS" Type="smallint" Nullable="false" />
+          <Property Name="ImpuestoTarifa" Type="float" />
+          <Property Name="Categoria" Type="tinyint" />
+          <Property Name="PrecNetoBruto" Type="bit" />
+          <Property Name="TI" Type="bit" />
+          <Property Name="PC" Type="bit" />
+          <Property Name="MP" Type="bit" />
+          <Property Name="AD" Type="bit" />
+          <Property Name="SA" Type="bit" />
+          <Property Name="AplicDescACapac" Type="bit" />
+          <Property Name="promotioncode" Type="nvarchar" MaxLength="50" />
+          <Property Name="AplicSupFinDeSemana" Type="tinyint" />
+          <Property Name="ModifyDate" Type="datetime" />
+          <Property Name="ModifyCodUsuario" Type="int" />
+          <Property Name="TPVMinimum" Type="float" />
+          <Property Name="TPVOneNight" Type="bit" />
+          <Property Name="norefundtariff" Type="bit" />
+          <Property Name="norefundtariffdiscount" Type="float" />
+          <Property Name="norefundtariffdiscountapply2tariffonly" Type="bit" />
+          <Property Name="policyID" Type="int" />
+        </EntityType>
+        <EntityType Name="r_Tarifas_Temporadas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_tarifa" Type="int" Nullable="false" />
+          <Property Name="cod_Temporada" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="r_Temporadas">
+          <Key>
+            <PropertyRef Name="cod_Temporada" />
+          </Key>
+          <Property Name="cod_Temporada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_hotel" Type="int" Nullable="false" />
+          <Property Name="Temporada" Type="varchar" MaxLength="50" />
+          <Property Name="temporadaType" Type="bit" />
+        </EntityType>
+        <EntityType Name="R_Temporadas_Periodos">
+          <Key>
+            <PropertyRef Name="cod_periodo" />
+          </Key>
+          <Property Name="cod_periodo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_temporada" Type="int" Nullable="false" />
+          <Property Name="fechainicio" Type="date" Nullable="false" />
+          <Property Name="fechafin" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="R_UnitLocation">
+          <Key>
+            <PropertyRef Name="id_unit_location" />
+          </Key>
+          <Property Name="id_unit_location" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_hotel" Type="int" />
+          <Property Name="location" Type="nvarchar" MaxLength="200" />
+          <Property Name="id_address" Type="int" Nullable="false" />
+          <Property Name="active" Type="bit" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="tipo" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="R_UnitLocation_Lang">
+          <Key>
+            <PropertyRef Name="id_RUnitLocation" />
+          </Key>
+          <Property Name="id_RUnitLocation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_Lang" Type="nvarchar" MaxLength="7" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="id_unit_location" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="R_Usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="cod_usuario" Type="int" />
+          <Property Name="cod_hotel" Type="int" Nullable="false" />
+          <Property Name="cod_CRS" Type="smallint" Nullable="false" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="login" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="clave" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="perfil" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ultimoacceso" Type="datetime" />
+          <Property Name="modifydate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="R_UsuariosSession">
+          <Key>
+            <PropertyRef Name="idSession" />
+          </Key>
+          <Property Name="idSession" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="ipaccess" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="logon" Type="datetime" Nullable="false" />
+          <Property Name="logoff" Type="datetime" />
+          <Property Name="sessionkey" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_HOTELES">
+          <Key>
+            <PropertyRef Name="cod_Hotel" />
+          </Key>
+          <Property Name="cod_Hotel" Type="int" Nullable="false" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="6" />
+          <Property Name="hotel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="500" />
+          <Property Name="PrefijoTelf" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefono" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fax" Type="nvarchar" MaxLength="50" />
+          <Property Name="cod_Ciudad" Type="int" />
+          <Property Name="Cod_Pais" Type="int" />
+          <Property Name="cod_Zona" Type="int" />
+          <Property Name="Cod_Cont" Type="int" />
+          <Property Name="cod_Categoria" Type="int" />
+          <Property Name="codpostal" Type="nvarchar" MaxLength="50" />
+          <Property Name="Desc_es" Type="ntext" />
+          <Property Name="Desc_en" Type="ntext" />
+          <Property Name="Desc_de" Type="ntext" />
+          <Property Name="Desc_fr" Type="ntext" />
+          <Property Name="Desc_cat" Type="ntext" />
+          <Property Name="Cadena1" Type="int" />
+          <Property Name="Cadena2" Type="int" />
+          <Property Name="Cadena3" Type="int" />
+          <Property Name="Cadena4" Type="int" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Web" Type="nvarchar" MaxLength="50" />
+          <Property Name="Habitaciones" Type="smallint" />
+          <Property Name="Amadeus" Type="nvarchar" MaxLength="12" />
+          <Property Name="Galileo" Type="nvarchar" MaxLength="12" />
+          <Property Name="Wordspan" Type="nvarchar" MaxLength="12" />
+          <Property Name="Sabre" Type="nvarchar" MaxLength="12" />
+          <Property Name="Datos" Type="bit" />
+          <Property Name="Director" Type="nvarchar" MaxLength="30" />
+          <Property Name="Directorcomercial" Type="nvarchar" MaxLength="30" />
+          <Property Name="nfotos" Type="smallint" />
+          <Property Name="coordenadax" Type="int" />
+          <Property Name="coordenaday" Type="int" />
+          <Property Name="mapa" Type="int" />
+          <Property Name="f1" Type="char" MaxLength="10" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="login" Type="nvarchar" MaxLength="16" />
+          <Property Name="clave" Type="nvarchar" MaxLength="16" />
+          <Property Name="callejero" Type="smallint" />
+          <Property Name="rowId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="latitud" Type="float" />
+          <Property Name="longitud" Type="float" />
+          <Property Name="lastUpdate" Type="datetime" />
+          <Property Name="desc_it" Type="ntext" />
+          <Property Name="desc_pt" Type="ntext" />
+          <Property Name="desc_jp" Type="ntext" />
+          <Property Name="currencycode" Type="varchar" MaxLength="10" />
+          <Property Name="MNGProp" Type="varchar" MaxLength="10" />
+          <Property Name="UltimoAcceso" Type="datetime" />
+          <Property Name="checkintime1" Type="varchar" MaxLength="5" />
+          <Property Name="checkintime2" Type="varchar" MaxLength="5" />
+          <Property Name="checkOuttime1" Type="varchar" MaxLength="5" />
+          <Property Name="checkOuttime2" Type="varchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="T_HOTELES_HABITACIONES">
+          <Key>
+            <PropertyRef Name="codhabitacionhotel" />
+          </Key>
+          <Property Name="Hotel" Type="int" />
+          <Property Name="codhabitacionhotel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="habitacionhotel" Type="nvarchar" MaxLength="150" />
+          <Property Name="codhabitacionGenerica" Type="int" />
+          <Property Name="descripcion" Type="nvarchar(max)" />
+          <Property Name="Adultos" Type="tinyint" />
+          <Property Name="AdultosExtra1" Type="tinyint" />
+          <Property Name="AdultosExtra2" Type="tinyint" />
+          <Property Name="MaxPersonas" Type="tinyint" />
+          <Property Name="NumNino" Type="tinyint" />
+          <Property Name="MaxAdultos" Type="tinyint" />
+          <Property Name="ServiciosEsp" Type="nvarchar(max)" />
+          <Property Name="ServiciosIngles" Type="nvarchar(max)" />
+          <Property Name="ServiciosFrances" Type="nvarchar(max)" />
+          <Property Name="ServiciosAleman" Type="nvarchar(max)" />
+          <Property Name="ServiciosItaliano" Type="nvarchar(max)" />
+          <Property Name="ServiciosCatalan" Type="nvarchar(max)" />
+          <Property Name="cod_hab_combinada" Type="int" />
+          <Property Name="NinoOcupaplaza" Type="tinyint" />
+          <Property Name="desc_en" Type="nvarchar" MaxLength="150" />
+          <Property Name="desc_de" Type="nvarchar" MaxLength="150" />
+          <Property Name="desc_fr" Type="nvarchar" MaxLength="150" />
+          <Property Name="desc_it" Type="nvarchar" MaxLength="150" />
+          <Property Name="desc_ca" Type="nvarchar" MaxLength="150" />
+          <Property Name="numroomsavailable" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="T_HOTELES_HABITACIONES_Fotos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codhabitacionhotel" Type="int" Nullable="false" />
+          <Property Name="orderui" Type="tinyint" Nullable="false" />
+          <Property Name="modified" Type="datetime" />
+          <Property Name="version" Type="nchar" MaxLength="1" />
+          <Property Name="thumbnail" Type="bit" />
+          <Property Name="fotourl" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_R_operadores_T_HOTELES">
+          <End Role="T_HOTELES" Type="Self.T_HOTELES" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_operadores" Type="Self.R_operadores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_operadores">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_PolicyCancel_T_HOTELES">
+          <End Role="T_HOTELES" Type="Self.T_HOTELES" Multiplicity="1" />
+          <End Role="R_PolicyCancel" Type="Self.R_PolicyCancel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_PolicyCancel">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_PriceDay_R_Tarifa_habitacion1">
+          <End Role="R_Tarifa_habitacion" Type="Self.R_Tarifa_habitacion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_PriceDay" Type="Self.R_PriceDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_Tarifa_habitacion">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="R_PriceDay">
+              <PropertyRef Name="id_Tar_Hab" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_Res_Hot_Param_T_HOTELES">
+          <End Role="T_HOTELES" Type="Self.T_HOTELES" Multiplicity="1" />
+          <End Role="R_Res_Hot_Param" Type="Self.R_Res_Hot_Param" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_Res_Hot_Param">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ReservasO_Note_R_ReservasO">
+          <End Role="R_ReservasO" Type="Self.R_ReservasO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_ReservasO_Note" Type="Self.R_ReservasO_Note" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="R_ReservasO">
+              <PropertyRef Name="cod_reservaO" />
+            </Principal>
+            <Dependent Role="R_ReservasO_Note">
+              <PropertyRef Name="cod_reservaO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ReservasO_Note_R_Usuarios">
+          <End Role="R_Usuarios" Type="Self.R_Usuarios" Multiplicity="0..1" />
+          <End Role="R_ReservasO_Note" Type="Self.R_ReservasO_Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_Usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="R_ReservasO_Note">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ReservasO_R_operadores">
+          <End Role="R_operadores" Type="Self.R_operadores" Multiplicity="0..1" />
+          <End Role="R_ReservasO" Type="Self.R_ReservasO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_operadores">
+              <PropertyRef Name="cod_operador" />
+            </Principal>
+            <Dependent Role="R_ReservasO">
+              <PropertyRef Name="promotioncode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_CarPickup_R_ReservasO">
+          <End Role="R_ReservasO" Type="Self.R_ReservasO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_ResO_CarPickup" Type="Self.R_ResO_CarPickup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_ReservasO">
+              <PropertyRef Name="cod_reservaO" />
+            </Principal>
+            <Dependent Role="R_ResO_CarPickup">
+              <PropertyRef Name="cod_reservaO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_CarPickup_R_UnitLocation">
+          <End Role="R_UnitLocation" Type="Self.R_UnitLocation" Multiplicity="1" />
+          <End Role="R_ResO_CarPickup" Type="Self.R_ResO_CarPickup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_UnitLocation">
+              <PropertyRef Name="id_unit_location" />
+            </Principal>
+            <Dependent Role="R_ResO_CarPickup">
+              <PropertyRef Name="unit_location_GET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_CarPickup_R_UnitLocation1">
+          <End Role="R_UnitLocation" Type="Self.R_UnitLocation" Multiplicity="1" />
+          <End Role="R_ResO_CarPickup" Type="Self.R_ResO_CarPickup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_UnitLocation">
+              <PropertyRef Name="id_unit_location" />
+            </Principal>
+            <Dependent Role="R_ResO_CarPickup">
+              <PropertyRef Name="unit_location_Return" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_Hab_R_ReservasO">
+          <End Role="R_ReservasO" Type="Self.R_ReservasO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_ResO_Hab" Type="Self.R_ResO_Hab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_ReservasO">
+              <PropertyRef Name="cod_reservaO" />
+            </Principal>
+            <Dependent Role="R_ResO_Hab">
+              <PropertyRef Name="cod_reservaO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_Hab_T_HOTELES_HABITACIONES">
+          <End Role="T_HOTELES_HABITACIONES" Type="Self.T_HOTELES_HABITACIONES" Multiplicity="1" />
+          <End Role="R_ResO_Hab" Type="Self.R_ResO_Hab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES_HABITACIONES">
+              <PropertyRef Name="codhabitacionhotel" />
+            </Principal>
+            <Dependent Role="R_ResO_Hab">
+              <PropertyRef Name="tipo_habitacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_Tarifa_operador_R_operadores">
+          <End Role="R_operadores" Type="Self.R_operadores" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_Tarifa_operador" Type="Self.R_Tarifa_operador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_operadores">
+              <PropertyRef Name="cod_operador" />
+            </Principal>
+            <Dependent Role="R_Tarifa_operador">
+              <PropertyRef Name="cod_operador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_Tarifa_operador_R_tarifas">
+          <End Role="R_tarifas" Type="Self.R_tarifas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_Tarifa_operador" Type="Self.R_Tarifa_operador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_tarifas">
+              <PropertyRef Name="cod_tarifa" />
+            </Principal>
+            <Dependent Role="R_Tarifa_operador">
+              <PropertyRef Name="cod_tarifa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_tarifas_R_PolicyCancel">
+          <End Role="R_PolicyCancel" Type="Self.R_PolicyCancel" Multiplicity="0..1" />
+          <End Role="R_tarifas" Type="Self.R_tarifas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_PolicyCancel">
+              <PropertyRef Name="policyID" />
+            </Principal>
+            <Dependent Role="R_tarifas">
+              <PropertyRef Name="policyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_r_Tarifas_Temporadas_R_tarifas">
+          <End Role="R_tarifas" Type="Self.R_tarifas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="r_Tarifas_Temporadas" Type="Self.r_Tarifas_Temporadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_tarifas">
+              <PropertyRef Name="cod_tarifa" />
+            </Principal>
+            <Dependent Role="r_Tarifas_Temporadas">
+              <PropertyRef Name="cod_tarifa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_UnitLocation_Lang_R_UnitLocation">
+          <End Role="R_UnitLocation" Type="Self.R_UnitLocation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_UnitLocation_Lang" Type="Self.R_UnitLocation_Lang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_UnitLocation">
+              <PropertyRef Name="id_unit_location" />
+            </Principal>
+            <Dependent Role="R_UnitLocation_Lang">
+              <PropertyRef Name="id_unit_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_Usuarios_T_HOTELES">
+          <End Role="T_HOTELES" Type="Self.T_HOTELES" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_Usuarios" Type="Self.R_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_Usuarios">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_HOTELES_HABITACIONES_T_HOTELES">
+          <End Role="T_HOTELES" Type="Self.T_HOTELES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="T_HOTELES_HABITACIONES" Type="Self.T_HOTELES_HABITACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="T_HOTELES_HABITACIONES">
+              <PropertyRef Name="Hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tarifa_habitacion_R_tarifas">
+          <End Role="R_tarifas" Type="Self.R_tarifas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_Tarifa_habitacion" Type="Self.R_Tarifa_habitacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_tarifas">
+              <PropertyRef Name="cod_tarifa" />
+            </Principal>
+            <Dependent Role="R_Tarifa_habitacion">
+              <PropertyRef Name="cod_tarifa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cfrbookModelStoreContainer">
+          <EntitySet Name="Boletines" EntityType="Self.Boletines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_days" EntityType="Self.R_days" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_Lang" EntityType="Self.R_Lang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_operadores" EntityType="Self.R_operadores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_PolicyCancel" EntityType="Self.R_PolicyCancel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_PriceDay" EntityType="Self.R_PriceDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_Res_Hot_Param" EntityType="Self.R_Res_Hot_Param" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_ReservasO" EntityType="Self.R_ReservasO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_ReservasO_Note" EntityType="Self.R_ReservasO_Note" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_ResO_CarPickup" EntityType="Self.R_ResO_CarPickup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_ResO_Hab" EntityType="Self.R_ResO_Hab" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_Tarifa_habitacion" EntityType="Self.R_Tarifa_habitacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_tarifas" EntityType="Self.R_tarifas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="r_Tarifas_Temporadas" EntityType="Self.r_Tarifas_Temporadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="r_Temporadas" EntityType="Self.r_Temporadas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_Temporadas_Periodos" EntityType="Self.R_Temporadas_Periodos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_UnitLocation" EntityType="Self.R_UnitLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_UnitLocation_Lang" EntityType="Self.R_UnitLocation_Lang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_Usuarios" EntityType="Self.R_Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_UsuariosSession" EntityType="Self.R_UsuariosSession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_HOTELES" EntityType="Self.T_HOTELES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_HOTELES_HABITACIONES" EntityType="Self.T_HOTELES_HABITACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_HOTELES_HABITACIONES_Fotos" EntityType="Self.T_HOTELES_HABITACIONES_Fotos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="R_Tarifa_operador" EntityType="Self.R_Tarifa_operador" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[R_Tarifa_operador].[cod_tarifa] AS [cod_tarifa], 
+[R_Tarifa_operador].[cod_operador] AS [cod_operador], 
+[R_Tarifa_operador].[tipo_tarifa] AS [tipo_tarifa]
+FROM [dbo].[R_Tarifa_operador] AS [R_Tarifa_operador]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_R_operadores_T_HOTELES" Association="Self.FK_R_operadores_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELES" />
+            <End Role="R_operadores" EntitySet="R_operadores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_PolicyCancel_T_HOTELES" Association="Self.FK_R_PolicyCancel_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELES" />
+            <End Role="R_PolicyCancel" EntitySet="R_PolicyCancel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_PriceDay_R_Tarifa_habitacion1" Association="Self.FK_R_PriceDay_R_Tarifa_habitacion1">
+            <End Role="R_Tarifa_habitacion" EntitySet="R_Tarifa_habitacion" />
+            <End Role="R_PriceDay" EntitySet="R_PriceDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_Res_Hot_Param_T_HOTELES" Association="Self.FK_R_Res_Hot_Param_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELES" />
+            <End Role="R_Res_Hot_Param" EntitySet="R_Res_Hot_Param" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ReservasO_Note_R_ReservasO" Association="Self.FK_R_ReservasO_Note_R_ReservasO">
+            <End Role="R_ReservasO" EntitySet="R_ReservasO" />
+            <End Role="R_ReservasO_Note" EntitySet="R_ReservasO_Note" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ReservasO_Note_R_Usuarios" Association="Self.FK_R_ReservasO_Note_R_Usuarios">
+            <End Role="R_Usuarios" EntitySet="R_Usuarios" />
+            <End Role="R_ReservasO_Note" EntitySet="R_ReservasO_Note" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ReservasO_R_operadores" Association="Self.FK_R_ReservasO_R_operadores">
+            <End Role="R_operadores" EntitySet="R_operadores" />
+            <End Role="R_ReservasO" EntitySet="R_ReservasO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_CarPickup_R_ReservasO" Association="Self.FK_R_ResO_CarPickup_R_ReservasO">
+            <End Role="R_ReservasO" EntitySet="R_ReservasO" />
+            <End Role="R_ResO_CarPickup" EntitySet="R_ResO_CarPickup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_CarPickup_R_UnitLocation" Association="Self.FK_R_ResO_CarPickup_R_UnitLocation">
+            <End Role="R_UnitLocation" EntitySet="R_UnitLocation" />
+            <End Role="R_ResO_CarPickup" EntitySet="R_ResO_CarPickup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_CarPickup_R_UnitLocation1" Association="Self.FK_R_ResO_CarPickup_R_UnitLocation1">
+            <End Role="R_UnitLocation" EntitySet="R_UnitLocation" />
+            <End Role="R_ResO_CarPickup" EntitySet="R_ResO_CarPickup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_Hab_R_ReservasO" Association="Self.FK_R_ResO_Hab_R_ReservasO">
+            <End Role="R_ReservasO" EntitySet="R_ReservasO" />
+            <End Role="R_ResO_Hab" EntitySet="R_ResO_Hab" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_Hab_T_HOTELES_HABITACIONES" Association="Self.FK_R_ResO_Hab_T_HOTELES_HABITACIONES">
+            <End Role="T_HOTELES_HABITACIONES" EntitySet="T_HOTELES_HABITACIONES" />
+            <End Role="R_ResO_Hab" EntitySet="R_ResO_Hab" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_Tarifa_operador_R_operadores" Association="Self.FK_R_Tarifa_operador_R_operadores">
+            <End Role="R_operadores" EntitySet="R_operadores" />
+            <End Role="R_Tarifa_operador" EntitySet="R_Tarifa_operador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_Tarifa_operador_R_tarifas" Association="Self.FK_R_Tarifa_operador_R_tarifas">
+            <End Role="R_tarifas" EntitySet="R_tarifas" />
+            <End Role="R_Tarifa_operador" EntitySet="R_Tarifa_operador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_tarifas_R_PolicyCancel" Association="Self.FK_R_tarifas_R_PolicyCancel">
+            <End Role="R_PolicyCancel" EntitySet="R_PolicyCancel" />
+            <End Role="R_tarifas" EntitySet="R_tarifas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_r_Tarifas_Temporadas_R_tarifas" Association="Self.FK_r_Tarifas_Temporadas_R_tarifas">
+            <End Role="R_tarifas" EntitySet="R_tarifas" />
+            <End Role="r_Tarifas_Temporadas" EntitySet="r_Tarifas_Temporadas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_UnitLocation_Lang_R_UnitLocation" Association="Self.FK_R_UnitLocation_Lang_R_UnitLocation">
+            <End Role="R_UnitLocation" EntitySet="R_UnitLocation" />
+            <End Role="R_UnitLocation_Lang" EntitySet="R_UnitLocation_Lang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_Usuarios_T_HOTELES" Association="Self.FK_R_Usuarios_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELES" />
+            <End Role="R_Usuarios" EntitySet="R_Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_HOTELES_HABITACIONES_T_HOTELES" Association="Self.FK_T_HOTELES_HABITACIONES_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELES" />
+            <End Role="T_HOTELES_HABITACIONES" EntitySet="T_HOTELES_HABITACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tarifa_habitacion_R_tarifas" Association="Self.FK_Tarifa_habitacion_R_tarifas">
+            <End Role="R_tarifas" EntitySet="R_tarifas" />
+            <End Role="R_Tarifa_habitacion" EntitySet="R_Tarifa_habitacion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cfrbookModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="cfrbookEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="R_UnitLocation" EntityType="cfrbookModel.R_UnitLocation" />
+          <EntitySet Name="R_UnitLocation_Lang" EntityType="cfrbookModel.R_UnitLocation_Lang" />
+          <AssociationSet Name="FK_R_UnitLocation_Lang_R_UnitLocation" Association="cfrbookModel.FK_R_UnitLocation_Lang_R_UnitLocation">
+            <End Role="R_UnitLocation" EntitySet="R_UnitLocation" />
+            <End Role="R_UnitLocation_Lang" EntitySet="R_UnitLocation_Lang" />
+          </AssociationSet>
+          <EntitySet Name="R_ResO_CarPickup" EntityType="cfrbookModel.R_ResO_CarPickup" />
+          <AssociationSet Name="FK_R_ResO_CarPickup_R_UnitLocation" Association="cfrbookModel.FK_R_ResO_CarPickup_R_UnitLocation">
+            <End Role="R_UnitLocation" EntitySet="R_UnitLocation" />
+            <End Role="R_ResO_CarPickup" EntitySet="R_ResO_CarPickup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_CarPickup_R_UnitLocation1" Association="cfrbookModel.FK_R_ResO_CarPickup_R_UnitLocation1">
+            <End Role="R_UnitLocation" EntitySet="R_UnitLocation" />
+            <End Role="R_ResO_CarPickup" EntitySet="R_ResO_CarPickup" />
+          </AssociationSet>
+          <EntitySet Name="R_Lang" EntityType="cfrbookModel.R_Lang" />
+          <EntitySet Name="R_UsuariosSession" EntityType="cfrbookModel.R_UsuariosSession" />
+          <EntitySet Name="R_Usuarios" EntityType="cfrbookModel.R_Usuarios" />
+          <EntitySet Name="R_operadorEF" EntityType="cfrbookModel.R_operadorEF" />
+          <EntitySet Name="R_ReservasO_Note" EntityType="cfrbookModel.R_ReservasO_Note" />
+          <AssociationSet Name="FK_R_ReservasO_Note_R_Usuarios" Association="cfrbookModel.FK_R_ReservasO_Note_R_Usuarios">
+            <End Role="R_Usuarios" EntitySet="R_Usuarios" />
+            <End Role="R_ReservasO_Note" EntitySet="R_ReservasO_Note" />
+          </AssociationSet>
+          <EntitySet Name="BookResEF" EntityType="cfrbookModel.BookResEF" />
+          <EntitySet Name="BookUnit" EntityType="cfrbookModel.BookUnit" />
+          <AssociationSet Name="FK_R_ReservasO_Note_R_ReservasO" Association="cfrbookModel.FK_R_ReservasO_Note_R_ReservasO">
+            <End Role="R_ReservasO" EntitySet="BookResEF" />
+            <End Role="R_ReservasO_Note" EntitySet="R_ReservasO_Note" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_CarPickup_R_ReservasO" Association="cfrbookModel.FK_R_ResO_CarPickup_R_ReservasO">
+            <End Role="R_ReservasO" EntitySet="BookResEF" />
+            <End Role="R_ResO_CarPickup" EntitySet="R_ResO_CarPickup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ResO_Hab_R_ReservasO" Association="cfrbookModel.FK_R_ResO_Hab_R_ReservasO">
+            <End Role="R_ReservasO" EntitySet="BookResEF" />
+            <End Role="R_ResO_Hab" EntitySet="BookUnit" />
+          </AssociationSet>
+          <EntitySet Name="T_HOTELES_HABITACIONES" EntityType="cfrbookModel.T_HOTELES_HABITACIONES" />
+          <AssociationSet Name="FK_R_ResO_Hab_T_HOTELES_HABITACIONES" Association="cfrbookModel.FK_R_ResO_Hab_T_HOTELES_HABITACIONES">
+            <End Role="T_HOTELES_HABITACIONES" EntitySet="T_HOTELES_HABITACIONES" />
+            <End Role="BookUnit" EntitySet="BookUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_ReservasO_R_operadores" Association="cfrbookModel.FK_R_ReservasO_R_operadores">
+            <End Role="R_operadorEF" EntitySet="R_operadorEF" />
+            <End Role="BookResEF" EntitySet="BookResEF" />
+          </AssociationSet>
+          <EntitySet Name="R_tarifasEF" EntityType="cfrbookModel.R_tarifasEF" />
+          <EntitySet Name="R_Res_Hot_Param" EntityType="cfrbookModel.R_Res_Hot_Param" />
+          <EntitySet Name="T_HOTELESEF" EntityType="cfrbookModel.T_HOTELESEF" />
+          <AssociationSet Name="FK_R_operadores_T_HOTELES" Association="cfrbookModel.FK_R_operadores_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELESEF" />
+            <End Role="R_operadorEF" EntitySet="R_operadorEF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_Res_Hot_Param_T_HOTELES" Association="cfrbookModel.FK_R_Res_Hot_Param_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELESEF" />
+            <End Role="R_Res_Hot_Param" EntitySet="R_Res_Hot_Param" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_Usuarios_T_HOTELES" Association="cfrbookModel.FK_R_Usuarios_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELESEF" />
+            <End Role="R_Usuarios" EntitySet="R_Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_T_HOTELES_HABITACIONES_T_HOTELES" Association="cfrbookModel.FK_T_HOTELES_HABITACIONES_T_HOTELES">
+            <End Role="T_HOTELES" EntitySet="T_HOTELESEF" />
+            <End Role="T_HOTELES_HABITACIONES" EntitySet="T_HOTELES_HABITACIONES" />
+          </AssociationSet>
+          <EntitySet Name="R_PolicyCancel" EntityType="cfrbookModel.R_PolicyCancel" />
+          <AssociationSet Name="FK_R_tarifas_R_PolicyCancel" Association="cfrbookModel.FK_R_tarifas_R_PolicyCancel">
+            <End Role="R_PolicyCancel" EntitySet="R_PolicyCancel" />
+            <End Role="R_tarifasEF" EntitySet="R_tarifasEF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_PolicyCancel_T_HOTELES" Association="cfrbookModel.FK_R_PolicyCancel_T_HOTELES">
+            <End Role="T_HOTELESEF" EntitySet="T_HOTELESEF" />
+            <End Role="R_PolicyCancel" EntitySet="R_PolicyCancel" />
+          </AssociationSet>
+          <EntitySet Name="r_Tarifas_TemporadasEF" EntityType="cfrbookModel.r_Tarifas_TemporadasEF" />
+          <AssociationSet Name="FK_r_Tarifas_Temporadas_R_tarifas" Association="cfrbookModel.FK_r_Tarifas_Temporadas_R_tarifas">
+            <End Role="R_tarifasEF" EntitySet="R_tarifasEF" />
+            <End Role="r_Tarifas_Temporadas" EntitySet="r_Tarifas_TemporadasEF" />
+          </AssociationSet>
+          <EntitySet Name="r_TemporadasEF" EntityType="cfrbookModel.r_TemporadasEF" />
+          <EntitySet Name="R_Temporadas_PeriodosEF" EntityType="cfrbookModel.R_Temporadas_PeriodosEF" />
+          <EntitySet Name="T_HOTELES_HABITACIONES_FotosEF" EntityType="cfrbookModel.T_HOTELES_HABITACIONES_FotosEF" />
+          <EntitySet Name="BoletinesEF" EntityType="cfrbookModel.BoletinesEF" />
+          <EntitySet Name="R_Tarifa_habitacionEF" EntityType="cfrbookModel.R_Tarifa_habitacionEF" />
+          <AssociationSet Name="FK_Tarifa_habitacion_R_tarifas" Association="cfrbookModel.FK_Tarifa_habitacion_R_tarifas">
+            <End Role="R_tarifasEF" EntitySet="R_tarifasEF" />
+            <End Role="R_Tarifa_habitacion" EntitySet="R_Tarifa_habitacionEF" />
+          </AssociationSet>
+          <EntitySet Name="R_PriceDayEF" EntityType="cfrbookModel.R_PriceDayEF" />
+          <AssociationSet Name="FK_R_PriceDay_R_Tarifa_habitacion1" Association="cfrbookModel.FK_R_PriceDay_R_Tarifa_habitacion1">
+            <End Role="R_Tarifa_habitacionEF" EntitySet="R_Tarifa_habitacionEF" />
+            <End Role="R_PriceDay" EntitySet="R_PriceDayEF" />
+          </AssociationSet>
+          <EntitySet Name="R_daysEF" EntityType="cfrbookModel.R_daysEF" />
+          <EntitySet Name="R_Tarifa_operadorEF" EntityType="cfrbookModel.R_Tarifa_operadorEF" />
+          <AssociationSet Name="FK_R_Tarifa_operador_R_operadores" Association="cfrbookModel.FK_R_Tarifa_operador_R_operadores">
+            <End Role="R_operadorEF" EntitySet="R_operadorEF" />
+            <End Role="R_Tarifa_operador" EntitySet="R_Tarifa_operadorEF" />
+          </AssociationSet>
+          <AssociationSet Name="FK_R_Tarifa_operador_R_tarifas" Association="cfrbookModel.FK_R_Tarifa_operador_R_tarifas">
+            <End Role="R_tarifasEF" EntitySet="R_tarifasEF" />
+            <End Role="R_Tarifa_operador" EntitySet="R_Tarifa_operadorEF" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="R_UnitLocation">
+          <Key>
+            <PropertyRef Name="id_unit_location" />
+          </Key>
+          <Property Name="id_unit_location" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_hotel" Type="Int32" />
+          <Property Name="location" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="id_address" Type="Int32" Nullable="false" />
+          <Property Name="active" Type="Boolean" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <NavigationProperty Name="R_UnitLocation_Lang" Relationship="cfrbookModel.FK_R_UnitLocation_Lang_R_UnitLocation" FromRole="R_UnitLocation" ToRole="R_UnitLocation_Lang" />
+          <NavigationProperty Name="R_ResO_CarPickup" Relationship="cfrbookModel.FK_R_ResO_CarPickup_R_UnitLocation" FromRole="R_UnitLocation" ToRole="R_ResO_CarPickup" />
+          <NavigationProperty Name="R_ResO_CarPickup1" Relationship="cfrbookModel.FK_R_ResO_CarPickup_R_UnitLocation1" FromRole="R_UnitLocation" ToRole="R_ResO_CarPickup" />
+          <Property Type="Byte" Name="tipo" Nullable="false" />
+        </EntityType>
+        <EntityType Name="R_UnitLocation_Lang">
+          <Key>
+            <PropertyRef Name="id_RUnitLocation" />
+          </Key>
+          <Property Name="id_Lang" Type="String" Nullable="false" MaxLength="7" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="id_unit_location" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="R_UnitLocation" Relationship="cfrbookModel.FK_R_UnitLocation_Lang_R_UnitLocation" FromRole="R_UnitLocation_Lang" ToRole="R_UnitLocation" />
+          <Property Type="Int32" Name="id_RUnitLocation" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_R_UnitLocation_Lang_R_UnitLocation">
+          <End Role="R_UnitLocation" Type="cfrbookModel.R_UnitLocation" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="R_UnitLocation_Lang" Type="cfrbookModel.R_UnitLocation_Lang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_UnitLocation">
+              <PropertyRef Name="id_unit_location" />
+            </Principal>
+            <Dependent Role="R_UnitLocation_Lang">
+              <PropertyRef Name="id_unit_location" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="R_ResO_CarPickup">
+          <Key>
+            <PropertyRef Name="id_reso_carpickup" />
+          </Key>
+          <Property Type="Int32" Name="id_reso_carpickup" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="unit_location_GET" Nullable="false" />
+          <Property Type="Double" Name="unit_location_Get_Price" Nullable="false" />
+          <Property Type="Int32" Name="unit_location_Return" Nullable="false" />
+          <Property Type="Double" Name="unit_location_Return_Price" Nullable="false" />
+          <NavigationProperty Name="R_UnitLocation" Relationship="cfrbookModel.FK_R_ResO_CarPickup_R_UnitLocation" FromRole="R_ResO_CarPickup" ToRole="R_UnitLocation" />
+          <NavigationProperty Name="R_UnitLocation1" Relationship="cfrbookModel.FK_R_ResO_CarPickup_R_UnitLocation1" FromRole="R_ResO_CarPickup" ToRole="R_UnitLocation" />
+          <Property Type="String" Name="location_description_manual" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="cod_reservaO" Nullable="false" />
+          <NavigationProperty Name="R_ReservasO" Relationship="cfrbookModel.FK_R_ResO_CarPickup_R_ReservasO" FromRole="R_ResO_CarPickup" ToRole="R_ReservasO" />
+        </EntityType>
+        <Association Name="FK_R_ResO_CarPickup_R_UnitLocation">
+          <End Type="cfrbookModel.R_UnitLocation" Role="R_UnitLocation" Multiplicity="1" />
+          <End Type="cfrbookModel.R_ResO_CarPickup" Role="R_ResO_CarPickup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_UnitLocation">
+              <PropertyRef Name="id_unit_location" />
+            </Principal>
+            <Dependent Role="R_ResO_CarPickup">
+              <PropertyRef Name="unit_location_GET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_CarPickup_R_UnitLocation1">
+          <End Type="cfrbookModel.R_UnitLocation" Role="R_UnitLocation" Multiplicity="1" />
+          <End Type="cfrbookModel.R_ResO_CarPickup" Role="R_ResO_CarPickup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_UnitLocation">
+              <PropertyRef Name="id_unit_location" />
+            </Principal>
+            <Dependent Role="R_ResO_CarPickup">
+              <PropertyRef Name="unit_location_Return" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="R_Lang">
+          <Key>
+            <PropertyRef Name="id_RLang" />
+          </Key>
+          <Property Type="Int32" Name="langID" Nullable="false" />
+          <Property Type="String" Name="value" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="isFor" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="exclusiveForForm" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="id_RLang" Nullable="false" />
+          <Property Type="String" Name="myenum" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="R_UsuariosSession">
+          <Key>
+            <PropertyRef Name="idSession" />
+          </Key>
+          <Property Type="Int32" Name="idSession" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="id_usuario" Nullable="false" />
+          <Property Type="String" Name="ipaccess" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="logon" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="logoff" Precision="3" />
+          <Property Type="String" Name="sessionkey" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="R_Usuarios">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Type="Int32" Name="cod_usuario" />
+          <Property Type="Int32" Name="cod_hotel" Nullable="false" />
+          <Property Type="Int16" Name="cod_CRS" Nullable="false" />
+          <Property Type="String" Name="usuario" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="login" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="clave" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="perfil" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="email" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="id_usuario" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="ultimoacceso" Precision="3" />
+          <Property Type="DateTime" Name="modifydate" Precision="3" />
+          <NavigationProperty Name="R_ReservasO_Note" Relationship="cfrbookModel.FK_R_ReservasO_Note_R_Usuarios" FromRole="R_Usuarios" ToRole="R_ReservasO_Note" />
+          <NavigationProperty Name="T_HOTELES" Relationship="cfrbookModel.FK_R_Usuarios_T_HOTELES" FromRole="R_Usuarios" ToRole="T_HOTELES" />
+        </EntityType>
+        <EntityType Name="R_operadorEF">
+          <Key>
+            <PropertyRef Name="cod_operador" />
+          </Key>
+          <Property Type="Int32" Name="cod_operador" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="cod_hotel" Nullable="false" />
+          <Property Type="String" Name="Operador" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="FreeSale" />
+          <Property Type="Double" Name="comision" />
+          <Property Type="Int32" Name="forma_pago" />
+          <Property Type="String" Name="politica" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="Release" />
+          <Property Type="String" Name="login" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Clave" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="N_T_Credito" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CaducidadTarjeta" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TitularTarjeta" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="cod_CRS" />
+          <Property Type="String" Name="polIngles" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="polFrances" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="polAleman" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="polItaliano" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="polCatalan" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="tipo" />
+          <Property Type="String" Name="COD_OPERADOR_hotel" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="COD_Agencia_Grupo" />
+          <Property Type="Int32" Name="cod_Cadena" />
+          <Property Type="Byte" Name="generico" />
+          <Property Type="Int16" Name="maxdiasdereserva" />
+          <Property Type="Boolean" Name="aplicarYMprecio" />
+          <Property Type="Boolean" Name="aplicarYMdiasmin" />
+          <Property Type="DateTime" Name="ModifyDate" Precision="3" />
+          <Property Type="Double" Name="discount" />
+          <Property Type="Boolean" Name="discountapply" />
+          <Property Type="DateTime" Name="discountapplyfrom" Precision="3" />
+          <Property Type="DateTime" Name="discountapplyuntil" Precision="3" />
+          <Property Type="Boolean" Name="Active" />
+          <NavigationProperty Name="R_ReservasO" Relationship="cfrbookModel.FK_R_ReservasO_R_operadores" FromRole="R_operadorEF" ToRole="BookResEF" />
+          <NavigationProperty Name="T_HOTELES" Relationship="cfrbookModel.FK_R_operadores_T_HOTELES" FromRole="R_operadorEF" ToRole="T_HOTELES" />
+          <Property Type="Boolean" Name="discountNoRefund" />
+          <Property Type="Boolean" Name="discountNotApplyWithNoRefundTariff" />
+          <NavigationProperty Name="R_Tarifa_operador" Relationship="cfrbookModel.FK_R_Tarifa_operador_R_operadores" FromRole="R_operadorEF" ToRole="R_Tarifa_operador" />
+        </EntityType>
+        <EntityType Name="R_ReservasO_Note">
+          <Key>
+            <PropertyRef Name="cod_reservaO" />
+          </Key>
+          <Property Type="Int32" Name="id_Note" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="cod_reservaO" Nullable="false" />
+          <Property Type="String" Name="Note" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="datemodify" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="id_usuario" />
+          <NavigationProperty Name="R_Usuarios" Relationship="cfrbookModel.FK_R_ReservasO_Note_R_Usuarios" FromRole="R_ReservasO_Note" ToRole="R_Usuarios" />
+          <NavigationProperty Name="R_ReservasO" Relationship="cfrbookModel.FK_R_ReservasO_Note_R_ReservasO" FromRole="R_ReservasO_Note" ToRole="R_ReservasO" />
+        </EntityType>
+        <Association Name="FK_R_ReservasO_Note_R_Usuarios">
+          <End Type="cfrbookModel.R_Usuarios" Role="R_Usuarios" Multiplicity="0..1" />
+          <End Type="cfrbookModel.R_ReservasO_Note" Role="R_ReservasO_Note" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_Usuarios">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="R_ReservasO_Note">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BookResEF">
+          <Key>
+            <PropertyRef Name="cod_reservaO" />
+          </Key>
+          <Property Type="Int32" Name="cod_hotel" />
+          <Property Type="Int32" Name="operador" />
+          <Property Type="Int32" Name="cod_reservaO" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="id_customer" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Apellido1" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Apellido2" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DNI" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="telefono" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="fax" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="email" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="direccion" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cod_postal" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ciudad" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="pais" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="horas1" />
+          <Property Type="Byte" Name="horas2" />
+          <Property Type="Byte" Name="horas3" />
+          <Property Type="Byte" Name="hpenaliz1" />
+          <Property Type="Byte" Name="hpenaliz2" />
+          <Property Type="Byte" Name="hpenaliz3" />
+          <Property Type="String" Name="moneda" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="impuestos" />
+          <Property Type="Int32" Name="cod_formapago" Nullable="false" />
+          <Property Type="String" Name="nTarjeta" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FCaducidad" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Titular" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="login" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="clave" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="HoraReserva" Precision="3" />
+          <Property Type="Int32" Name="cod_CRS" />
+          <Property Type="Double" Name="codoperadorCRS" />
+          <Property Type="String" Name="operadorCRS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CRS" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Site" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Descoperador" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="checkMail" />
+          <Property Type="Byte" Name="checkHotel" />
+          <Property Type="String" Name="cod_Reserva_hotel" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="CheckHotelPago" />
+          <Property Type="String" Name="CheckHotelUser" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Nombre" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Direccion" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Cod_postal" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_ciudad" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Provincia" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Pais" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Telefono" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Fax" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Grupo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_Agente" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Ag_email" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="operadorGenerico" />
+          <Property Type="Int32" Name="tipoOperador" />
+          <Property Type="String" Name="empresa" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="precioReal" DefaultValue="0" />
+          <Property Type="String" Name="empresadireccion" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="empresatlf" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="empresaemail" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="comentarios" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="ComisionAplicada" />
+          <Property Type="DateTime" Name="FechaModPrecioReal" Precision="3" />
+          <Property Type="String" Name="CCUTarjeta" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Card_type" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Signature" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TPV_order" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="language" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="num_factura" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="driverage" />
+          <Property Type="Int32" Name="bookpolicyID" />
+          <NavigationProperty Name="R_ReservasO_Note" Relationship="cfrbookModel.FK_R_ReservasO_Note_R_ReservasO" FromRole="R_ReservasO" ToRole="R_ReservasO_Note" />
+          <NavigationProperty Name="R_ResO_CarPickup" Relationship="cfrbookModel.FK_R_ResO_CarPickup_R_ReservasO" FromRole="R_ReservasO" ToRole="R_ResO_CarPickup" />
+          <NavigationProperty Name="R_ResO_Hab" Relationship="cfrbookModel.FK_R_ResO_Hab_R_ReservasO" FromRole="R_ReservasO" ToRole="R_ResO_Hab" />
+          <Property Type="String" Name="passport" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="birthdate" Precision="0" />
+          <Property Type="String" Name="driverlicense" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="nacionality" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="cuna" />
+          <Property Type="DateTime" Name="comentarioscheck" Precision="0" />
+          <Property Type="String" Name="driveraditional" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="promotioncode" />
+          <NavigationProperty Name="R_operadores" Relationship="cfrbookModel.FK_R_ReservasO_R_operadores" FromRole="BookResEF" ToRole="R_operadorEF" />
+          <Property Type="Boolean" Name="noRefundTariffSelected" />
+          <Property Type="Double" Name="chargeafterdayvalue" />
+          <Property Type="String" Name="chargeuntilday" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="chargeuntildayvalue" />
+        </EntityType>
+        <EntityType Name="BookUnit">
+          <Key>
+            <PropertyRef Name="cod_reso_hab" />
+          </Key>
+          <Property Type="Int32" Name="cod_reservaO" Nullable="false" />
+          <Property Type="Int32" Name="cod_reso_hab" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="fecha_entrada" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="fecha_salida" Nullable="false" Precision="3" />
+          <Property Type="Byte" Name="num_habitaciones" Nullable="false" />
+          <Property Type="Byte" Name="num_personas" Nullable="false" />
+          <Property Type="String" Name="regimen_aloj" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="tipo_habitacion" Nullable="false" />
+          <Property Type="Byte" Name="edadnino1" />
+          <Property Type="Byte" Name="edadnino2" />
+          <Property Type="String" Name="comentarios1" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="preciofinal" Nullable="false" />
+          <Property Type="DateTime" Name="HoraConfirmacion" Precision="3" />
+          <Property Type="String" Name="Confirmadax" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="HoraModificacion" Precision="3" />
+          <Property Type="String" Name="Modificadax" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Canceladax" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="Estado" />
+          <Property Type="Byte" Name="EstadoPago" />
+          <Property Type="DateTime" Name="HoraCancelacion" Precision="3" />
+          <Property Type="String" Name="cupoOrigen" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DescHabitacion" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="cod_hab_combinada" />
+          <Property Type="String" Name="PrecioDesglosado" MaxLength="900" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="RegimenDesglosado" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="R_ReservasO" Relationship="cfrbookModel.FK_R_ResO_Hab_R_ReservasO" FromRole="R_ResO_Hab" ToRole="R_ReservasO" />
+          <NavigationProperty Name="T_HOTELES_HABITACIONES" Relationship="cfrbookModel.FK_R_ResO_Hab_T_HOTELES_HABITACIONES" FromRole="BookUnit" ToRole="T_HOTELES_HABITACIONES" />
+          <Property Type="Byte" Name="carkminit" />
+          <Property Type="Byte" Name="carkmend" />
+          <Property Type="String" Name="carmodel" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="carplate" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="carbastidor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="caroiltankfilled" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_R_ReservasO_Note_R_ReservasO">
+          <End Type="cfrbookModel.BookResEF" Role="R_ReservasO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.R_ReservasO_Note" Role="R_ReservasO_Note" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="R_ReservasO">
+              <PropertyRef Name="cod_reservaO" />
+            </Principal>
+            <Dependent Role="R_ReservasO_Note">
+              <PropertyRef Name="cod_reservaO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_CarPickup_R_ReservasO">
+          <End Type="cfrbookModel.BookResEF" Role="R_ReservasO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.R_ResO_CarPickup" Role="R_ResO_CarPickup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_ReservasO">
+              <PropertyRef Name="cod_reservaO" />
+            </Principal>
+            <Dependent Role="R_ResO_CarPickup">
+              <PropertyRef Name="cod_reservaO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ResO_Hab_R_ReservasO">
+          <End Type="cfrbookModel.BookResEF" Role="R_ReservasO" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.BookUnit" Role="R_ResO_Hab" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_ReservasO">
+              <PropertyRef Name="cod_reservaO" />
+            </Principal>
+            <Dependent Role="R_ResO_Hab">
+              <PropertyRef Name="cod_reservaO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="T_HOTELES_HABITACIONES">
+          <Key>
+            <PropertyRef Name="codhabitacionhotel" />
+          </Key>
+          <Property Type="Int32" Name="Hotel" />
+          <Property Type="Int32" Name="codhabitacionhotel" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="habitacionhotel" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="codhabitacionGenerica" />
+          <Property Type="String" Name="descripcion" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="Adultos" />
+          <Property Type="Byte" Name="AdultosExtra1" />
+          <Property Type="Byte" Name="AdultosExtra2" />
+          <Property Type="Byte" Name="MaxPersonas" />
+          <Property Type="Byte" Name="NumNino" />
+          <Property Type="Byte" Name="MaxAdultos" />
+          <Property Type="String" Name="ServiciosEsp" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ServiciosIngles" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ServiciosFrances" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ServiciosAleman" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ServiciosItaliano" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ServiciosCatalan" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="cod_hab_combinada" />
+          <Property Type="Byte" Name="NinoOcupaplaza" />
+          <Property Type="String" Name="desc_en" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="desc_de" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="desc_fr" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="desc_it" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="desc_ca" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="numroomsavailable" />
+          <NavigationProperty Name="R_ResO_Hab" Relationship="cfrbookModel.FK_R_ResO_Hab_T_HOTELES_HABITACIONES" FromRole="T_HOTELES_HABITACIONES" ToRole="BookUnit" />
+          <NavigationProperty Name="T_HOTELES" Relationship="cfrbookModel.FK_T_HOTELES_HABITACIONES_T_HOTELES" FromRole="T_HOTELES_HABITACIONES" ToRole="T_HOTELES" />
+        </EntityType>
+        <Association Name="FK_R_ResO_Hab_T_HOTELES_HABITACIONES">
+          <End Type="cfrbookModel.T_HOTELES_HABITACIONES" Role="T_HOTELES_HABITACIONES" Multiplicity="1" />
+          <End Type="cfrbookModel.BookUnit" Role="BookUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES_HABITACIONES">
+              <PropertyRef Name="codhabitacionhotel" />
+            </Principal>
+            <Dependent Role="BookUnit">
+              <PropertyRef Name="tipo_habitacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_ReservasO_R_operadores">
+          <End Type="cfrbookModel.R_operadorEF" Role="R_operadorEF" Multiplicity="0..1" />
+          <End Type="cfrbookModel.BookResEF" Role="BookResEF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_operadorEF">
+              <PropertyRef Name="cod_operador" />
+            </Principal>
+            <Dependent Role="BookResEF">
+              <PropertyRef Name="promotioncode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="R_tarifasEF">
+          <Key>
+            <PropertyRef Name="cod_tarifa" />
+          </Key>
+          <Property Type="Int32" Name="cod_tarifa" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="cod_hotel" Nullable="false" />
+          <Property Type="String" Name="tarifa" Nullable="false" MaxLength="53" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="DiasMinimos" Nullable="false" />
+          <Property Type="Int16" Name="cod_CRS" Nullable="false" />
+          <Property Type="Double" Name="ImpuestoTarifa" />
+          <Property Type="Byte" Name="Categoria" />
+          <Property Type="Boolean" Name="PrecNetoBruto" />
+          <Property Type="Boolean" Name="TI" />
+          <Property Type="Boolean" Name="PC" />
+          <Property Type="Boolean" Name="MP" />
+          <Property Type="Boolean" Name="AD" />
+          <Property Type="Boolean" Name="SA" />
+          <Property Type="Boolean" Name="AplicDescACapac" />
+          <Property Type="String" Name="promotioncode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="AplicSupFinDeSemana" />
+          <Property Type="DateTime" Name="ModifyDate" Precision="3" />
+          <Property Type="Int32" Name="ModifyCodUsuario" />
+          <Property Type="Double" Name="TPVMinimum" />
+          <Property Type="Boolean" Name="TPVOneNight" />
+          <Property Type="Boolean" Name="norefundtariff" />
+          <Property Type="Double" Name="norefundtariffdiscount" />
+          <Property Type="Boolean" Name="norefundtariffdiscountapply2tariffonly" />
+          <Property Type="Int32" Name="policyID" />
+          <NavigationProperty Name="R_PolicyCancel" Relationship="cfrbookModel.FK_R_tarifas_R_PolicyCancel" FromRole="R_tarifasEF" ToRole="R_PolicyCancel" />
+          <NavigationProperty Name="r_Tarifas_Temporadas" Relationship="cfrbookModel.FK_r_Tarifas_Temporadas_R_tarifas" FromRole="R_tarifasEF" ToRole="r_Tarifas_Temporadas" />
+          <NavigationProperty Name="R_Tarifa_habitacion" Relationship="cfrbookModel.FK_Tarifa_habitacion_R_tarifas" FromRole="R_tarifasEF" ToRole="R_Tarifa_habitacion" />
+          <NavigationProperty Name="R_Tarifa_operador" Relationship="cfrbookModel.FK_R_Tarifa_operador_R_tarifas" FromRole="R_tarifasEF" ToRole="R_Tarifa_operador" />
+        </EntityType>
+        <EntityType Name="R_Res_Hot_Param">
+          <Key>
+            <PropertyRef Name="cod_hotel" />
+          </Key>
+          <Property Type="Int32" Name="cod_hotel" Nullable="false" />
+          <Property Type="Byte" Name="EdadMaxNinoGratis" />
+          <Property Type="Byte" Name="EdadMaxNinoPago" />
+          <Property Type="Double" Name="impuestos" />
+          <Property Type="String" Name="moneda" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="Alojamiento" Nullable="false" />
+          <Property Type="Boolean" Name="AD" Nullable="false" />
+          <Property Type="Boolean" Name="MP" Nullable="false" />
+          <Property Type="Boolean" Name="PC" Nullable="false" />
+          <Property Type="String" Name="CCC" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="emailConfirmacion" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtConfirmacion" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="logo" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Type="Byte" Name="diasdeAntelacion" />
+          <Property Type="String" Name="txtConfirmacionIngles" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtConfirmacionFrances" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtConfirmacionAleman" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtConfirmacionItaliano" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtConfirmacionCatalan" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="TodoIncluido" />
+          <Property Type="String" Name="polCatalan" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="polItaliano" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="polAleman" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="polFrances" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="polIngles" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="polEsp" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="txtCancelEsp" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="txtCancelIngles" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtCancelFrances" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtCancelAleman" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtCancelItaliano" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="txtCancelCatalan" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="formatoEmailConfirmacion" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="emailConfirmacion2" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="maxhab2see" />
+          <Property Type="Double" Name="comisionyahnormal" />
+          <Property Type="Double" Name="comisionyahregistrados" />
+          <Property Type="Byte" Name="Estado" />
+          <Property Type="String" Name="CCCIBAN" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CCCBIC" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CCCBanco" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CCCSucursal" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="HasTPV" />
+          <Property Type="Double" Name="boardAD" />
+          <Property Type="Double" Name="boardMP" />
+          <Property Type="Double" Name="boardPC" />
+          <Property Type="Double" Name="boardTI" />
+          <NavigationProperty Name="T_HOTELES" Relationship="cfrbookModel.FK_R_Res_Hot_Param_T_HOTELES" FromRole="R_Res_Hot_Param" ToRole="T_HOTELES" />
+        </EntityType>
+        <EntityType Name="T_HOTELESEF">
+          <Key>
+            <PropertyRef Name="cod_Hotel" />
+          </Key>
+          <Property Type="Int32" Name="cod_Hotel" Nullable="false" />
+          <Property Type="String" Name="Tipo" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="hotel" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Direccion" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PrefijoTelf" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Telefono" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Fax" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="cod_Ciudad" />
+          <Property Type="Int32" Name="Cod_Pais" />
+          <Property Type="Int32" Name="cod_Zona" />
+          <Property Type="Int32" Name="Cod_Cont" />
+          <Property Type="Int32" Name="cod_Categoria" />
+          <Property Type="String" Name="codpostal" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Desc_es" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Desc_en" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Desc_de" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Desc_fr" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Desc_cat" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Cadena1" />
+          <Property Type="Int32" Name="Cadena2" />
+          <Property Type="Int32" Name="Cadena3" />
+          <Property Type="Int32" Name="Cadena4" />
+          <Property Type="String" Name="Email" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Web" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="Habitaciones" />
+          <Property Type="String" Name="Amadeus" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Galileo" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Wordspan" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Sabre" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="Datos" />
+          <Property Type="String" Name="Director" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Directorcomercial" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="nfotos" />
+          <Property Type="Int32" Name="coordenadax" />
+          <Property Type="Int32" Name="coordenaday" />
+          <Property Type="Int32" Name="mapa" />
+          <Property Type="String" Name="f1" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Type="Int32" Name="Estado" />
+          <Property Type="String" Name="login" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="clave" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Type="Int16" Name="callejero" />
+          <Property Type="Int32" Name="rowId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="latitud" />
+          <Property Type="Double" Name="longitud" />
+          <Property Type="DateTime" Name="lastUpdate" Precision="3" />
+          <Property Type="String" Name="desc_it" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="desc_pt" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="desc_jp" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="currencycode" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="MNGProp" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="UltimoAcceso" Precision="3" />
+          <Property Type="String" Name="checkintime1" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="checkintime2" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="checkOuttime1" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="checkOuttime2" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="R_operadores" Relationship="cfrbookModel.FK_R_operadores_T_HOTELES" FromRole="T_HOTELES" ToRole="R_operadorEF" />
+          <NavigationProperty Name="R_Res_Hot_Param" Relationship="cfrbookModel.FK_R_Res_Hot_Param_T_HOTELES" FromRole="T_HOTELES" ToRole="R_Res_Hot_Param" />
+          <NavigationProperty Name="R_Usuarios" Relationship="cfrbookModel.FK_R_Usuarios_T_HOTELES" FromRole="T_HOTELES" ToRole="R_Usuarios" />
+          <NavigationProperty Name="T_HOTELES_HABITACIONES" Relationship="cfrbookModel.FK_T_HOTELES_HABITACIONES_T_HOTELES" FromRole="T_HOTELES" ToRole="T_HOTELES_HABITACIONES" />
+          <NavigationProperty Name="R_PolicyCancel" Relationship="cfrbookModel.FK_R_PolicyCancel_T_HOTELES" FromRole="T_HOTELESEF" ToRole="R_PolicyCancel" />
+        </EntityType>
+        <Association Name="FK_R_operadores_T_HOTELES">
+          <End Type="cfrbookModel.T_HOTELESEF" Role="T_HOTELES" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.R_operadorEF" Role="R_operadorEF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_operadorEF">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_Res_Hot_Param_T_HOTELES">
+          <End Type="cfrbookModel.T_HOTELESEF" Role="T_HOTELES" Multiplicity="1" />
+          <End Type="cfrbookModel.R_Res_Hot_Param" Role="R_Res_Hot_Param" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_Res_Hot_Param">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_Usuarios_T_HOTELES">
+          <End Type="cfrbookModel.T_HOTELESEF" Role="T_HOTELES" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.R_Usuarios" Role="R_Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_Usuarios">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_T_HOTELES_HABITACIONES_T_HOTELES">
+          <End Type="cfrbookModel.T_HOTELESEF" Role="T_HOTELES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.T_HOTELES_HABITACIONES" Role="T_HOTELES_HABITACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELES">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="T_HOTELES_HABITACIONES">
+              <PropertyRef Name="Hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="R_PolicyCancel">
+          <Key>
+            <PropertyRef Name="policyID" />
+          </Key>
+          <Property Type="Int32" Name="policyID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="policyName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="chargeuntilday" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Type="Double" Name="chargeunitldaypercent" />
+          <Property Type="Double" Name="chargeafterdaypercent" Nullable="false" />
+          <Property Type="DateTime" Name="datemodified" Nullable="false" Precision="3" />
+          <Property Type="Boolean" Name="defaultpolicy" Nullable="false" />
+          <NavigationProperty Name="R_tarifas" Relationship="cfrbookModel.FK_R_tarifas_R_PolicyCancel" FromRole="R_PolicyCancel" ToRole="R_tarifasEF" />
+          <Property Type="Int32" Name="cod_hotel" Nullable="false" />
+          <NavigationProperty Name="T_HOTELES" Relationship="cfrbookModel.FK_R_PolicyCancel_T_HOTELES" FromRole="R_PolicyCancel" ToRole="T_HOTELESEF" />
+        </EntityType>
+        <Association Name="FK_R_tarifas_R_PolicyCancel">
+          <End Type="cfrbookModel.R_PolicyCancel" Role="R_PolicyCancel" Multiplicity="0..1" />
+          <End Type="cfrbookModel.R_tarifasEF" Role="R_tarifasEF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_PolicyCancel">
+              <PropertyRef Name="policyID" />
+            </Principal>
+            <Dependent Role="R_tarifasEF">
+              <PropertyRef Name="policyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_PolicyCancel_T_HOTELES">
+          <End Type="cfrbookModel.T_HOTELESEF" Role="T_HOTELESEF" Multiplicity="1" />
+          <End Type="cfrbookModel.R_PolicyCancel" Role="R_PolicyCancel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="T_HOTELESEF">
+              <PropertyRef Name="cod_Hotel" />
+            </Principal>
+            <Dependent Role="R_PolicyCancel">
+              <PropertyRef Name="cod_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="r_Tarifas_TemporadasEF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_tarifa" Type="Int32" Nullable="false" />
+          <Property Name="cod_Temporada" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="R_tarifas" Relationship="cfrbookModel.FK_r_Tarifas_Temporadas_R_tarifas" FromRole="r_Tarifas_Temporadas" ToRole="R_tarifasEF" />
+        </EntityType>
+        <Association Name="FK_r_Tarifas_Temporadas_R_tarifas">
+          <End Type="cfrbookModel.R_tarifasEF" Role="R_tarifasEF" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.r_Tarifas_TemporadasEF" Role="r_Tarifas_Temporadas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_tarifasEF">
+              <PropertyRef Name="cod_tarifa" />
+            </Principal>
+            <Dependent Role="r_Tarifas_Temporadas">
+              <PropertyRef Name="cod_tarifa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="r_TemporadasEF">
+          <Key>
+            <PropertyRef Name="cod_Temporada" />
+          </Key>
+          <Property Name="cod_Temporada" Type="Int32" Nullable="false" />
+          <Property Name="cod_hotel" Type="Int32" Nullable="false" />
+          <Property Name="Temporada" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="temporadaType" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="R_Temporadas_PeriodosEF">
+          <Key>
+            <PropertyRef Name="cod_periodo" />
+          </Key>
+          <Property Name="cod_periodo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_temporada" Type="Int32" Nullable="false" />
+          <Property Name="fechainicio" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fechafin" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="T_HOTELES_HABITACIONES_FotosEF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codhabitacionhotel" Type="Int32" Nullable="false" />
+          <Property Name="orderui" Type="Byte" Nullable="false" />
+          <Property Name="modified" Type="DateTime" Precision="3" />
+          <Property Name="version" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="thumbnail" Type="Boolean" />
+          <Property Name="fotourl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BoletinesEF">
+          <Key>
+            <PropertyRef Name="id_email" />
+          </Key>
+          <Property Name="id_email" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="boletin" Type="Byte" Nullable="false" />
+          <Property Name="cod_hotel" Type="Int32" Nullable="false" />
+          <Property Name="modifydate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_customer" Type="Int32" />
+        </EntityType>
+        <EntityType Name="R_Tarifa_habitacionEF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_tarifa" Type="Int32" Nullable="false" />
+          <Property Name="cod_habitacion" Type="Int32" Nullable="false" />
+          <Property Name="precio" Type="Double" Nullable="false" />
+          <Property Name="precioAD" Type="Double" />
+          <Property Name="preciomp" Type="Double" />
+          <Property Name="preciopc" Type="Double" />
+          <Property Name="DescAdultosExtra1" Type="Double" />
+          <Property Name="DescAdultosExtra2" Type="Double" />
+          <Property Name="DescNinoPago1" Type="Double" />
+          <Property Name="DescNinoPago2" Type="Double" />
+          <Property Name="desayunonino" Type="Double" />
+          <Property Name="mpnino" Type="Double" />
+          <Property Name="pcnino" Type="Double" />
+          <Property Name="TodoIncluido" Type="Double" />
+          <Property Name="TodoIncluidoNino" Type="Double" />
+          <Property Name="AplicDescAReg" Type="Byte" />
+          <Property Name="camaExtra2" Type="Double" />
+          <Property Name="camaExtra1" Type="Double" />
+          <Property Name="camaExtra1nino" Type="Double" />
+          <Property Name="camaExtra2nino" Type="Double" />
+          <Property Name="SupDiasMinimos" Type="Double" />
+          <Property Name="SupFinDeSemana" Type="Double" />
+          <NavigationProperty Name="R_tarifas" Relationship="cfrbookModel.FK_Tarifa_habitacion_R_tarifas" FromRole="R_Tarifa_habitacion" ToRole="R_tarifasEF" />
+          <NavigationProperty Name="R_PriceDay" Relationship="cfrbookModel.FK_R_PriceDay_R_Tarifa_habitacion1" FromRole="R_Tarifa_habitacionEF" ToRole="R_PriceDay" />
+        </EntityType>
+        <Association Name="FK_Tarifa_habitacion_R_tarifas">
+          <End Type="cfrbookModel.R_tarifasEF" Role="R_tarifasEF" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.R_Tarifa_habitacionEF" Role="R_Tarifa_habitacion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_tarifasEF">
+              <PropertyRef Name="cod_tarifa" />
+            </Principal>
+            <Dependent Role="R_Tarifa_habitacion">
+              <PropertyRef Name="cod_tarifa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="R_PriceDayEF">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_Tar_Hab" Type="Int32" Nullable="false" />
+          <Property Name="dayprice" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="price" Type="Double" Nullable="false" />
+          <Property Name="ModifyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="R_Tarifa_habitacion" Relationship="cfrbookModel.FK_R_PriceDay_R_Tarifa_habitacion1" FromRole="R_PriceDay" ToRole="R_Tarifa_habitacionEF" />
+          <Property Name="closed" Type="Boolean" Nullable="false" />
+          <Property Name="minimumdays" Type="Byte" Nullable="false" />
+          <Property Name="release" Type="Byte" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_R_PriceDay_R_Tarifa_habitacion1">
+          <End Type="cfrbookModel.R_Tarifa_habitacionEF" Role="R_Tarifa_habitacionEF" Multiplicity="1" />
+          <End Type="cfrbookModel.R_PriceDayEF" Role="R_PriceDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_Tarifa_habitacionEF">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="R_PriceDay">
+              <PropertyRef Name="id_Tar_Hab" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="R_daysEF">
+          <Key>
+            <PropertyRef Name="dayFor" />
+          </Key>
+          <Property Name="dayFor" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="R_Tarifa_operadorEF">
+          <Key>
+            <PropertyRef Name="cod_tarifa" />
+            <PropertyRef Name="cod_operador" />
+          </Key>
+          <Property Name="cod_tarifa" Type="Int32" Nullable="false" />
+          <Property Name="cod_operador" Type="Int32" Nullable="false" />
+          <Property Name="tipo_tarifa" Type="Byte" />
+          <NavigationProperty Name="R_operadores" Relationship="cfrbookModel.FK_R_Tarifa_operador_R_operadores" FromRole="R_Tarifa_operador" ToRole="R_operadorEF" />
+          <NavigationProperty Name="R_tarifas" Relationship="cfrbookModel.FK_R_Tarifa_operador_R_tarifas" FromRole="R_Tarifa_operador" ToRole="R_tarifasEF" />
+        </EntityType>
+        <Association Name="FK_R_Tarifa_operador_R_operadores">
+          <End Type="cfrbookModel.R_operadorEF" Role="R_operadorEF" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.R_Tarifa_operadorEF" Role="R_Tarifa_operador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_operadorEF">
+              <PropertyRef Name="cod_operador" />
+            </Principal>
+            <Dependent Role="R_Tarifa_operador">
+              <PropertyRef Name="cod_operador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_R_Tarifa_operador_R_tarifas">
+          <End Type="cfrbookModel.R_tarifasEF" Role="R_tarifasEF" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="cfrbookModel.R_Tarifa_operadorEF" Role="R_Tarifa_operador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="R_tarifasEF">
+              <PropertyRef Name="cod_tarifa" />
+            </Principal>
+            <Dependent Role="R_Tarifa_operador">
+              <PropertyRef Name="cod_tarifa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cfrbookModelStoreContainer" CdmEntityContainer="cfrbookEntities">
+          <EntitySetMapping Name="R_UnitLocation">
+            <EntityTypeMapping TypeName="cfrbookModel.R_UnitLocation">
+              <MappingFragment StoreEntitySet="R_UnitLocation">
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="id_unit_location" ColumnName="id_unit_location" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="id_address" ColumnName="id_address" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_UnitLocation_Lang">
+            <EntityTypeMapping TypeName="cfrbookModel.R_UnitLocation_Lang">
+              <MappingFragment StoreEntitySet="R_UnitLocation_Lang">
+                <ScalarProperty Name="id_RUnitLocation" ColumnName="id_RUnitLocation" />
+                <ScalarProperty Name="id_Lang" ColumnName="id_Lang" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="id_unit_location" ColumnName="id_unit_location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_ResO_CarPickup">
+            <EntityTypeMapping TypeName="cfrbookModel.R_ResO_CarPickup">
+              <MappingFragment StoreEntitySet="R_ResO_CarPickup">
+                <ScalarProperty Name="cod_reservaO" ColumnName="cod_reservaO" />
+                <ScalarProperty Name="location_description_manual" ColumnName="location_description_manual" />
+                <ScalarProperty Name="unit_location_Return_Price" ColumnName="unit_location_Return_Price" />
+                <ScalarProperty Name="unit_location_Return" ColumnName="unit_location_Return" />
+                <ScalarProperty Name="unit_location_Get_Price" ColumnName="unit_location_Get_Price" />
+                <ScalarProperty Name="unit_location_GET" ColumnName="unit_location_GET" />
+                <ScalarProperty Name="id_reso_carpickup" ColumnName="id_reso_carpickup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_Lang">
+            <EntityTypeMapping TypeName="cfrbookModel.R_Lang">
+              <MappingFragment StoreEntitySet="R_Lang">
+                <ScalarProperty Name="myenum" ColumnName="myenum" />
+                <ScalarProperty Name="id_RLang" ColumnName="id_RLang" />
+                <ScalarProperty Name="exclusiveForForm" ColumnName="exclusiveForForm" />
+                <ScalarProperty Name="isFor" ColumnName="isFor" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="langID" ColumnName="langID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_UsuariosSession">
+            <EntityTypeMapping TypeName="cfrbookModel.R_UsuariosSession">
+              <MappingFragment StoreEntitySet="R_UsuariosSession">
+                <ScalarProperty Name="sessionkey" ColumnName="sessionkey" />
+                <ScalarProperty Name="logoff" ColumnName="logoff" />
+                <ScalarProperty Name="logon" ColumnName="logon" />
+                <ScalarProperty Name="ipaccess" ColumnName="ipaccess" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="idSession" ColumnName="idSession" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_Usuarios">
+            <EntityTypeMapping TypeName="cfrbookModel.R_Usuarios">
+              <MappingFragment StoreEntitySet="R_Usuarios">
+                <ScalarProperty Name="modifydate" ColumnName="modifydate" />
+                <ScalarProperty Name="ultimoacceso" ColumnName="ultimoacceso" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="perfil" ColumnName="perfil" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="cod_CRS" ColumnName="cod_CRS" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+                <ScalarProperty Name="cod_usuario" ColumnName="cod_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_operadorEF">
+            <EntityTypeMapping TypeName="cfrbookModel.R_operadorEF">
+              <MappingFragment StoreEntitySet="R_operadores">
+                <ScalarProperty Name="discountNotApplyWithNoRefundTariff" ColumnName="discountNotApplyWithNoRefundTariff" />
+                <ScalarProperty Name="discountNoRefund" ColumnName="discountNoRefund" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="discountapplyuntil" ColumnName="discountapplyuntil" />
+                <ScalarProperty Name="discountapplyfrom" ColumnName="discountapplyfrom" />
+                <ScalarProperty Name="discountapply" ColumnName="discountapply" />
+                <ScalarProperty Name="discount" ColumnName="discount" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="aplicarYMdiasmin" ColumnName="aplicarYMdiasmin" />
+                <ScalarProperty Name="aplicarYMprecio" ColumnName="aplicarYMprecio" />
+                <ScalarProperty Name="maxdiasdereserva" ColumnName="maxdiasdereserva" />
+                <ScalarProperty Name="generico" ColumnName="generico" />
+                <ScalarProperty Name="cod_Cadena" ColumnName="cod_Cadena" />
+                <ScalarProperty Name="COD_Agencia_Grupo" ColumnName="COD_Agencia_Grupo" />
+                <ScalarProperty Name="COD_OPERADOR_hotel" ColumnName="COD_OPERADOR_hotel" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="polCatalan" ColumnName="polCatalan" />
+                <ScalarProperty Name="polItaliano" ColumnName="polItaliano" />
+                <ScalarProperty Name="polAleman" ColumnName="polAleman" />
+                <ScalarProperty Name="polFrances" ColumnName="polFrances" />
+                <ScalarProperty Name="polIngles" ColumnName="polIngles" />
+                <ScalarProperty Name="cod_CRS" ColumnName="cod_CRS" />
+                <ScalarProperty Name="TitularTarjeta" ColumnName="TitularTarjeta" />
+                <ScalarProperty Name="CaducidadTarjeta" ColumnName="CaducidadTarjeta" />
+                <ScalarProperty Name="N_T_Credito" ColumnName="N_T_Credito" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="Release" ColumnName="Release" />
+                <ScalarProperty Name="politica" ColumnName="politica" />
+                <ScalarProperty Name="forma_pago" ColumnName="forma_pago" />
+                <ScalarProperty Name="comision" ColumnName="comision" />
+                <ScalarProperty Name="FreeSale" ColumnName="FreeSale" />
+                <ScalarProperty Name="Operador" ColumnName="Operador" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+                <ScalarProperty Name="cod_operador" ColumnName="cod_operador" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_ReservasO_Note">
+            <EntityTypeMapping TypeName="cfrbookModel.R_ReservasO_Note">
+              <MappingFragment StoreEntitySet="R_ReservasO_Note">
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="datemodify" ColumnName="datemodify" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="cod_reservaO" ColumnName="cod_reservaO" />
+                <ScalarProperty Name="id_Note" ColumnName="id_Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookResEF">
+            <EntityTypeMapping TypeName="cfrbookModel.BookResEF">
+              <MappingFragment StoreEntitySet="R_ReservasO">
+                <ScalarProperty Name="chargeuntildayvalue" ColumnName="chargeuntildayvalue" />
+                <ScalarProperty Name="chargeuntilday" ColumnName="chargeuntilday" />
+                <ScalarProperty Name="chargeafterdayvalue" ColumnName="chargeafterdayvalue" />
+                <ScalarProperty Name="noRefundTariffSelected" ColumnName="noRefundTariffSelected" />
+                <ScalarProperty Name="promotioncode" ColumnName="promotioncode" />
+                <ScalarProperty Name="driveraditional" ColumnName="driveraditional" />
+                <ScalarProperty Name="comentarioscheck" ColumnName="comentarioscheck" />
+                <ScalarProperty Name="cuna" ColumnName="cuna" />
+                <ScalarProperty Name="nacionality" ColumnName="nacionality" />
+                <ScalarProperty Name="driverlicense" ColumnName="driverlicense" />
+                <ScalarProperty Name="birthdate" ColumnName="birthdate" />
+                <ScalarProperty Name="passport" ColumnName="passport" />
+                <ScalarProperty Name="bookpolicyID" ColumnName="bookpolicyID" />
+                <ScalarProperty Name="driverage" ColumnName="driverage" />
+                <ScalarProperty Name="num_factura" ColumnName="num_factura" />
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="TPV_order" ColumnName="TPV_order" />
+                <ScalarProperty Name="Signature" ColumnName="Signature" />
+                <ScalarProperty Name="Card_type" ColumnName="Card_type" />
+                <ScalarProperty Name="CCUTarjeta" ColumnName="CCUTarjeta" />
+                <ScalarProperty Name="FechaModPrecioReal" ColumnName="FechaModPrecioReal" />
+                <ScalarProperty Name="ComisionAplicada" ColumnName="ComisionAplicada" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="empresaemail" ColumnName="empresaemail" />
+                <ScalarProperty Name="empresatlf" ColumnName="empresatlf" />
+                <ScalarProperty Name="empresadireccion" ColumnName="empresadireccion" />
+                <ScalarProperty Name="precioReal" ColumnName="precioReal" />
+                <ScalarProperty Name="empresa" ColumnName="empresa" />
+                <ScalarProperty Name="tipoOperador" ColumnName="tipoOperador" />
+                <ScalarProperty Name="operadorGenerico" ColumnName="operadorGenerico" />
+                <ScalarProperty Name="Ag_email" ColumnName="Ag_email" />
+                <ScalarProperty Name="Ag_Agente" ColumnName="Ag_Agente" />
+                <ScalarProperty Name="Ag_Grupo" ColumnName="Ag_Grupo" />
+                <ScalarProperty Name="Ag_Fax" ColumnName="Ag_Fax" />
+                <ScalarProperty Name="Ag_Telefono" ColumnName="Ag_Telefono" />
+                <ScalarProperty Name="Ag_Pais" ColumnName="Ag_Pais" />
+                <ScalarProperty Name="Ag_Provincia" ColumnName="Ag_Provincia" />
+                <ScalarProperty Name="Ag_ciudad" ColumnName="Ag_ciudad" />
+                <ScalarProperty Name="Ag_Cod_postal" ColumnName="Ag_Cod_postal" />
+                <ScalarProperty Name="Ag_Direccion" ColumnName="Ag_Direccion" />
+                <ScalarProperty Name="Ag_Nombre" ColumnName="Ag_Nombre" />
+                <ScalarProperty Name="CheckHotelUser" ColumnName="CheckHotelUser" />
+                <ScalarProperty Name="CheckHotelPago" ColumnName="CheckHotelPago" />
+                <ScalarProperty Name="cod_Reserva_hotel" ColumnName="cod_Reserva_hotel" />
+                <ScalarProperty Name="checkHotel" ColumnName="checkHotel" />
+                <ScalarProperty Name="checkMail" ColumnName="checkMail" />
+                <ScalarProperty Name="Descoperador" ColumnName="Descoperador" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="CRS" ColumnName="CRS" />
+                <ScalarProperty Name="operadorCRS" ColumnName="operadorCRS" />
+                <ScalarProperty Name="codoperadorCRS" ColumnName="codoperadorCRS" />
+                <ScalarProperty Name="cod_CRS" ColumnName="cod_CRS" />
+                <ScalarProperty Name="HoraReserva" ColumnName="HoraReserva" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="Titular" ColumnName="Titular" />
+                <ScalarProperty Name="FCaducidad" ColumnName="FCaducidad" />
+                <ScalarProperty Name="nTarjeta" ColumnName="nTarjeta" />
+                <ScalarProperty Name="cod_formapago" ColumnName="cod_formapago" />
+                <ScalarProperty Name="impuestos" ColumnName="impuestos" />
+                <ScalarProperty Name="moneda" ColumnName="moneda" />
+                <ScalarProperty Name="hpenaliz3" ColumnName="hpenaliz3" />
+                <ScalarProperty Name="hpenaliz2" ColumnName="hpenaliz2" />
+                <ScalarProperty Name="hpenaliz1" ColumnName="hpenaliz1" />
+                <ScalarProperty Name="horas3" ColumnName="horas3" />
+                <ScalarProperty Name="horas2" ColumnName="horas2" />
+                <ScalarProperty Name="horas1" ColumnName="horas1" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="cod_postal" ColumnName="cod_postal" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="fax" ColumnName="fax" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Apellido2" ColumnName="Apellido2" />
+                <ScalarProperty Name="Apellido1" ColumnName="Apellido1" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="id_customer" ColumnName="id_customer" />
+                <ScalarProperty Name="cod_reservaO" ColumnName="cod_reservaO" />
+                <ScalarProperty Name="operador" ColumnName="operador" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookUnit">
+            <EntityTypeMapping TypeName="cfrbookModel.BookUnit">
+              <MappingFragment StoreEntitySet="R_ResO_Hab">
+                <ScalarProperty Name="caroiltankfilled" ColumnName="caroiltankfilled" />
+                <ScalarProperty Name="carbastidor" ColumnName="carbastidor" />
+                <ScalarProperty Name="carplate" ColumnName="carplate" />
+                <ScalarProperty Name="carmodel" ColumnName="carmodel" />
+                <ScalarProperty Name="carkmend" ColumnName="carkmend" />
+                <ScalarProperty Name="carkminit" ColumnName="carkminit" />
+                <ScalarProperty Name="RegimenDesglosado" ColumnName="RegimenDesglosado" />
+                <ScalarProperty Name="PrecioDesglosado" ColumnName="PrecioDesglosado" />
+                <ScalarProperty Name="cod_hab_combinada" ColumnName="cod_hab_combinada" />
+                <ScalarProperty Name="DescHabitacion" ColumnName="DescHabitacion" />
+                <ScalarProperty Name="cupoOrigen" ColumnName="cupoOrigen" />
+                <ScalarProperty Name="HoraCancelacion" ColumnName="HoraCancelacion" />
+                <ScalarProperty Name="EstadoPago" ColumnName="EstadoPago" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Canceladax" ColumnName="Canceladax" />
+                <ScalarProperty Name="Modificadax" ColumnName="Modificadax" />
+                <ScalarProperty Name="HoraModificacion" ColumnName="HoraModificacion" />
+                <ScalarProperty Name="Confirmadax" ColumnName="Confirmadax" />
+                <ScalarProperty Name="HoraConfirmacion" ColumnName="HoraConfirmacion" />
+                <ScalarProperty Name="preciofinal" ColumnName="preciofinal" />
+                <ScalarProperty Name="comentarios1" ColumnName="comentarios1" />
+                <ScalarProperty Name="edadnino2" ColumnName="edadnino2" />
+                <ScalarProperty Name="edadnino1" ColumnName="edadnino1" />
+                <ScalarProperty Name="tipo_habitacion" ColumnName="tipo_habitacion" />
+                <ScalarProperty Name="regimen_aloj" ColumnName="regimen_aloj" />
+                <ScalarProperty Name="num_personas" ColumnName="num_personas" />
+                <ScalarProperty Name="num_habitaciones" ColumnName="num_habitaciones" />
+                <ScalarProperty Name="fecha_salida" ColumnName="fecha_salida" />
+                <ScalarProperty Name="fecha_entrada" ColumnName="fecha_entrada" />
+                <ScalarProperty Name="cod_reso_hab" ColumnName="cod_reso_hab" />
+                <ScalarProperty Name="cod_reservaO" ColumnName="cod_reservaO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_HOTELES_HABITACIONES">
+            <EntityTypeMapping TypeName="cfrbookModel.T_HOTELES_HABITACIONES">
+              <MappingFragment StoreEntitySet="T_HOTELES_HABITACIONES">
+                <ScalarProperty Name="numroomsavailable" ColumnName="numroomsavailable" />
+                <ScalarProperty Name="desc_ca" ColumnName="desc_ca" />
+                <ScalarProperty Name="desc_it" ColumnName="desc_it" />
+                <ScalarProperty Name="desc_fr" ColumnName="desc_fr" />
+                <ScalarProperty Name="desc_de" ColumnName="desc_de" />
+                <ScalarProperty Name="desc_en" ColumnName="desc_en" />
+                <ScalarProperty Name="NinoOcupaplaza" ColumnName="NinoOcupaplaza" />
+                <ScalarProperty Name="cod_hab_combinada" ColumnName="cod_hab_combinada" />
+                <ScalarProperty Name="ServiciosCatalan" ColumnName="ServiciosCatalan" />
+                <ScalarProperty Name="ServiciosItaliano" ColumnName="ServiciosItaliano" />
+                <ScalarProperty Name="ServiciosAleman" ColumnName="ServiciosAleman" />
+                <ScalarProperty Name="ServiciosFrances" ColumnName="ServiciosFrances" />
+                <ScalarProperty Name="ServiciosIngles" ColumnName="ServiciosIngles" />
+                <ScalarProperty Name="ServiciosEsp" ColumnName="ServiciosEsp" />
+                <ScalarProperty Name="MaxAdultos" ColumnName="MaxAdultos" />
+                <ScalarProperty Name="NumNino" ColumnName="NumNino" />
+                <ScalarProperty Name="MaxPersonas" ColumnName="MaxPersonas" />
+                <ScalarProperty Name="AdultosExtra2" ColumnName="AdultosExtra2" />
+                <ScalarProperty Name="AdultosExtra1" ColumnName="AdultosExtra1" />
+                <ScalarProperty Name="Adultos" ColumnName="Adultos" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="codhabitacionGenerica" ColumnName="codhabitacionGenerica" />
+                <ScalarProperty Name="habitacionhotel" ColumnName="habitacionhotel" />
+                <ScalarProperty Name="codhabitacionhotel" ColumnName="codhabitacionhotel" />
+                <ScalarProperty Name="Hotel" ColumnName="Hotel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_tarifasEF">
+            <EntityTypeMapping TypeName="cfrbookModel.R_tarifasEF">
+              <MappingFragment StoreEntitySet="R_tarifas">
+                <ScalarProperty Name="policyID" ColumnName="policyID" />
+                <ScalarProperty Name="norefundtariffdiscountapply2tariffonly" ColumnName="norefundtariffdiscountapply2tariffonly" />
+                <ScalarProperty Name="norefundtariffdiscount" ColumnName="norefundtariffdiscount" />
+                <ScalarProperty Name="norefundtariff" ColumnName="norefundtariff" />
+                <ScalarProperty Name="TPVOneNight" ColumnName="TPVOneNight" />
+                <ScalarProperty Name="TPVMinimum" ColumnName="TPVMinimum" />
+                <ScalarProperty Name="ModifyCodUsuario" ColumnName="ModifyCodUsuario" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="AplicSupFinDeSemana" ColumnName="AplicSupFinDeSemana" />
+                <ScalarProperty Name="promotioncode" ColumnName="promotioncode" />
+                <ScalarProperty Name="AplicDescACapac" ColumnName="AplicDescACapac" />
+                <ScalarProperty Name="SA" ColumnName="SA" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="MP" ColumnName="MP" />
+                <ScalarProperty Name="PC" ColumnName="PC" />
+                <ScalarProperty Name="TI" ColumnName="TI" />
+                <ScalarProperty Name="PrecNetoBruto" ColumnName="PrecNetoBruto" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="ImpuestoTarifa" ColumnName="ImpuestoTarifa" />
+                <ScalarProperty Name="cod_CRS" ColumnName="cod_CRS" />
+                <ScalarProperty Name="DiasMinimos" ColumnName="DiasMinimos" />
+                <ScalarProperty Name="tarifa" ColumnName="tarifa" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+                <ScalarProperty Name="cod_tarifa" ColumnName="cod_tarifa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_Res_Hot_Param">
+            <EntityTypeMapping TypeName="cfrbookModel.R_Res_Hot_Param">
+              <MappingFragment StoreEntitySet="R_Res_Hot_Param">
+                <ScalarProperty Name="boardTI" ColumnName="boardTI" />
+                <ScalarProperty Name="boardPC" ColumnName="boardPC" />
+                <ScalarProperty Name="boardMP" ColumnName="boardMP" />
+                <ScalarProperty Name="boardAD" ColumnName="boardAD" />
+                <ScalarProperty Name="HasTPV" ColumnName="HasTPV" />
+                <ScalarProperty Name="CCCSucursal" ColumnName="CCCSucursal" />
+                <ScalarProperty Name="CCCBanco" ColumnName="CCCBanco" />
+                <ScalarProperty Name="CCCBIC" ColumnName="CCCBIC" />
+                <ScalarProperty Name="CCCIBAN" ColumnName="CCCIBAN" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="comisionyahregistrados" ColumnName="comisionyahregistrados" />
+                <ScalarProperty Name="comisionyahnormal" ColumnName="comisionyahnormal" />
+                <ScalarProperty Name="maxhab2see" ColumnName="maxhab2see" />
+                <ScalarProperty Name="emailConfirmacion2" ColumnName="emailConfirmacion2" />
+                <ScalarProperty Name="formatoEmailConfirmacion" ColumnName="formatoEmailConfirmacion" />
+                <ScalarProperty Name="txtCancelCatalan" ColumnName="txtCancelCatalan" />
+                <ScalarProperty Name="txtCancelItaliano" ColumnName="txtCancelItaliano" />
+                <ScalarProperty Name="txtCancelAleman" ColumnName="txtCancelAleman" />
+                <ScalarProperty Name="txtCancelFrances" ColumnName="txtCancelFrances" />
+                <ScalarProperty Name="txtCancelIngles" ColumnName="txtCancelIngles" />
+                <ScalarProperty Name="txtCancelEsp" ColumnName="txtCancelEsp" />
+                <ScalarProperty Name="polEsp" ColumnName="polEsp" />
+                <ScalarProperty Name="polIngles" ColumnName="polIngles" />
+                <ScalarProperty Name="polFrances" ColumnName="polFrances" />
+                <ScalarProperty Name="polAleman" ColumnName="polAleman" />
+                <ScalarProperty Name="polItaliano" ColumnName="polItaliano" />
+                <ScalarProperty Name="polCatalan" ColumnName="polCatalan" />
+                <ScalarProperty Name="TodoIncluido" ColumnName="TodoIncluido" />
+                <ScalarProperty Name="txtConfirmacionCatalan" ColumnName="txtConfirmacionCatalan" />
+                <ScalarProperty Name="txtConfirmacionItaliano" ColumnName="txtConfirmacionItaliano" />
+                <ScalarProperty Name="txtConfirmacionAleman" ColumnName="txtConfirmacionAleman" />
+                <ScalarProperty Name="txtConfirmacionFrances" ColumnName="txtConfirmacionFrances" />
+                <ScalarProperty Name="txtConfirmacionIngles" ColumnName="txtConfirmacionIngles" />
+                <ScalarProperty Name="diasdeAntelacion" ColumnName="diasdeAntelacion" />
+                <ScalarProperty Name="logo" ColumnName="logo" />
+                <ScalarProperty Name="txtConfirmacion" ColumnName="txtConfirmacion" />
+                <ScalarProperty Name="emailConfirmacion" ColumnName="emailConfirmacion" />
+                <ScalarProperty Name="CCC" ColumnName="CCC" />
+                <ScalarProperty Name="PC" ColumnName="PC" />
+                <ScalarProperty Name="MP" ColumnName="MP" />
+                <ScalarProperty Name="AD" ColumnName="AD" />
+                <ScalarProperty Name="Alojamiento" ColumnName="Alojamiento" />
+                <ScalarProperty Name="moneda" ColumnName="moneda" />
+                <ScalarProperty Name="impuestos" ColumnName="impuestos" />
+                <ScalarProperty Name="EdadMaxNinoPago" ColumnName="EdadMaxNinoPago" />
+                <ScalarProperty Name="EdadMaxNinoGratis" ColumnName="EdadMaxNinoGratis" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_HOTELESEF">
+            <EntityTypeMapping TypeName="cfrbookModel.T_HOTELESEF">
+              <MappingFragment StoreEntitySet="T_HOTELES">
+                <ScalarProperty Name="checkOuttime2" ColumnName="checkOuttime2" />
+                <ScalarProperty Name="checkOuttime1" ColumnName="checkOuttime1" />
+                <ScalarProperty Name="checkintime2" ColumnName="checkintime2" />
+                <ScalarProperty Name="checkintime1" ColumnName="checkintime1" />
+                <ScalarProperty Name="UltimoAcceso" ColumnName="UltimoAcceso" />
+                <ScalarProperty Name="MNGProp" ColumnName="MNGProp" />
+                <ScalarProperty Name="currencycode" ColumnName="currencycode" />
+                <ScalarProperty Name="desc_jp" ColumnName="desc_jp" />
+                <ScalarProperty Name="desc_pt" ColumnName="desc_pt" />
+                <ScalarProperty Name="desc_it" ColumnName="desc_it" />
+                <ScalarProperty Name="lastUpdate" ColumnName="lastUpdate" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="rowId" ColumnName="rowId" />
+                <ScalarProperty Name="callejero" ColumnName="callejero" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="f1" ColumnName="f1" />
+                <ScalarProperty Name="mapa" ColumnName="mapa" />
+                <ScalarProperty Name="coordenaday" ColumnName="coordenaday" />
+                <ScalarProperty Name="coordenadax" ColumnName="coordenadax" />
+                <ScalarProperty Name="nfotos" ColumnName="nfotos" />
+                <ScalarProperty Name="Directorcomercial" ColumnName="Directorcomercial" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="Datos" ColumnName="Datos" />
+                <ScalarProperty Name="Sabre" ColumnName="Sabre" />
+                <ScalarProperty Name="Wordspan" ColumnName="Wordspan" />
+                <ScalarProperty Name="Galileo" ColumnName="Galileo" />
+                <ScalarProperty Name="Amadeus" ColumnName="Amadeus" />
+                <ScalarProperty Name="Habitaciones" ColumnName="Habitaciones" />
+                <ScalarProperty Name="Web" ColumnName="Web" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Cadena4" ColumnName="Cadena4" />
+                <ScalarProperty Name="Cadena3" ColumnName="Cadena3" />
+                <ScalarProperty Name="Cadena2" ColumnName="Cadena2" />
+                <ScalarProperty Name="Cadena1" ColumnName="Cadena1" />
+                <ScalarProperty Name="Desc_cat" ColumnName="Desc_cat" />
+                <ScalarProperty Name="Desc_fr" ColumnName="Desc_fr" />
+                <ScalarProperty Name="Desc_de" ColumnName="Desc_de" />
+                <ScalarProperty Name="Desc_en" ColumnName="Desc_en" />
+                <ScalarProperty Name="Desc_es" ColumnName="Desc_es" />
+                <ScalarProperty Name="codpostal" ColumnName="codpostal" />
+                <ScalarProperty Name="cod_Categoria" ColumnName="cod_Categoria" />
+                <ScalarProperty Name="Cod_Cont" ColumnName="Cod_Cont" />
+                <ScalarProperty Name="cod_Zona" ColumnName="cod_Zona" />
+                <ScalarProperty Name="Cod_Pais" ColumnName="Cod_Pais" />
+                <ScalarProperty Name="cod_Ciudad" ColumnName="cod_Ciudad" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="PrefijoTelf" ColumnName="PrefijoTelf" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="hotel" ColumnName="hotel" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="cod_Hotel" ColumnName="cod_Hotel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_PolicyCancel">
+            <EntityTypeMapping TypeName="cfrbookModel.R_PolicyCancel">
+              <MappingFragment StoreEntitySet="R_PolicyCancel">
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+                <ScalarProperty Name="defaultpolicy" ColumnName="defaultpolicy" />
+                <ScalarProperty Name="datemodified" ColumnName="datemodified" />
+                <ScalarProperty Name="chargeafterdaypercent" ColumnName="chargeafterdaypercent" />
+                <ScalarProperty Name="chargeunitldaypercent" ColumnName="chargeunitldaypercent" />
+                <ScalarProperty Name="chargeuntilday" ColumnName="chargeuntilday" />
+                <ScalarProperty Name="policyName" ColumnName="policyName" />
+                <ScalarProperty Name="policyID" ColumnName="policyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="r_Tarifas_TemporadasEF">
+            <EntityTypeMapping TypeName="cfrbookModel.r_Tarifas_TemporadasEF">
+              <MappingFragment StoreEntitySet="r_Tarifas_Temporadas">
+                <ScalarProperty Name="cod_Temporada" ColumnName="cod_Temporada" />
+                <ScalarProperty Name="cod_tarifa" ColumnName="cod_tarifa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="r_TemporadasEF">
+            <EntityTypeMapping TypeName="cfrbookModel.r_TemporadasEF">
+              <MappingFragment StoreEntitySet="r_Temporadas">
+                <ScalarProperty Name="temporadaType" ColumnName="temporadaType" />
+                <ScalarProperty Name="Temporada" ColumnName="Temporada" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+                <ScalarProperty Name="cod_Temporada" ColumnName="cod_Temporada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_Temporadas_PeriodosEF">
+            <EntityTypeMapping TypeName="cfrbookModel.R_Temporadas_PeriodosEF">
+              <MappingFragment StoreEntitySet="R_Temporadas_Periodos">
+                <ScalarProperty Name="fechafin" ColumnName="fechafin" />
+                <ScalarProperty Name="fechainicio" ColumnName="fechainicio" />
+                <ScalarProperty Name="cod_temporada" ColumnName="cod_temporada" />
+                <ScalarProperty Name="cod_periodo" ColumnName="cod_periodo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_HOTELES_HABITACIONES_FotosEF">
+            <EntityTypeMapping TypeName="cfrbookModel.T_HOTELES_HABITACIONES_FotosEF">
+              <MappingFragment StoreEntitySet="T_HOTELES_HABITACIONES_Fotos">
+                <ScalarProperty Name="fotourl" ColumnName="fotourl" />
+                <ScalarProperty Name="thumbnail" ColumnName="thumbnail" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="modified" ColumnName="modified" />
+                <ScalarProperty Name="orderui" ColumnName="orderui" />
+                <ScalarProperty Name="codhabitacionhotel" ColumnName="codhabitacionhotel" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoletinesEF">
+            <EntityTypeMapping TypeName="cfrbookModel.BoletinesEF">
+              <MappingFragment StoreEntitySet="Boletines">
+                <ScalarProperty Name="id_customer" ColumnName="id_customer" />
+                <ScalarProperty Name="modifydate" ColumnName="modifydate" />
+                <ScalarProperty Name="cod_hotel" ColumnName="cod_hotel" />
+                <ScalarProperty Name="boletin" ColumnName="boletin" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id_email" ColumnName="id_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_Tarifa_habitacionEF">
+            <EntityTypeMapping TypeName="cfrbookModel.R_Tarifa_habitacionEF">
+              <MappingFragment StoreEntitySet="R_Tarifa_habitacion">
+                <ScalarProperty Name="SupFinDeSemana" ColumnName="SupFinDeSemana" />
+                <ScalarProperty Name="SupDiasMinimos" ColumnName="SupDiasMinimos" />
+                <ScalarProperty Name="camaExtra2nino" ColumnName="camaExtra2nino" />
+                <ScalarProperty Name="camaExtra1nino" ColumnName="camaExtra1nino" />
+                <ScalarProperty Name="camaExtra1" ColumnName="camaExtra1" />
+                <ScalarProperty Name="camaExtra2" ColumnName="camaExtra2" />
+                <ScalarProperty Name="AplicDescAReg" ColumnName="AplicDescAReg" />
+                <ScalarProperty Name="TodoIncluidoNino" ColumnName="TodoIncluidoNino" />
+                <ScalarProperty Name="TodoIncluido" ColumnName="TodoIncluido" />
+                <ScalarProperty Name="pcnino" ColumnName="pcnino" />
+                <ScalarProperty Name="mpnino" ColumnName="mpnino" />
+                <ScalarProperty Name="desayunonino" ColumnName="desayunonino" />
+                <ScalarProperty Name="DescNinoPago2" ColumnName="DescNinoPago2" />
+                <ScalarProperty Name="DescNinoPago1" ColumnName="DescNinoPago1" />
+                <ScalarProperty Name="DescAdultosExtra2" ColumnName="DescAdultosExtra2" />
+                <ScalarProperty Name="DescAdultosExtra1" ColumnName="DescAdultosExtra1" />
+                <ScalarProperty Name="preciopc" ColumnName="preciopc" />
+                <ScalarProperty Name="preciomp" ColumnName="preciomp" />
+                <ScalarProperty Name="precioAD" ColumnName="precioAD" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="cod_habitacion" ColumnName="cod_habitacion" />
+                <ScalarProperty Name="cod_tarifa" ColumnName="cod_tarifa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_PriceDayEF">
+            <EntityTypeMapping TypeName="cfrbookModel.R_PriceDayEF">
+              <MappingFragment StoreEntitySet="R_PriceDay">
+                <ScalarProperty Name="release" ColumnName="release" />
+                <ScalarProperty Name="minimumdays" ColumnName="minimumdays" />
+                <ScalarProperty Name="closed" ColumnName="closed" />
+                <ScalarProperty Name="ModifyDate" ColumnName="ModifyDate" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="dayprice" ColumnName="dayprice" />
+                <ScalarProperty Name="id_Tar_Hab" ColumnName="id_Tar_Hab" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_daysEF">
+            <EntityTypeMapping TypeName="cfrbookModel.R_daysEF">
+              <MappingFragment StoreEntitySet="R_days">
+              <ScalarProperty Name="dayFor" ColumnName="dayFor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="R_Tarifa_operadorEF">
+            <EntityTypeMapping TypeName="cfrbookModel.R_Tarifa_operadorEF">
+              <MappingFragment StoreEntitySet="R_Tarifa_operador">
+                <ScalarProperty Name="tipo_tarifa" ColumnName="tipo_tarifa" />
+                <ScalarProperty Name="cod_operador" ColumnName="cod_operador" />
+                <ScalarProperty Name="cod_tarifa" ColumnName="cod_tarifa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
