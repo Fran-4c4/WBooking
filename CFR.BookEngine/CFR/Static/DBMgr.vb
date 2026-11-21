@@ -23,8 +23,11 @@ Namespace ind.bk
         ''' </summary>
         ''' <remarks></remarks>
         Friend Shared connString As String = ind.bk.DBMgr.configure
+        ''' <summary>SQL Server host from the DDBBSERVER application setting.</summary>
         Friend Shared DDBBSERVER As String
+        ''' <summary>Database name from the DDBBCATALOG application setting.</summary>
         Friend Shared DDBBCATALOG As String
+        ''' <summary>SQL login name from DDBBUSERID; never written together with its password.</summary>
         Friend Shared DDBBUSERID As String
         ''' <summary>
         ''' SQL Server password read from DDBBPASSWORD in the host applicationSettings section.
@@ -41,7 +44,11 @@ Namespace ind.bk
         ''' <summary>
         ''' Configure general connection settings
         ''' </summary>
-        ''' <remarks></remarks>
+        ''' <remarks>
+        ''' A non-empty environment connection string is authoritative. Otherwise all four
+        ''' DDBB application settings are required and are assembled without logging secrets.
+        ''' Reloading configuration replaces the process-wide connection used by legacy calls.
+        ''' </remarks>
         Public Shared Function configure() As String
             ind.bk.DBMgr.connString = ind.bk.DBMgr.getConnString
             ind.bk.DBMgr.dbctx = New ind.db.DBHelper(ind.bk.DBMgr.connString)
@@ -55,13 +62,6 @@ Namespace ind.bk
         ''' <returns></returns>
         ''' <remarks></remarks>
         Private Shared Function getConnString() As String
-            Dim connStr As String = "packet size=4096;Max Pool Size=100;Min Pool Size=10;Pooling=true;" & _
-            "User ID={DDBBUSERID};" & _
-            "Password={DDBBPASSWORD};" & _
-            "Initial Catalog={DDBBCATALOG};" & _
-            "Data Source={DDBBSERVER};" & _
-            "persist security info=true;"
-
             Try
 
                 If DBMgr.configSet = False Then
@@ -72,7 +72,6 @@ Namespace ind.bk
                 Dim environmentConnectionString As String = cfr.cte.Config.GetEnvironmentSqlConnectionString()
                 If Not String.IsNullOrWhiteSpace(environmentConnectionString) Then
                     cfr.tool.LogMgr.log("Database connection configured from " & cfr.cte.Config.SqlConnectionStringEnvironmentVariable & ".")
-                    ind.db.DBHelper.connStr = environmentConnectionString
                     Return environmentConnectionString
                 End If
 
@@ -91,20 +90,23 @@ Namespace ind.bk
                     Throw New System.Configuration.ConfigurationErrorsException("DDBBSERVER, DDBBCATALOG, DDBBUSERID and DDBBPASSWORD are required for legacy DBMgr queries.")
                 End If
 
-                connStr = connStr.Replace("{DDBBSERVER}", DBMgr.DDBBSERVER)
-                connStr = connStr.Replace("{DDBBCATALOG}", DBMgr.DDBBCATALOG)
-                connStr = connStr.Replace("{DDBBUSERID}", DBMgr.DDBBUSERID)
-                connStr = connStr.Replace("{DDBBPASSWORD}", DBMgr.DDBBPASSWORD)
+                Dim builder As New SqlConnectionStringBuilder With {
+                    .DataSource = DBMgr.DDBBSERVER,
+                    .InitialCatalog = DBMgr.DDBBCATALOG,
+                    .UserID = DBMgr.DDBBUSERID,
+                    .Password = DBMgr.DDBBPASSWORD,
+                    .PacketSize = 4096,
+                    .MaxPoolSize = 100,
+                    .MinPoolSize = 10,
+                    .Pooling = True,
+                    .PersistSecurityInfo = False
+                }
 
-                cfr.tool.LogMgr.log("Connection string set on " & DBMgr.DDBBSERVER & ";" & DBMgr.DDBBCATALOG & ";" & DBMgr.DDBBUSERID)
-
-                'it will set in configure but in any case
-                ind.db.DBHelper.connStr = connStr
-
-                Return connStr
+                cfr.tool.LogMgr.log("Database connection configured for " & DBMgr.DDBBSERVER & ";" & DBMgr.DDBBCATALOG & ".")
+                Return builder.ConnectionString
             Catch ex As Exception
                 cfr.tool.LogMgr.log(ex)
-                Throw ex
+                Throw
             End Try
 
         End Function
@@ -247,10 +249,18 @@ Namespace ind.bk
         ''' <param name="connectionString"></param>
         ''' <returns></returns>
         Public Shared Function getNewConn(ByVal connectionString As String) As SqlClient.SqlConnection
-            Dim conn As New SqlClient.SqlConnection
-            conn.ConnectionString = connectionString
-            conn.Open()
-            Return conn
+            If String.IsNullOrWhiteSpace(connectionString) Then
+                Throw New ArgumentException("The connection string cannot be empty.", NameOf(connectionString))
+            End If
+
+            Dim conn As New SqlConnection(connectionString)
+            Try
+                conn.Open()
+                Return conn
+            Catch
+                conn.Dispose()
+                Throw
+            End Try
         End Function
         ''' <summary>
         ''' Cierra cualquier conexion
@@ -270,7 +280,7 @@ Namespace ind.bk
 
 #Region "Public shared transaction methods"
         ''' <summary>
-        ''' Creates a transaction with isolationlevel set to IsolationLevel.Serializable by default.
+        ''' Creates a transaction with IsolationLevel.ReadCommitted by default.
         ''' Use overloaded method to set a diferent isolationlevel
         ''' </summary>
         ''' <returns></returns>
@@ -282,14 +292,15 @@ Namespace ind.bk
         ''' </summary>
         ''' <returns></returns>
         Public Shared Function CreateTransaction(ByVal TransIsolationLevel As IsolationLevel) As SqlClient.SqlTransaction
-            Dim conn As SqlClient.SqlConnection
-            Dim myTrans As SqlClient.SqlTransaction
+            Dim conn As SqlConnection = Nothing
             Try
                 conn = DBMgr.getNewConn()
-                myTrans = conn.BeginTransaction(TransIsolationLevel)
-                Return myTrans
-            Catch ex As Exception
-                Throw ex
+                Return conn.BeginTransaction(TransIsolationLevel)
+            Catch
+                If conn IsNot Nothing Then
+                    conn.Dispose()
+                End If
+                Throw
             End Try
         End Function
         ''' <summary>
@@ -298,17 +309,22 @@ Namespace ind.bk
         ''' <param name="conn"></param>
         ''' <returns></returns>
         Public Shared Function CreateTransaction(ByRef conn As SqlClient.SqlConnection) As SqlClient.SqlTransaction
-            Dim myTrans As SqlClient.SqlTransaction
+            Dim ownsConnection As Boolean
             Try
                 If conn Is Nothing Then
                     conn = DBMgr.getNewConn()
+                    ownsConnection = True
                 ElseIf conn.State = ConnectionState.Closed Then
                     conn.Open()
                 End If
-                myTrans = conn.BeginTransaction(DBMgr.isolationLevelCte)
-                Return myTrans
-            Catch ex As Exception
-                Throw ex
+
+                Return conn.BeginTransaction(DBMgr.isolationLevelCte)
+            Catch
+                If ownsConnection AndAlso conn IsNot Nothing Then
+                    conn.Dispose()
+                    conn = Nothing
+                End If
+                Throw
             End Try
         End Function
         ''' <summary>
@@ -327,26 +343,9 @@ Namespace ind.bk
         ''' </summary>
         ''' <param name="mytrans"></param>
         Public Shared Sub CommitTransaction(ByRef mytrans As SqlClient.SqlTransaction)
-            Try
-                If Not mytrans Is Nothing Then
-                    mytrans.Commit()
-                End If
-            Catch ex As Exception
-                Try
-                    DBMgr.rollbackTransaction(mytrans)
-                Catch exroll As Exception
-
-                End Try
-            Finally
-                'this is due to a bug in .net that set the subsequents proc to an isolation level diferent from readcommited
-                Try
-                    Dim tempTrans As SqlClient.SqlTransaction = CreateTransaction(IsolationLevel.ReadCommitted)
-                    tempTrans.Commit()
-                    closeConn(tempTrans.Connection)
-                Catch ex As Exception
-
-                End Try
-            End Try
+            If mytrans IsNot Nothing Then
+                mytrans.Commit()
+            End If
         End Sub
         ''' <summary>
         ''' rollback a transaction only if the owner of the transaction
@@ -365,22 +364,11 @@ Namespace ind.bk
         ''' <param name="mytrans"></param>
         Public Shared Sub rollbackTransaction(ByRef mytrans As SqlClient.SqlTransaction)
             Try
-                If Not mytrans Is Nothing Then
+                If mytrans IsNot Nothing Then
                     mytrans.Rollback()
                 End If
-
             Catch ex As Exception
-                Throw New Exception("Fatal error, The system was not perform the rollback transaction during error")
-            Finally
-                'this is due to a bug in .net that set the subsequents proc to an isolation level diferent from readcommited
-
-                Try
-                    Dim tempTrans As SqlClient.SqlTransaction = CreateTransaction(IsolationLevel.ReadCommitted)
-                    tempTrans.Commit()
-                    closeConn(tempTrans.Connection)
-                Catch ex As Exception
-
-                End Try
+                Throw New InvalidOperationException("The transaction could not be rolled back.", ex)
             End Try
         End Sub
         ''' <summary>
@@ -389,25 +377,17 @@ Namespace ind.bk
         ''' <param name="trans"></param>
         ''' <param name="transactionOwner"></param>
         Public Shared Sub disposeTransaction(ByRef trans As SqlClient.SqlTransaction, Optional ByVal transactionOwner As Boolean = True)
-            Try
-                If transactionOwner = False Then
-                    Exit Sub
-                End If
-                If trans Is Nothing Then
-                    Exit Sub
-                End If
+            If Not transactionOwner OrElse trans Is Nothing Then
+                Return
+            End If
 
-                If Not trans.Connection Is Nothing Then
-                    closeConn(trans.Connection)
-                End If
+            Dim connection = trans.Connection
+            trans.Dispose()
+            trans = Nothing
 
-                trans.Dispose()
-
-                trans = Nothing
-
-            Catch ex As Exception
-                Throw ex
-            End Try
+            If connection IsNot Nothing Then
+                connection.Dispose()
+            End If
 
         End Sub
 
@@ -419,29 +399,35 @@ Namespace ind.bk
             , Optional ByVal ParameterDirection As System.Data.ParameterDirection = System.Data.ParameterDirection.Input) As SqlClient.SqlParameter
             ' Add the input parameter and set its properties.
 
-            parameterName = parameterName.Replace("@", "")
-            Dim parameter As New SqlClient.SqlParameter
-            parameter.ParameterName = "@" & parameterName ' the parameter must come without @
-            parameter.DbType = Data.DbType.String
-            parameter.Direction = ParameterDirection
-            parameter.Value = parameterValue
+            Dim parameter = CreateParameter(parameterName, parameterType, ParameterDirection)
+            parameter.Value = If(parameterValue, CType(DBNull.Value, Object))
 
             Return parameter
         End Function
 
         Public Shared Function getSpParameterDate(ByVal parameterName As String, ByVal parameterValue As Date _
-            , Optional ByVal parameterType As System.Data.SqlDbType = SqlDbType.NVarChar _
+            , Optional ByVal parameterType As System.Data.SqlDbType = SqlDbType.DateTime2 _
             , Optional ByVal ParameterDirection As System.Data.ParameterDirection = System.Data.ParameterDirection.Input) As SqlClient.SqlParameter
             ' Add the input parameter and set its properties.
 
-            parameterName = parameterName.Replace("@", "")
-            Dim parameter As New SqlClient.SqlParameter
-            parameter.ParameterName = "@" & parameterName ' the parameter must come without @
-            parameter.DbType = Data.DbType.DateTime
-            parameter.Direction = ParameterDirection
+            Dim parameter = CreateParameter(parameterName, parameterType, ParameterDirection)
             parameter.Value = parameterValue
 
             Return parameter
+        End Function
+
+        Private Shared Function CreateParameter(parameterName As String,
+                                                 parameterType As SqlDbType,
+                                                 direction As ParameterDirection) As SqlParameter
+            If String.IsNullOrWhiteSpace(parameterName) OrElse parameterName.TrimStart("@"c).Length = 0 Then
+                Throw New ArgumentException("The parameter name cannot be empty.", NameOf(parameterName))
+            End If
+
+            Return New SqlParameter With {
+                .ParameterName = "@" & parameterName.Trim().TrimStart("@"c),
+                .SqlDbType = parameterType,
+                .Direction = direction
+            }
         End Function
 
     End Class
