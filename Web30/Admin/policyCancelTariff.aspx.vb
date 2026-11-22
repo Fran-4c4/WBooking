@@ -33,7 +33,7 @@ Partial Class policyCancelTariff
 
 
     Protected Sub btnsavepolicycondition_Click(sender As Object, e As EventArgs) Handles btnsavepolicycondition.Click
-        Dim ctx As cfrbookEntities
+        Dim ctx As cfrbookEntities = Nothing
         Try
         
             Dim obj As New R_PolicyCancel

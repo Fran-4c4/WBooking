@@ -40,7 +40,7 @@ Namespace ind.bk.obj
 
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.cod_Hotel, obj2.cod_Hotel)
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.Tipo, obj2.Tipo)
-            addSqlParameterSimple(cmd, T_HOTELES.DBCol.hotel, obj2.hotel)
+            addSqlParameterSimple(cmd, T_HOTELES.DBCol.hotel, obj2.hotelName)
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.Direccion, obj2.Direccion)
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.PrefijoTelf, obj2.PrefijoTelf)
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.Telefono, obj2.Telefono)
@@ -90,7 +90,7 @@ Namespace ind.bk.obj
 
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.cod_Hotel, obj2.cod_Hotel)
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.Tipo, IIf(IsNothing(obj2.Tipo), "", obj2.Tipo))
-            addSqlParameterSimple(cmd, T_HOTELES.DBCol.hotel, IIf(IsNothing(obj2.hotel), "", obj2.hotel))
+            addSqlParameterSimple(cmd, T_HOTELES.DBCol.hotel, IIf(IsNothing(obj2.hotelName), "", obj2.hotelName))
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.Direccion, IIf(IsNothing(obj2.Direccion), "", obj2.Direccion))
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.PrefijoTelf, IIf(IsNothing(obj2.PrefijoTelf), "", obj2.PrefijoTelf))
             addSqlParameterSimple(cmd, T_HOTELES.DBCol.Telefono, IIf(IsNothing(obj2.Telefono), "", obj2.Telefono))

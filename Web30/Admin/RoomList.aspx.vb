@@ -39,6 +39,7 @@ Partial Class RoomList
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
 
     

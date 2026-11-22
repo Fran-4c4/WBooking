@@ -114,6 +114,7 @@ Partial Class Admin_temporada
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     Public Sub getDvListPeriodos(objId As Integer)
@@ -252,7 +253,7 @@ Partial Class Admin_temporada
     Public Sub NewPeriodoByRange(cod_temporada As Integer, FEC1 As Date, FEC2 As Date, dia1 As Integer, dia2 As Integer)
         AdminTenantSecurity.RequireSeason(Me.codhotel, cod_temporada)
         Dim ocon As SqlClient.SqlConnection
-        Dim trans As SqlClient.SqlTransaction
+        Dim trans As SqlClient.SqlTransaction = Nothing
 
         Try
             Dim diaSemanaInicio As Integer

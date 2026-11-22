@@ -9,8 +9,8 @@ Partial Class Admin_availability
     Public yearSel As Integer
     Public cod_operadorSel As Integer
 
-    Public dvClients As DataView
-    Public dvRooms As DataView
+    Public Shadows dvClients As DataView
+    Public Shadows dvRooms As DataView
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -170,12 +170,13 @@ Partial Class Admin_availability
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
 
 
-    Friend roomsCombinedList As New ArrayList
-    Friend roomsCombinedList1 As New ArrayList
-    Friend Class roomCombined
+    Friend Shadows roomsCombinedList As New ArrayList
+    Friend Shadows roomsCombinedList1 As New ArrayList
+    Friend Shadows Class roomCombined
         Public roomWithCupoCode As Integer
         Public roomCombinedCode As Integer
         Public roomCombinedName As String
@@ -186,7 +187,7 @@ Partial Class Admin_availability
         End Sub
     End Class
 
-    Friend Function getRoomCombined()
+    Friend Overloads Function getRoomCombined()
         Dim oRscom As New DataView(Me.dvRooms.Table)
         Dim oRscomFull As New DataView(Me.dvRooms.Table)
 
@@ -201,7 +202,7 @@ Partial Class Admin_availability
 
         If Me.roomsCombinedList.Count > 0 Then
             Dim s As String = "<ul>{0}</ul>"
-            Dim sbody As String
+            Dim sbody As String = String.Empty
             For Each roomCombined As String In Me.roomsCombinedList
                 sbody += String.Format("<li>{0}</li>", roomCombined)
             Next
@@ -209,14 +210,16 @@ Partial Class Admin_availability
             'Me.litroomcombined.Text = s
         End If
 
+        Return Nothing
     End Function
 
-    Friend Function getRoomCombinedIU(code As Integer) As String
+    Friend Overloads Function getRoomCombinedIU(code As Integer) As String
         For Each el As roomCombined In roomsCombinedList1
             If el.roomWithCupoCode = code Then
                 Return "<br/><span class='roomcombined lblwarn lblwarn-sm'>Combina con: " & el.roomCombinedName & "</span>"
             End If
         Next
+        Return Nothing
     End Function
 
     Protected Sub btnsaveavailability_Click(sender As Object, e As EventArgs) Handles btnsaveavailability.Click
@@ -224,7 +227,6 @@ Partial Class Admin_availability
             ConfigureSearchValues()
 
             Dim codhabitacionhotel As Integer
-            Dim idia As Integer
             Dim dayStart As Integer = 1
             Dim dayEnd As Integer = 31
 
@@ -298,12 +300,11 @@ Partial Class Admin_availability
 
         Dim id_Disp_Hab As Integer  'el id de la habitacion
         Dim ocon As SqlClient.SqlConnection
-        Dim trans As SqlClient.SqlTransaction
-        Dim sSQL As String
+        Dim trans As SqlClient.SqlTransaction = Nothing
         
         Try
             If oRec.Count = 0 Then
-                Exit Function
+                Return Nothing
             End If
 
 
@@ -390,7 +391,7 @@ Partial Class Admin_availability
           
         End Try
 
-
+        Return Nothing
     End Function
 
     Private Function listAvailability(cod_hotel As Integer, cod_operador As Integer, iMes As Integer, iYear As Integer) As DataView

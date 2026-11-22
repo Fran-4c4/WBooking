@@ -267,6 +267,7 @@ Partial Class HotelEdit
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     Private Sub saveSituation()
@@ -325,6 +326,7 @@ Partial Class HotelEdit
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     Private Sub saveServices()
@@ -385,6 +387,7 @@ Partial Class HotelEdit
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     Public Sub saveSaloons()

@@ -472,7 +472,7 @@ Public Class AdminBasePage
         Return dv
     End Function
 
-    Public Function getRequestValue(key As String) As String
+    Public Overloads Function getRequestValue(key As String) As String
         Return Me.Request(key)
     End Function
 
@@ -509,6 +509,7 @@ Public Class AdminBasePage
             Next
         End With
         lst.SelectedValue = ventalibrecode
+        Return Nothing
     End Function
 
 #End Region
@@ -538,6 +539,7 @@ Public Class AdminBasePage
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
     ''' <summary>
     ''' Dropdown with units
@@ -601,6 +603,7 @@ Public Class AdminBasePage
                 Return "<br/><span class='roomcombined lblwarn lblwarn-sm'>Combina con: " & el.roomCombinedName & "</span>"
             End If
         Next
+        Return Nothing
     End Function
 
 #End Region
@@ -727,6 +730,7 @@ Public Class PropertyUIshow
             End If
 
         Next
+        Return Nothing
     End Function
 
     Private Sub hideByType(control2Check As Control)

@@ -1,5 +1,7 @@
 ﻿Imports Microsoft.VisualBasic
 Imports System.Diagnostics
+Imports System.Security.Cryptography
+Imports System.Text
 
 
 Namespace cfr
@@ -142,7 +144,10 @@ Namespace cfr
             Dim strSignature As String
             strSignature = Ds_Merchant_Amount & Ds_Merchant_Order & Ds_Merchant_MerchantCode & Ds_Merchant_Currency & Ds_Merchant_TransactionType & Ds_Merchant_MerchantURL & Ds_Merchant_Password
 
-            Me.Ds_Signature = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(strSignature, "sha1")
+            Using sha1 As SHA1 = SHA1.Create()
+                Dim digest As Byte() = sha1.ComputeHash(Encoding.UTF8.GetBytes(strSignature))
+                Me.Ds_Signature = BitConverter.ToString(digest).Replace("-", String.Empty)
+            End Using
 
         End Sub
 

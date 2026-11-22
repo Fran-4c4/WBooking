@@ -137,7 +137,6 @@ Namespace ind.bk
             Return dt
         End Function
 
-        <Obsolete("Use getdatatable instead")>
         Public Shared Function getDT(ByVal storedProcName As String, ByVal paramCol() As SqlClient.SqlParameter, Optional ByRef trans As SqlClient.SqlTransaction = Nothing) As Data.DataTable
             If trans Is Nothing Then
                 Return ind.db.DBHelper.ExecuteDataset(DBMgr.connString, storedProcName, paramCol).Tables(0)

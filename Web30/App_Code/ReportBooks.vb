@@ -399,6 +399,7 @@ Namespace ind.bk.reports
                 Case "PRICERETURN"
                     Return Me.bookData.carLocationSelected.unit_location_Return_Price
             End Select
+            Return Nothing
         End Function
 
 

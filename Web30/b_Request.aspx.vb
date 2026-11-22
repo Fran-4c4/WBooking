@@ -105,7 +105,7 @@ Public Class b_request
             
 
                 'show the lpd option
-                If Me.langCaption.getLanguage = CFRConst.LanguageEnum.es Then
+                If cfr.Language.getLanguage = CFRConst.LanguageEnum.es Then
                     Me.pnlLpd.Visible = True
                 Else
                     Me.pnlLpd.Visible = False
@@ -475,6 +475,7 @@ Public Class b_request
                 Return String.Format("hasta {0} días antes de la fecha de llegada", limit)
             End If
         End If
+        Return Nothing
     End Function
 
     Private Function getConditionCancelPolicyMessageLimit1Value(limitDayValueToCharge As String) As String
@@ -574,6 +575,7 @@ Public Class b_request
             Case CFRConst.RegimenEnum.TI
                 Return Me.langCaption.GetCaptionBy(Language.msgEnum.UI_book_board_AllInclusive)
         End Select
+        Return Nothing
     End Function
 
     Private Function getImgHtmlForRoomViewCaroussel(myRoom As cfr.obj.HotelRoomData) As String
@@ -681,25 +683,25 @@ Public Class b_request
         Dim dayInprecedence As Date = Date.Now.AddDays(ndayInprecedence)
         Dim dayNext As Date = dayInprecedence.AddDays(1)
         Dim daymaxForCalendar As Date = dayInprecedence.AddYears(1)
-        If Me.langCaption.getLanguage = CFRConst.LanguageEnum.es Then
+        If cfr.Language.getLanguage = CFRConst.LanguageEnum.es Then
             calendarConfig.langSelected = "es"
             calendarConfig.dateFormat = "dd/mm/yyyy"
-        ElseIf Me.langCaption.getLanguage = CFRConst.LanguageEnum.en Then
+        ElseIf cfr.Language.getLanguage = CFRConst.LanguageEnum.en Then
             calendarConfig.langSelected = "en-GB"
             calendarConfig.dateFormat = "mm/dd/yyyy"
-        ElseIf Me.langCaption.getLanguage = CFRConst.LanguageEnum.de Then
+        ElseIf cfr.Language.getLanguage = CFRConst.LanguageEnum.de Then
             calendarConfig.langSelected = "de"
             calendarConfig.dateFormat = "dd/mm/yyyy"
-        ElseIf Me.langCaption.getLanguage = CFRConst.LanguageEnum.fr Then
+        ElseIf cfr.Language.getLanguage = CFRConst.LanguageEnum.fr Then
             calendarConfig.langSelected = "fr"
             calendarConfig.dateFormat = "dd/mm/yyyy"
-        ElseIf Me.langCaption.getLanguage = CFRConst.LanguageEnum.ca Then
+        ElseIf cfr.Language.getLanguage = CFRConst.LanguageEnum.ca Then
             calendarConfig.langSelected = "es"
             calendarConfig.dateFormat = "dd/mm/yyyy"
-        ElseIf Me.langCaption.getLanguage = CFRConst.LanguageEnum.it Then
+        ElseIf cfr.Language.getLanguage = CFRConst.LanguageEnum.it Then
             calendarConfig.langSelected = "it"
             calendarConfig.dateFormat = "dd/mm/yyyy"
-        ElseIf Me.langCaption.getLanguage = CFRConst.LanguageEnum.jp Then
+        ElseIf cfr.Language.getLanguage = CFRConst.LanguageEnum.jp Then
             calendarConfig.langSelected = "jp"
             calendarConfig.dateFormat = "yyyy/mm/dd"
         End If
@@ -914,7 +916,7 @@ Public Class b_request
         Dim s As String = ""
         s += "<script type='text/javascript' src='js/dt/bootstrap-datepicker.js' charset='UTF-8'></script>" & vbCr
         s += "<!-- Loading language definition file -->" & vbCr
-        Dim lang As CFRConst.LanguageEnum = Me.langCaption.getLanguage
+        Dim lang As CFRConst.LanguageEnum = cfr.Language.getLanguage
 
         If lang = CFRConst.LanguageEnum.es Then
             s += "    <script type='text/javascript' src='js/dt/dtlang/bootstrap-datepicker.es.min.js'></script>" & vbCr
@@ -1593,6 +1595,7 @@ Public Class b_request
         Catch ex As Exception
             Me.catchExceptionControler(ex)
         End Try
+        Return Nothing
     End Function
 
 

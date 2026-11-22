@@ -214,6 +214,7 @@ Partial Class Admin_tariffCalendar
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
 
@@ -227,6 +228,7 @@ Partial Class Admin_tariffCalendar
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
 
@@ -251,6 +253,7 @@ Partial Class Admin_tariffCalendar
             ctx.SaveChanges()
         End Using
 
+        Return Nothing
     End Function
 
     Protected Sub btnsaveavailability_Click(sender As Object, e As EventArgs) Handles btnsaveavailability.Click
@@ -261,7 +264,6 @@ Partial Class Admin_tariffCalendar
             AdminTenantSecurity.RequireOperator(Me.codhotel, Me.cod_operadorAvalibilitySelected)
 
             Dim codhabitacionhotel As Integer
-            Dim idia As Integer
             Dim dayStart As Integer = 1
             Dim dayEnd As Integer = 31
 
@@ -568,7 +570,7 @@ Partial Class Admin_tariffCalendar
 
         Dim id_Disp_Hab As Integer  'el id de la habitacion
         Dim ocon As SqlClient.SqlConnection
-        Dim trans As SqlClient.SqlTransaction
+        Dim trans As SqlClient.SqlTransaction = Nothing
 
         Try
             'cupo by client

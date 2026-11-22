@@ -145,6 +145,7 @@ Partial Class Admin_tariffEdit
     Private Function configThisObject(objID As Integer)
         Dim tariff As R_tarifasEF = getThisObject(objID)
         Me.setObjectToPage(tariff)
+        Return Nothing
     End Function
 
     Private Function getThisObject(objID As Integer) As R_tarifasEF
@@ -201,6 +202,7 @@ Partial Class Admin_tariffEdit
 
 
 
+        Return Nothing
     End Function
 
 #Region "Edit tariff prices"
@@ -217,6 +219,7 @@ Partial Class Admin_tariffEdit
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
 
     Friend Function getDvClientsAsociated(objId As Integer) As DataView
@@ -232,6 +235,7 @@ Partial Class Admin_tariffEdit
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     Friend Function showCellOn(value As Boolean, valueonCell As String)
@@ -299,7 +303,7 @@ Partial Class Admin_tariffEdit
             Next
 
             s.Append("</div>")
-            s.AppendFormat("<input type='hidden' name='{0}' id='{0}' value='{1}'>", operationinprogress, Me.operationEnum.assignCustomer.ToString("D"))
+            s.AppendFormat("<input type='hidden' name='{0}' id='{0}' value='{1}'>", operationinprogress, operationEnum.assignCustomer.ToString("D"))
             Me.assignrelationsmodal.litrelationsHandler = s.ToString
             Me.assignrelationsmodal.litresultmsgHandler = ""
             Dim jsFunction As String

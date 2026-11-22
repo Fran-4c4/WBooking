@@ -233,6 +233,7 @@ Partial Class Admin_CustomerList
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     Protected Sub btnSaveRelations_Click(sender As Object, e As EventArgs) Handles btnSaveRelations.Click
@@ -328,6 +329,7 @@ Partial Class Admin_CustomerList
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
 
 

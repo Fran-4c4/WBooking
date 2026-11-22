@@ -238,7 +238,7 @@ Partial Class Admin_temporadaList
         resCab += "</TR>"
         'resCab += "<TR>"
 
-        Dim res As String
+        Dim res As String = String.Empty
         Dim rowIsclosed As Boolean = False
         Dim monthActual As String = ""
         Dim firstMonth As Boolean = True
@@ -352,6 +352,7 @@ Partial Class Admin_temporadaList
             Case 12
                 Return "Diciembre"
         End Select
+        Return Nothing
     End Function
 
     Private Function ConfigureCalendar(ordt As DataTable)

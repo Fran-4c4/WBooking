@@ -215,6 +215,7 @@ Partial Class Admin_roomEdit
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
 
@@ -463,7 +464,6 @@ Partial Class Admin_roomEdit
 
 
     Private Function deleteImage(id As Integer)
-        Dim noOfRowDeleted As Integer
         Using ctx As New cfrbookEntities
 
             Dim photo As T_HOTELES_HABITACIONES_FotosEF = ctx.T_HOTELES_HABITACIONES_FotosEF.Find(id)
@@ -479,6 +479,7 @@ Partial Class Admin_roomEdit
             End If
 
         End Using
+        Return Nothing
     End Function
 
 
@@ -629,8 +630,8 @@ Partial Class Admin_roomEdit
 
     ' create thumbnail for the specified photo
     Public Sub CreateImage(ByVal imagePath As String, ByVal newImagePath As String, ByVal sz As Size)
-        Dim largeImage As Bitmap
-        Dim newImg As Image
+        Dim largeImage As Bitmap = Nothing
+        Dim newImg As Image = Nothing
 
         Try
             ' get photo image
@@ -670,7 +671,7 @@ Partial Class Admin_roomEdit
         Dim MaxRatio As Double = MaxWidth / MaxHeight
         Dim ImgRatio As Double = source.Width / source.Height
         Dim resized As Bitmap = Nothing
-        Dim g As Graphics
+        Dim g As Graphics = Nothing
         Try
 
 
@@ -697,6 +698,7 @@ Partial Class Admin_roomEdit
             End If
         End Try
 
+        Return Nothing
     End Function
 
 

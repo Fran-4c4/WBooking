@@ -109,6 +109,7 @@ Partial Class Admin_Login
                 End Using
             End If
         End If
+        Return Nothing
     End Function
 
 
@@ -252,7 +253,7 @@ Partial Class Admin_Login
             Dim urlSessionkey As String = String.Format("{0}={1}", cfr.REQCte.query.sessionlink, sessionCtainer.sessionlink)
 
             Dim urlDefault As String = AdminBasePage.LinkConfig(sessionCtainer, "default.aspx") ' String.Format("rep_book.aspx?{0}&{1}&{2}", urlCodHotelKey, urlUserIDKey, urlSessionkey)
-            Dim urlreturn As String '= FormsAuthentication.GetRedirectUrl(userHotelData.id_usuario.ToString, True)
+            Dim urlreturn As String = String.Empty
             If urlreturn = "" Then
                 Response.Redirect(urlDefault, True)
             Else
@@ -277,6 +278,7 @@ Partial Class Admin_Login
         End If
 
 
+        Return Nothing
     End Function
 
     Private Sub WriteCookie(ByVal name As String, ByVal value As String, ByVal expiresAt As DateTime)

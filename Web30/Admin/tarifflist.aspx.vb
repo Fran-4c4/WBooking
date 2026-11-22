@@ -83,6 +83,7 @@ Partial Class Admin_tarifflist
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     ''' <summary>
@@ -92,7 +93,7 @@ Partial Class Admin_tarifflist
     ''' <returns></returns>
     ''' <remarks></remarks>
     Friend Function getTariffCategoryUI(tariffCategoryVal As cfr.CFRConst.ClientTypeEnum) As String
-        Dim strCategoria As String
+        Dim strCategoria As String = String.Empty
 
         If tariffCategoryVal = CFRConst.ClientTypeEnum.NotClasified Then
             strCategoria = "Todos los clientes"
@@ -124,6 +125,7 @@ Partial Class Admin_tarifflist
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
 
     Friend Function getDvPricesByRoomByTariff(cod_tarifa As Integer) As DataView
@@ -135,6 +137,7 @@ Partial Class Admin_tarifflist
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
 
     Friend Function showCalendar(objid As Integer) As String
@@ -167,6 +170,7 @@ Partial Class Admin_tarifflist
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     <Obsolete("Se utilizaba para asignar temporadas a una tarifa")>
@@ -219,7 +223,7 @@ Partial Class Admin_tarifflist
             Next
 
             s.Append("</div>")
-            s.AppendFormat("<input type='hidden' name='{0}' id='{0}' value='{1}'>", operationinprogress, Me.operationEnum.assignCustomer.ToString("D"))
+            s.AppendFormat("<input type='hidden' name='{0}' id='{0}' value='{1}'>", operationinprogress, operationEnum.assignCustomer.ToString("D"))
             Me.litrelations.Text = s.ToString
             Me.litmsgresult.Text = ""
             Dim jsFunction As String
@@ -330,6 +334,7 @@ Partial Class Admin_tarifflist
             ind.bk.DBMgr.disposeTransaction(trans)
 
         End Try
+        Return Nothing
     End Function
     
     Private Function saveTariffSeasonRelations(cod_tarifa As Integer, relationCodesAL As ArrayList)
@@ -373,6 +378,7 @@ Partial Class Admin_tarifflist
             ind.bk.DBMgr.disposeTransaction(trans)
 
         End Try
+        Return Nothing
     End Function
 #End Region
 
@@ -459,7 +465,7 @@ Partial Class Admin_tarifflist
         End Try
     End Sub
 
-    Private Function getRequestValue(reqName As String, Optional returnValue As Double = 0)
+    Private Overloads Function getRequestValue(reqName As String, Optional returnValue As Double = 0)
         Dim objResult As Object = Request.Form(reqName)
         If objResult Is Nothing Then
             Return returnValue

@@ -649,7 +649,7 @@ Namespace cfr
         Private Function GetAgencyBlock(ByVal AgencyBook As cfr.Agencia) As String
 
             If AgencyBook Is Nothing Then
-                Exit Function
+                Return Nothing
             End If
             sh += tbopen_1
             sh += IUFunctions.getRTit("Datos de la agencia.", " colspan=2 ", styCab1)
@@ -895,6 +895,7 @@ Namespace cfr
                     Return String.Format(Me.langCaption.GetCaption(394), limit)
                 End If
             End If
+            Return Nothing
         End Function
 
         Private Function getConditionCancelPolicyMessageLimit1Value(limitDayValueToCharge As String) As String

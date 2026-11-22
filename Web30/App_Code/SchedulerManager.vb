@@ -37,7 +37,6 @@ Namespace ind.sched
 
             Dim stitle As String = String.Format("<h3 class='book-info'><i class='glyphicon glyphicon-calendar'></i> {0}</h3>", "Mapa de reservas")
 
-            Dim sbody As String
 
             Dim sExternal As String = "<div class='map-outer'>" & stitle & "{0}</div>"
 
@@ -63,7 +62,7 @@ Namespace ind.sched
 
         Private Function addDivCal() As String
             
-            Dim divSch As String
+            Dim divSch As String = String.Empty
             divSch += "<div class='map-sch-cal-cont'>"
             divSch += "<div class='map-sch-cal'>"
             Dim scalBody As String = ""
@@ -112,7 +111,7 @@ Namespace ind.sched
         Public Function configureHeaderBody() As String
             
             Dim imes As Integer = 0
-            Dim sheaderMonth As String '= "<td style='border: 0px solid #ddd;background-color:#fff;'></td><Td style='border: 0px solid #ddd;background-color:#fff;'></td>"
+            Dim sheaderMonth As String = String.Empty
 
             Dim s As String = ""
             s += "<TR>"

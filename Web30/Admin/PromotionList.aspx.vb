@@ -103,7 +103,7 @@ Partial Class Admin_PromotionList
     End Sub
 
     Protected Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btndelete.Click
-        Dim ctx As cfrbookEntities
+        Dim ctx As cfrbookEntities = Nothing
         Try
 
             Dim field_itemobjectDec As String = Me.itemdeletecode.Value
@@ -252,6 +252,7 @@ Partial Class Admin_PromotionList
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
 
+        Return Nothing
     End Function
 
     Protected Sub btnSaveRelations_Click(sender As Object, e As EventArgs) Handles btnSaveRelations.Click
@@ -347,6 +348,7 @@ Partial Class Admin_PromotionList
         Catch ex As Exception
             cfr.pages.SiteBasePage.showMessage(ex.Message, Me.Page, CFRConst.msgEnum.errorType)
         End Try
+        Return Nothing
     End Function
 
 

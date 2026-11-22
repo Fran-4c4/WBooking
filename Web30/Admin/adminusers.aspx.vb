@@ -78,7 +78,6 @@ Partial Class Admin_adminusers
 
     Protected Sub btnseeuserpermisionshdd_Click(sender As Object, e As EventArgs) Handles btnseeuserpermisionshdd.Click
         Dim field_itemobjectDec As String
-        Dim field_itemobjectDecURL As String
         Try
 
             field_itemobjectDec = Me.field_itemobject.Value
@@ -100,7 +99,7 @@ Partial Class Admin_adminusers
     
     Protected Sub btnsavepermisions_Click(sender As Object, e As EventArgs) Handles btnsavepermisions.Click
         Dim ocon As SqlClient.SqlConnection
-        Dim trans As SqlClient.SqlTransaction
+        Dim trans As SqlClient.SqlTransaction = Nothing
 
         Try
             Dim userid As Integer = ViewState(ind.bk.obj.R_Usuarios.DBCol.id_usuario)
@@ -198,7 +197,6 @@ Partial Class Admin_adminusers
 
     Protected Sub btnDeleteItem_Click(sender As Object, e As EventArgs) Handles btnDeleteItem.Click
         Dim field_itemobjectDec As String
-        Dim field_itemobjectDecURL As String
         Try
             field_itemobjectDec = Me.field_itemobject.Value
             RequireUserOwnership(CInt(field_itemobjectDec))

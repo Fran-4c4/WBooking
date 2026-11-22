@@ -276,7 +276,7 @@ Partial Class Admin_MPAdmin1
 
     Protected Sub btneditbookload_master_Click(sender As Object, e As EventArgs) Handles btneditbookload_master.Click
 
-        Dim ctx As cfrbookEntities
+        Dim ctx As cfrbookEntities = Nothing
         Try
             Me.plheditbookform.Visible = True
             Me.mastereditbook_liteditmessage.Text = ""
@@ -406,7 +406,7 @@ Partial Class Admin_MPAdmin1
     Protected Sub btnSubmit_Click__OLDER(sender As Object, e As EventArgs)
 
         Dim ocon As SqlClient.SqlConnection
-        Dim trans As SqlClient.SqlTransaction
+        Dim trans As SqlClient.SqlTransaction = Nothing
         Try
             Dim bookid As Integer = bookidhddedit.Value
 
@@ -662,6 +662,7 @@ Partial Class Admin_MPAdmin1
         Dim script As String = String.Format("setnewbookvalues(""{0}"",""{1}"",""{2}"",""{3}"",""{4}"",""{5}""); ", repUI.bookID, CInt(bookState), CInt(bkData.BookDataEF.CheckHotelPago), newprice, repUI.strEstadoReserva, bkData.BookDataEF.cod_Reserva_hotel)
 
         UIMsg.registerScript(Me.Page, script, "bookscript")
+        Return Nothing
     End Function
 
     Private Function sendEmailConfirmation(bookdata As BookRes)
@@ -672,6 +673,7 @@ Partial Class Admin_MPAdmin1
         Catch ex As Exception
 
         End Try
+        Return Nothing
     End Function
 
 

@@ -149,6 +149,7 @@ Public Class BookBasePage
         Me.bookData = bd
         Session(cfr.REQCte.session.book) = Me.bookData
 
+        Return Nothing
     End Function
 
 

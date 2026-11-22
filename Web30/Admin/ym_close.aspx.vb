@@ -10,7 +10,7 @@ Partial Class Admin_ym_close
     Friend objIdDec As String
 
     Private dvClientsVar As DataView
-    Public Property dvClients As DataView
+    Public Overloads Property dvClients As DataView
         Get
             If Me.dvClientsVar Is Nothing Then
                 Me.dvClientsVar = Me.getDvClients
@@ -22,7 +22,7 @@ Partial Class Admin_ym_close
         End Set
     End Property
     Private dvRoomsvar As DataView
-    Public Property dvRooms As DataView
+    Public Overloads Property dvRooms As DataView
         Get
             If Me.dvRoomsvar Is Nothing Then
                 Me.dvRoomsvar = Me.getDvRoomsAll
@@ -286,7 +286,7 @@ Partial Class Admin_ym_close
     Public Sub NewPeriodoByRange(cod_temporada As Integer, FEC1 As Date, FEC2 As Date, dia1 As Integer, dia2 As Integer)
 
         Dim ocon As SqlClient.SqlConnection
-        Dim trans As SqlClient.SqlTransaction
+        Dim trans As SqlClient.SqlTransaction = Nothing
 
         Try
             Dim diaSemanaInicio As Integer

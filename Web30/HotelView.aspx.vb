@@ -109,6 +109,7 @@ Partial Class HotelView
             Case 12            'Z. Residencial
 
         End Select
+        Return Nothing
     End Function
 
     Public Function GetServicesString(tipo As Integer) As String

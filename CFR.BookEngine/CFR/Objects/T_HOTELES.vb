@@ -62,6 +62,17 @@ Namespace ind.bk.obj
 
 
         Private mhotel As System.String
+        Public Overridable Property hotelName() As System.String
+            Get
+                Return mhotel
+            End Get
+            Set(value As System.String)
+                If mhotel <> value Then
+                    mhotel = value
+                    Me.objChanged = True
+                End If
+            End Set
+        End Property
         ''' <summary>
         ''' Hotel name
         ''' </summary>
@@ -73,13 +84,10 @@ Namespace ind.bk.obj
         <Obsolete("Use hotelname instead")>
         Public Overridable Property hotel() As System.String
             Get
-                Return mhotel
+                Return hotelName
             End Get
             Set(value As System.String)
-                If mhotel <> value Then
-                    mhotel = value
-                    Me.objChanged = True
-                End If
+                hotelName = value
             End Set
         End Property
 

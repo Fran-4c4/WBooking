@@ -105,6 +105,7 @@ Public Class CalendarBase
             Case 12
                 Return "Diciembre"
         End Select
+        Return Nothing
     End Function
 
 
@@ -554,7 +555,7 @@ Public Class CalendarBase
         End Function
 
         Public Function getGenericConfigurationJavascript() As String
-            Dim s As String
+            Dim s As String = String.Empty
             's += vbCr & " <script type='text/javascript' src='js/dt/bootstrap-datepicker.js' charset='UTF-8'></script>"
             s += vbCr & " <script>"
             s += vbCr & " $('#checkoutdate').focus(function () {"
@@ -782,6 +783,7 @@ Public Class calendarDay
             Case 12
                 Return "Diciembre"
         End Select
+        Return Nothing
     End Function
 
     Public Sub LogObj()

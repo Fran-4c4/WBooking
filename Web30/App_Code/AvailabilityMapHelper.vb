@@ -94,7 +94,7 @@ Public Class AvailabilityMapHelper
         Dim numHab As Integer = hotelRoomDataCol.Count
         Dim rowspan As Integer = (numHab) + 1
 
-        Dim s As String
+        Dim s As String = String.Empty
         s += String.Format("<h3 class='book-info'><i class='glyphicon glyphicon-calendar'></i> {0}</h3>", cfr.Language.GetCaptionBy(69))
         s += "<TABLE class='table table-condensed table-bordered map-table'>"
         'month header

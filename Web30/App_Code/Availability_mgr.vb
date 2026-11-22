@@ -99,12 +99,11 @@ Namespace ind.bk.web
 
             Dim id_Disp_Hab As Integer  'el id de la habitacion
             Dim ocon As SqlClient.SqlConnection
-            Dim trans As SqlClient.SqlTransaction
-            Dim sSQL As String
+            Dim trans As SqlClient.SqlTransaction = Nothing
 
             Try
                 If newAvailabList.Count = 0 Then
-                    Exit Function
+                    Return Nothing
                 End If
                 'cupo
                 Dim dvCupoByClient As DataView = ind.bk.web.Availability_mgr.getClientCupoByOperador(cod_hotel, cod_operador, iYear, iMes, True)
@@ -174,7 +173,7 @@ Namespace ind.bk.web
 
             End Try
 
-
+            Return Nothing
         End Function
 
         Public Shared Sub UpdateUnitYMClosed(cod_hotel As Integer, cod_operador As Integer, unitID As Integer, closeOper As Integer, dateRange As ind.bk.date.DateRangeCls)
@@ -190,7 +189,7 @@ Namespace ind.bk.web
 
             Dim id_Disp_Hab As Integer  'el id de la habitacion
             Dim ocon As SqlClient.SqlConnection
-            Dim trans As SqlClient.SqlTransaction
+            Dim trans As SqlClient.SqlTransaction = Nothing
 
             Try
                 'cupo by client

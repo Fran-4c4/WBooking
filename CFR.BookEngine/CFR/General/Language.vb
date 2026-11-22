@@ -23,10 +23,8 @@ Namespace cfr
         ''' <returns></returns>
         ''' <remarks></remarks>
         Public Shadows Function GetCaption(ByVal key As String) As String
-            Dim l As Language
-            If Me.holdproperty = CFRConst.unitTypeEnum.hotel Then
-                l = cfr.Language.CacheLang(Language.CurrentCulture.Name)
-            ElseIf Me.holdproperty = CFRConst.unitTypeEnum.car Then
+            Dim l As Language = cfr.Language.CacheLang(Language.CurrentCulture.Name)
+            If Me.holdproperty = CFRConst.unitTypeEnum.car Then
                 l = cfr.Language.CacheLang(Language.CurrentCulture.Name & "-" & CFRConst.unitTypeEnum.car)
             End If
 
@@ -192,6 +190,7 @@ Namespace cfr
                 Case 12
                     Return cfr.Language.GetCaption(241) ' "Diciembre"
             End Select
+            Return String.Empty
         End Function
 
         Public Shared Function getWeekDayName(day2 As Date) As String
@@ -212,6 +211,7 @@ Namespace cfr
                     Return cfr.Language.GetCaption(248) ' "sunday"
 
             End Select
+            Return String.Empty
         End Function
 #End Region
 

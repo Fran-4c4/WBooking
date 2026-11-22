@@ -17,12 +17,12 @@ Namespace cfr.obj
             End Set
         End Property
 
-        Public Overridable Property hotelName() As System.String
+        Public Overrides Property hotelName() As System.String
             Get
-                Return hotel
+                Return MyBase.hotelName
             End Get
             Set(value As System.String)
-                Me.hotel = value
+                MyBase.hotelName = value
             End Set
         End Property
 
@@ -135,7 +135,7 @@ Namespace cfr.obj
 
             obj2Fill.cod_Hotel = IIf(IsDBNull(dr(DBCol.cod_Hotel)), Nothing, dr(DBCol.cod_Hotel))
             obj2Fill.Tipo = IIf(IsDBNull(dr(DBCol.Tipo)), 1, dr(DBCol.Tipo)) ' "" & dr(DBCol.Tipo)
-            obj2Fill.hotel = "" & dr(DBCol.hotel)
+            obj2Fill.hotelName = "" & dr(DBCol.hotel)
             obj2Fill.Direccion = "" & dr(DBCol.Direccion)
             obj2Fill.PrefijoTelf = "" & dr(DBCol.PrefijoTelf)
             obj2Fill.Telefono = "" & dr(DBCol.Telefono)

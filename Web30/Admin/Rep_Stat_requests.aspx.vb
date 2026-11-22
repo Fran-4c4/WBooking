@@ -116,6 +116,7 @@ Partial Class Admin_PromotionList
         Debug.WriteLine("build result to string: " & ((sw.ElapsedTicks - elap) / Stopwatch.Frequency) * 1000)
 
         sw.Stop()
+        Return Nothing
     End Function
 
     
